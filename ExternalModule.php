@@ -19,36 +19,34 @@ class ExternalModule extends AbstractExternalModule {
      */
      function hook_every_page_top($project_id) {
         include_once 'includes/copy_values_from_previous_event.php';
-        // include_once 'includes/default_from_field.php';
-        // include_once 'includes/default_on_visible.php';
+        include_once 'includes/default_from_field.php';
+        include_once 'includes/default_on_visible.php';
 
         $input = array();
-        $input[] = auto_populate_fields_copy_values_from_previous_event($project_id);
-        // auto_populate_fields_default_on_visible();
-        // auto_populate_fields_default_from_field();
+        $input['copy_values_from_previous_event'] = auto_populate_fields_copy_values_from_previous_event($project_id);
+        $input['default_from_field'] = auto_populate_fields_default_from_field();
+        $input['default_on_visible'] = auto_populate_fields_default_on_visible();
+        
         $this->initJsVars($input);
-        print_r($input);
-
-        print '<script src="' . $this->getUrl('js/copy-values-from-previous-event-helper.js') . '"></script>';        
-        // print '<script src="' . $this->getUrl('js/copy-values-from-previous-event-helper.js') . '"></script>';
-        // print '<script src="' . $this->getUrl('js/default-from-field-helper.js') . '"></script>';
-
+        print '<script src="' . $this->getUrl('js/new-action-tag-help-text.js') . '"></script>';
+        if ($input['copy_values_from_previous_event']) {
+            print '<script src="' . $this->getUrl('js/copy-values-from-previous-event-helper.js') . '"></script>';
+        }
+        if ($input['default_from_field']) {
+            print '<script src="' . $this->getUrl('js/default-from-field-helper.js') . '"></script>';
+        }
+        if ($input['default_on_visible']) {
+            print '<script src="' . $this->getUrl('js/default-on-visible-helper.js') . '"></script>';
+        }
     }
 
+    /**
+     * @inheritdoc
+     */
     function initJsVars ($input) {
         ?>
         <script>
-            console.log("hello");
-            if (typeof RedcapJsSettings === 'undefined') {
-                RedcapJsSettings = {};
-            }
-            var encodedVal = '<?php echo json_encode($input); ?>';
-            console.log(encodedVal);
-            var parsedVal = JSON.parse(encodedVal);
-            console.log(parsedVal);
-            // for(int i = 0; i < parsedVal.length ; i++) {
-            //     console.log(parsedVal[i]);
-            // }
+            var auto_populate_fields = <?php echo json_encode($input); ?>;
         </script>
         <?php
     }

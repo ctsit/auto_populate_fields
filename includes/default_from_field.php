@@ -12,7 +12,7 @@ function auto_populate_fields_default_from_field() {
     require_once "initial_conditions.php";
     global $double_data_entry, $user_rights, $Proj;
     if (!checkIfPageIsDataentryOrSurvey() || !checkIfRecordExists()) {
-        return;
+        return false;
     }
 
     $record = $_GET['id'];
@@ -21,7 +21,7 @@ function auto_populate_fields_default_from_field() {
     }
 
     if (fieldOrFormHasData()) {
-        return;
+        return false;
     }
 
     $mappings = array();
@@ -71,37 +71,6 @@ function auto_populate_fields_default_from_field() {
         // If no mappings, there is no reason to proceed.
         return;
     }
-?>
-<script>
-    $(document).ready(function() {
-        var mappings = <?php print json_encode($mappings); ?>;
-
-        for (var target_name in mappings) {
-            var mapping = mappings[target_name];
-            var source_value = $(mapping.source).val();
-
-            if (typeof source_value === 'undefined') {
-                continue;
-            }
-
-            // Setting up default values.
-            switch (mapping.type) {
-                case 'checkbox':
-                    $(mapping.selector + '[code="' + source_value + '"]').click();
-                    break;
-                case 'radio':
-                case 'yesno':
-                case 'truefalse':
-                    $(mapping.selector).siblings().children('input[value="' + source_value + '"]').click();
-                    break;
-                default:
-                    $(mapping.selector).val(source_value);
-                    break;
-
-            }
-        }
-    });
-</script>
-<?php
+    return $mappings;
 };
 ?>

@@ -8,11 +8,10 @@
  * Implements Copy Values from Previous Event feature.
  */
 function auto_populate_fields_copy_values_from_previous_event($project_id) {
-    print_r("hello");
     require_once "initial_conditions.php";
     global $Proj;
     if (!checkIfPageIsDataentryOrSurvey() || !checkIfRecordExists() || fieldOrFormHasData()) {
-        return;
+        return false;
     }
     $fieldsArr = array();
     foreach ($Proj->metadata as $field_name => $field_info) {
@@ -58,14 +57,11 @@ function auto_populate_fields_copy_values_from_previous_event($project_id) {
             $result = $settings;
         }
     }
-    $encoded_result = json_encode($result);
-    prettyPrint($encoded_result);
+
     $returnVal = array();
-    $subReturnVal = array();
-    $subReturnVal['eventId'] = $event_id;
-    $subReturnVal['maxEventId'] = $maxEventId;
-    $subReturnVal['encoded_result'] = $encoded_result;
-    $returnVal['copy_values_from_previous_event'] = $subReturnVal;
+    $returnVal['eventId'] = $event_id;
+    $returnVal['maxEventId'] = $max_event_id;
+    $returnVal['result'] = $result;
     return $returnVal;
 }  
 ?>
