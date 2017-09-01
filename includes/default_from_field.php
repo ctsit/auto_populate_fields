@@ -70,6 +70,8 @@ function auto_populate_fields_default_from_field() {
         // If no mappings, there is no reason to proceed.
         return;
     }
+
+    // variables that are required by the js are stored returned form this function
     $returnVal = array();
     $returnVal['mappings'] = $mappings;
     return $returnVal;

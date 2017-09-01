@@ -58,6 +58,7 @@ function auto_populate_fields_copy_values_from_previous_event($project_id) {
         }
     }
 
+    // variables that js required are stored returned form this function
     $returnVal = array();
     $returnVal['eventId'] = $event_id;
     $returnVal['maxEventId'] = $max_event_id;

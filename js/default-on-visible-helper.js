@@ -3,6 +3,7 @@ $(document).ready(function () {
     // get the mappings from php through json_encode.
     var add_default_mappings = auto_populate_fields.default_on_visible.add_default_mappings;
 
+    // this method is used to reset the radio button to original state.
     function radioReset(selector) {
         var len = $(selector).length;
         for (var i = 0; i < len; i++) {
@@ -19,11 +20,15 @@ $(document).ready(function () {
 
         // for each type logic for setting values is different this handles all the 4 types.
         if (elem_type == 'checkbox') {
+
+            // checkboxes that needs to be checked will be a string with comma separated values.
             var arrValue = value.trim().split(',');
             var arr = JSON.parse(mapping['options']);
+
             for (var i = 0; i < arr.length; i++) {
                 var index = arr[i];
                 var selector1 = selector + '[code="' + index + '"]';
+
                 if (arrValue.includes(index)) {
                     $(selector1).click();
                 } else {
@@ -36,7 +41,6 @@ $(document).ready(function () {
                 }
             }
         } else if (elem_type == 'select') {
-
             // while restting value empty string is passed to remove the selection.
             if (value == '') {
                 selector += ' option[value=""]';
@@ -46,7 +50,6 @@ $(document).ready(function () {
             // this will set a default value or remove the selection .
             $(selector).prop('selected', true);
         } else if (elem_type == 'radio') {
-
             // if value is '' this reset the field and none of the radio buttons are selected.
             if (value == '') {
                 return radioReset(selector);
@@ -95,9 +98,12 @@ $(document).ready(function () {
                 parent_selector = parent_selector.replace(':radio', '');
                 elem_val = $(parent_selector).val();
             }
+
+            // stores the visibility and the value of that field in aux variable
             aux[field_name] = {'visible': $elem.is(':visible'), 'value': elem_val};
         }
 
+        // we stored the state of the field that are involved in branching in a variable called aux 
         // now reset all the values.
         for (var i = 0; i < children.length; i++) {
             var field_name = children[i];
@@ -124,6 +130,7 @@ $(document).ready(function () {
                 }
             }
         }
+
         // forcing redcap to do branching logic 
         calculate();
         doBranching();
@@ -158,7 +165,7 @@ $(document).ready(function () {
             }
         }
 
-        // forcing redcap to do branching logic
+        // forcing redcap to do final branching logic
         calculate();
         doBranching();
     });

@@ -45,7 +45,7 @@ function auto_populate_fields_default_on_visible() {
         // constructs the backward map from branching logic data
         $branching_logic = $field_info['branching_logic'];
         preg_match_all("/\[([^\]]*)\]/", $branching_logic, $matches);
-
+        
         $branch_array = array();
         foreach ($matches[1] as $mat1) {
             $pos = strpos($mat1, '(');
@@ -112,6 +112,8 @@ function auto_populate_fields_default_on_visible() {
         // If no mappings, there is no reason to proceed.
         return false;
     }
+
+    // variables that are required by the js are stored returned form this function
     $returnVal = array();
     $returnVal['add_default_mappings'] = $add_default_mappings;
     $returnVal['forward_map'] = $forward_map;

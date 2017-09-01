@@ -26,17 +26,33 @@ class ExternalModule extends AbstractExternalModule {
         $input['copy_values_from_previous_event'] = auto_populate_fields_copy_values_from_previous_event($project_id);
         $input['default_from_field'] = auto_populate_fields_default_from_field();
         $input['default_on_visible'] = auto_populate_fields_default_on_visible();
-        
+
+        // initialize js variables
         $this->initJsVars($input);
-        print '<script src="' . $this->getUrl('js/new-action-tag-help-text.js') . '"></script>';
+        
+        // collect all the js files into array
+        $js_files = array();
+        $js_files[] = 'js/new-action-tag-help-text.js';
         if ($input['copy_values_from_previous_event']) {
-            print '<script src="' . $this->getUrl('js/copy-values-from-previous-event-helper.js') . '"></script>';
+            $js_files[] = 'js/copy-values-from-previous-event-helper.js';
         }
         if ($input['default_from_field']) {
-            print '<script src="' . $this->getUrl('js/default-from-field-helper.js') . '"></script>';
+            $js_files[] = 'js/default-from-field-helper.js';
         }
         if ($input['default_on_visible']) {
-            print '<script src="' . $this->getUrl('js/default-on-visible-helper.js') . '"></script>';
+            $js_files[] = 'js/default-on-visible-helper.js';
+        }
+
+        // loads all the js files into an array
+        $this->loadJsFiles($js_files);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function loadJsFiles ($js_files) {
+        foreach($js_files as $file) {
+            print '<script src="' . $this->getUrl($file) . '"></script>';
         }
     }
 
