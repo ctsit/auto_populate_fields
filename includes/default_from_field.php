@@ -8,7 +8,6 @@
  * Handles @DEFAULT-FROM-FIELD action tag.
  */
 function auto_populate_fields_default_from_field() {
-    return;
     require_once "initial_conditions.php";
     global $double_data_entry, $user_rights, $Proj;
     if (!checkIfPageIsDataentryOrSurvey() || !checkIfRecordExists()) {
@@ -23,7 +22,7 @@ function auto_populate_fields_default_from_field() {
     if (fieldOrFormHasData()) {
         return false;
     }
-
+    
     $mappings = array();
     foreach ($Proj->metadata as $target_field_name => $target_field_info) {
         // Checking for action tags.
@@ -71,6 +70,8 @@ function auto_populate_fields_default_from_field() {
         // If no mappings, there is no reason to proceed.
         return;
     }
-    return $mappings;
+    $returnVal = array();
+    $returnVal['mappings'] = $mappings;
+    return $returnVal;
 };
 ?>

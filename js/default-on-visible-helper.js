@@ -1,7 +1,17 @@
 $(document).ready(function () {
     
     // get the mappings from php through json_encode.
-    var add_default_mappings = auto_populate_fields.default_on_visible.add_default_mappings;//  <?php print json_encode($add_default_mappings); ?>;
+    var add_default_mappings = auto_populate_fields.default_on_visible.add_default_mappings;
+
+    function radioReset(selector) {
+        var len = $(selector).length;
+        for (var i = 0; i < len; i++) {
+            $(selector)[i].checked = false;
+        }
+        selector = selector.replace('___radio', '');
+        selector = selector.replace(':radio', '');
+        $(selector).first().val("");
+    }
 
     //this method is used to set value to fields.
     function setValue (mapping, field_name, selector, value) {
@@ -39,7 +49,7 @@ $(document).ready(function () {
 
             // if value is '' this reset the field and none of the radio buttons are selected.
             if (value == '') {
-                return radioResetVal(field_name.replace('__radio', ''),'form');
+                return radioReset(selector);
             } else {
                 selector += '[value="' + value + '"]';
                 $(selector).click();
@@ -49,8 +59,8 @@ $(document).ready(function () {
         }
     }
 
-    var forward_map = auto_populate_fields.default_on_visible.forward_map; //<?php print json_encode($forward_map)?>;
-
+    var forward_map = auto_populate_fields.default_on_visible.forward_map;
+    
     // add an event listener for all the fields which can hide other fields.
     for (var key in forward_map) {
     $("#"+key+"-tr").change(function () {
@@ -63,7 +73,29 @@ $(document).ready(function () {
         for (var i = 0; i < children.length; i++) {
             var field_name = children[i];
             var $elem = $(add_default_mappings[field_name]['selector']);
-            aux[field_name] = {'visible': $elem.is(':visible'), 'value': $elem.val()};
+            var elem_type = add_default_mappings[field_name]['element_type'];
+            var selector = add_default_mappings[field_name]['selector'];
+            var elem_val = $elem.val();
+            if (elem_type == 'checkbox') {
+                var str = "";
+                var arr = JSON.parse(add_default_mappings[field_name]['options']);
+                for (var j = 0; j < arr.length; j++) {
+                    var index = arr[j];
+                    var selectorNew = selector + '[code="' + index + '"]';
+                    if ($(selectorNew).prop('checked')) {
+                        str += "," + $(selectorNew).siblings('input').val();
+                    }
+                }
+                if (str.length > 0){
+                    str = str.substring(1);
+                }
+                elem_val = str;
+            } else if (elem_type == 'radio') {
+                var parent_selector = selector.replace('___radio', '');
+                parent_selector = parent_selector.replace(':radio', '');
+                elem_val = $(parent_selector).val();
+            }
+            aux[field_name] = {'visible': $elem.is(':visible'), 'value': elem_val};
         }
 
         // now reset all the values.
@@ -78,12 +110,12 @@ $(document).ready(function () {
                     var arr = JSON.parse(add_default_mappings[field_name]['options']);
                     for (var j = 0; j < arr.length; j++) {
                         var index = arr[j];
-                        selector += '[code="' + index + '"]';
-                        $(selector).prop('checked', false);
-                        $(selector).siblings('input').val('');
+                        var selectorNew = selector + '[code="' + index + '"]';
+                        $(selectorNew).prop('checked', false);
+                        $(selectorNew).siblings('input').val('');
                     }
                 } else if (elem_type == 'radio') {
-                    radioResetVal(field_name,'form');
+                    radioReset(selector);
                 } else if (elem_type == 'select') {
                     selector += " option[value=\"\"]";
                     $(selector).prop('selected', true);
@@ -92,7 +124,6 @@ $(document).ready(function () {
                 }
             }
         }
-
         // forcing redcap to do branching logic 
         calculate();
         doBranching();

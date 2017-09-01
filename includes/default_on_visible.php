@@ -8,7 +8,6 @@
  * Handles @DEFAULT_ON_VISIBLE action tag.
  */
 function auto_populate_fields_default_on_visible() {
-    // return;
     require_once "initial_conditions.php";
     global $double_data_entry, $user_rights, $quesion_by_section, $pageFields, $Proj;
     
@@ -37,13 +36,12 @@ function auto_populate_fields_default_on_visible() {
         if (empty($field_info['misc'])) {
             continue;
         }
-        // prettyPrint($field_info);
         $default_value=Form::getValueInQuotesActionTag($field_info['misc'],'@DEFAULT-ON-VISIBLE');
         if (empty($default_value)) {
             // if add default field is not set then just continue from here.
             continue;
         }
-        prettyPrint($field_name);
+
         // constructs the backward map from branching logic data
         $branching_logic = $field_info['branching_logic'];
         preg_match_all("/\[([^\]]*)\]/", $branching_logic, $matches);
@@ -99,14 +97,15 @@ function auto_populate_fields_default_on_visible() {
     foreach ($backward_map as $key => $value) {
         foreach ($value as $subkey => $sub_value) {
             if (array_key_exists($sub_value, $forward_map)) {
-                $forward_map[$sub_value][] = $key;
+                if (!in_array($key, $forward_map[$sub_value])) {
+                    $forward_map[$sub_value][] = $key;
+                }
             } else {
                 $forward_map[$sub_value] = array();
                 $forward_map[$sub_value][] = $key;
             }
         }
     }
-    prettyPrint($forward_map);
     
     // if not fields are eligible for this action tag them simply return from here.
     if (empty($add_default_mappings)) {
