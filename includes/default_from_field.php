@@ -48,8 +48,5 @@ function auto_populate_fields_default_from_field() {
         return;
     }
 
-    // variables that are required by the js are stored returned form this function
-    $returnVal = array();
-    $returnVal['mappings'] = $mappings;
-    return $returnVal;
+    return array('mappings' => $mappings);
 };

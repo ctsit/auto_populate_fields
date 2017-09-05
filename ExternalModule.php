@@ -20,9 +20,7 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function hook_every_page_top($project_id) {
-        if (!$features = auto_populate_fields_get_available_features()) {
-            return;
-        }
+        $features = auto_populate_fields_get_available_features();
 
         $js_vars = array();
         $js_files = array('js/helper.js');
@@ -37,8 +35,10 @@ class ExternalModule extends AbstractExternalModule {
             }
         }
 
-        // Set up js variables.
-        $this->initJsVars($js_vars);
+        if ($js_vars) {
+            // Set up js variables.
+            $this->initJsVars($js_vars);
+        }
 
         // Loads js files.
         $this->loadJsFiles($js_files);

@@ -45,9 +45,9 @@ $(document).ready(function() {
 		$new_action_tag3.children('td').filter(isDefaultLabelColumn).text('@DEFAULT-FROM-PREVIOUS-VALUE');
 		
 		// Column 3: updating action tag description.
-		$new_action_tag1.children('td').last().text('Sets a fields\'s initial value from an existing field on the same form. This is useful when using hidden fields as source for visible fields - e.g. @DEFAULT-FROM-FIELD=\'hidden_first_name\'.');
-		$new_action_tag2.children('td').last().text('If the field is visible it sets the initial value otherwise it removes the value. This is mainly useful in fields which are visible and hidden by branching logic.  - e.g. @DEFAULT-FROM-FIELD=\'10\'.');
-		$new_action_tag3.children('td').last().text('Sets a fields\'s initial value from the same field value from the previous event. The only restriction is the field_name should be same for the previous and current event. Repeated fields are auto populated so that user does not have to enter data every time - e.g. @DEFAULT-FROM-PREVIOUS-VALUE.');
+		$new_action_tag1.children('td').last().text('Sets a fields\'s default value from an existing field on the same form. This is useful when using hidden fields as source for visible fields, e.g. @DEFAULT-FROM-FIELD=\'hidden_first_name\'.');
+		$new_action_tag2.children('td').last().text('If the field is visible it sets the initial value otherwise it removes the value. This is mainly useful in fields which are visible and hidden by branching logic, e.g. @DEFAULT-FROM-FIELD=\'10\'.');
+		$new_action_tag3.children('td').last().text('Sets a field\'s default value based on its own value in a previous event. To map the default value from another field, you may specify the source as a parameter to the action tag, e.g @DEFAULT-FROM-PREVIOUS-EVENT="source_field".');
 		
 		// Inserting new action tags after @DEFAULT.
 		$new_action_tag1.insertAfter($default_action_tag);
