@@ -1,44 +1,21 @@
 <?php
 /**
  * @file
- * Provides "Force Data Entry Constraints" feature.
+ * Provides Default From Field feature.
  */
+
+require_once 'helper.php';
 
 /**
  * Handles @DEFAULT-FROM-FIELD action tag.
  */
 function auto_populate_fields_default_from_field() {
-    require_once "initial_conditions.php";
-    global $double_data_entry, $user_rights, $Proj;
-    if (!checkIfPageIsDataentryOrSurvey() || !checkIfRecordExists()) {
-        return false;
-    }
+    global $Proj;
 
-    $record = $_GET['id'];
-    if ($double_data_entry && $user_rights['double_data'] != 0) {
-        $record = $record . '--' . $user_rights['double_data'];
-    }
-
-    if (fieldOrFormHasData()) {
-        return false;
-    }
-    
     $mappings = array();
-    foreach ($Proj->metadata as $target_field_name => $target_field_info) {
-        // Checking for action tags.
-        if (empty($target_field_info['misc'])) {
-            continue;
-        }
-
-        // Checking for action tag @DEFAULT.
-        if (Form::getValueInQuotesActionTag($Proj->metadata[$target_field_name]['misc'], '@DEFAULT')) {
-            // We do not want to override @DEFAULT behavior.
-            continue;
-        }
-
-        // Checking for action tag @DEFAULT-FROM-FIELD.
-        $source_field_name = Form::getValueInQuotesActionTag($Proj->metadata[$target_field_name]['misc'], '@DEFAULT-FROM-FIELD');
-        if (empty($source_field_name)) {
+    foreach (auto_populate_fields_get_fields_names() as $target_field_name) {
+        $target_field_info = $Proj->metadata[$target_field_name];
+        if (!$source_field_name = auto_populate_fields_action_tag_semaphore($target_field_info['misc'], '@DEFAULT-FROM-FIELD')) {
             continue;
         }
 
@@ -76,4 +53,3 @@ function auto_populate_fields_default_from_field() {
     $returnVal['mappings'] = $mappings;
     return $returnVal;
 };
-?>

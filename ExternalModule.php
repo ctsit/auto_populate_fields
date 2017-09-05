@@ -9,6 +9,8 @@ namespace AutoPopulateFields\ExternalModule;
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 
+require_once 'includes/helper.php';
+
 /**
  * ExternalModule class for Auto Populate Fields.
  */
@@ -17,53 +19,50 @@ class ExternalModule extends AbstractExternalModule {
     /**
      * @inheritdoc
      */
-     function hook_every_page_top($project_id) {
-        include_once 'includes/copy_values_from_previous_event.php';
-        include_once 'includes/default_from_field.php';
-        include_once 'includes/default_on_visible.php';
-
-        $input = array();
-        $input['copy_values_from_previous_event'] = auto_populate_fields_copy_values_from_previous_event($project_id);
-        $input['default_from_field'] = auto_populate_fields_default_from_field();
-        $input['default_on_visible'] = auto_populate_fields_default_on_visible();
-
-        // initialize js variables
-        $this->initJsVars($input);
-        
-        // collect all the js files into array
-        $js_files = array();
-        $js_files[] = 'js/new-action-tag-help-text.js';
-        if ($input['copy_values_from_previous_event']) {
-            $js_files[] = 'js/copy-values-from-previous-event-helper.js';
-        }
-        if ($input['default_from_field']) {
-            $js_files[] = 'js/default-from-field-helper.js';
-        }
-        if ($input['default_on_visible']) {
-            $js_files[] = 'js/default-on-visible-helper.js';
+    function hook_every_page_top($project_id) {
+        if (!$features = auto_populate_fields_get_available_features()) {
+            return;
         }
 
-        // loads all the js files into an array
+        $js_vars = array();
+        $js_files = array('js/helper.js');
+
+        foreach ($features as $feature) {
+            include_once 'includes/' . $feature . '.php';
+
+            $function = 'auto_populate_fields_' . $feature;
+            if ($settings = $function()) {
+                $js_vars[$feature] = $settings;
+                $js_files[] = 'js/' . $feature . '.js';
+            }
+        }
+
+        // Set up js variables.
+        $this->initJsVars($js_vars);
+
+        // Loads js files.
         $this->loadJsFiles($js_files);
     }
 
     /**
-     * @inheritdoc
+     * Loads js files.
+     *
+     * @param array $js_files
+     *   An array of js files paths within the module.
      */
-    function loadJsFiles ($js_files) {
-        foreach($js_files as $file) {
-            print '<script src="' . $this->getUrl($file) . '"></script>';
+    function loadJsFiles($js_files) {
+        foreach ($js_files as $file) {
+            echo '<script src="' . $this->getUrl($file) . '"></script>';
         }
     }
 
     /**
-     * @inheritdoc
+     * Loads js variables.
+     *
+     * @param array $varss
+     *   An array of js variables to set up.
      */
-    function initJsVars ($input) {
-        ?>
-        <script>
-            var auto_populate_fields = <?php echo json_encode($input); ?>;
-        </script>
-        <?php
+    function initJsVars($vars) {
+        echo '<script> var autoPopulateFields = ' . json_encode($vars) . ';</script>';
     }
 }

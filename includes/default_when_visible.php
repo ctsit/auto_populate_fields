@@ -1,28 +1,16 @@
 <?php
 /**
  * @file
- * Provides "Default field value if the action is present" feature.
+ * Provides Default When Visible feature.
  */
+
+require_once 'helper.php';
 
 /**
- * Handles @DEFAULT_ON_VISIBLE action tag.
+ * Handles @DEFAULT-WHEN-VISIBLE action tag.
  */
-function auto_populate_fields_default_on_visible() {
-    require_once "initial_conditions.php";
-    global $double_data_entry, $user_rights, $quesion_by_section, $pageFields, $Proj;
-    
-    if (!checkIfPageIsDataentryOrSurvey() || !checkIfRecordExists()) {
-        return false;
-    }
-
-    $record = $_GET['id'];
-    if ($double_data_entry && $user_rights['double_data'] != 0) {
-        $record = $record . '--' . $user_rights['double_data'];
-    }
-
-    if (fieldOrFormHasData()) {
-        return false;
-    }
+function auto_populate_fields_default_when_visible() {
+    global $Proj;
 
     /* 
     * Populate forward_map, this actually has the key,value pair of the fields present in branching logic 
@@ -32,13 +20,10 @@ function auto_populate_fields_default_on_visible() {
     $add_default_mappings = array();
     $forward_map = array();
     $backward_map = array();
-    foreach ($Proj->metadata as $field_name => $field_info) {
-        if (empty($field_info['misc'])) {
-            continue;
-        }
-        $default_value=Form::getValueInQuotesActionTag($field_info['misc'],'@DEFAULT-ON-VISIBLE');
-        if (empty($default_value)) {
-            // if add default field is not set then just continue from here.
+
+    foreach (auto_populate_fields_get_fields_names() as $field_name) {
+        $field_info = $Proj->metadata[$field_name];
+        if (!$default_value = auto_populate_fields_action_tag_semaphore($field_info['misc'], '@DEFAULT-WHEN-VISIBLE')) {
             continue;
         }
 
@@ -82,7 +67,7 @@ function auto_populate_fields_default_on_visible() {
         }
 
         // finally collect all the information related to a field in the form of a map
-            $add_default_mappings[$field_name] = array(
+        $add_default_mappings[$field_name] = array(
             'id' => "#" . $field_name . '-tr',
             'parent_field_name' => $parent_field_name,
             'selector' => $selector,
@@ -110,7 +95,7 @@ function auto_populate_fields_default_on_visible() {
     // if not fields are eligible for this action tag them simply return from here.
     if (empty($add_default_mappings)) {
         // If no mappings, there is no reason to proceed.
-        return false;
+        return;
     }
 
     // variables that are required by the js are stored returned form this function
@@ -120,4 +105,3 @@ function auto_populate_fields_default_on_visible() {
     
     return $returnVal;
 }
-?>

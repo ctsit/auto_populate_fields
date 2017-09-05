@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var mappings = auto_populate_fields.default_from_field.mappings;
+    var mappings = autoPopulateFields.default_from_field.mappings;
 
     for (var target_name in mappings) {
         var mapping = mappings[target_name];
