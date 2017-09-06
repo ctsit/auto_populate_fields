@@ -1,4 +1,4 @@
-# Auto populate field values
+# REDCap Auto Populate Fields
 This REDCap Module provides tools to autopopulate fields.
 
 ## Prerequisites
@@ -11,17 +11,14 @@ This REDCap Module provides tools to autopopulate fields.
 
 ## Features included
 This module provides 3 new [action tags](https://wiki.chpc.utah.edu/pages/viewpage.action?pageId=595001400):
-- `@DEFAULT-FROM-FIELD`
-- `@DEFAULT-WHEN-VISIBLE`
-- `@DEFAULT-FROM-PREVIOUS-EVENT`
 
-### @DEFAULT-FROM-FIELD
+#### @DEFAULT-FROM-FIELD
 It allows users to set up a field's default value from an existing field on the same form. Use case examples:
 - Using hidden fields as source for visible fields, e.g. `@DEFAULT-FROM-FIELD="hidden_first_name"`.
 - When a form field has been populated in the backend by a DET or API call - `@DEFAULT` cannot handle this.
 
-### @DEFAULT-WHEN-VISIBLE
+#### @DEFAULT-WHEN-VISIBLE
 If the field is visible it sets the initial value otherwise it removes the value. This is mainly useful in fields which are visible and hidden by branching logic, e.g. `@DEFAULT-FROM-FIELD="10"`.
 
-### @DEFAULT-FROM-PREVIOUS-EVENT
+#### @DEFAULT-FROM-PREVIOUS-EVENT
 Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`.
