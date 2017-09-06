@@ -35,6 +35,12 @@ class ExternalModule extends AbstractExternalModule {
             }
         }
 
+        // if features are present then hover field note.
+        if (!empty($features)) {
+            $js_vars['hover_field_note'] = getFieldsWithActionTags();
+            $js_files[] = 'js/hover_field_note.js';
+        }
+
         if ($js_vars) {
             // Set up js variables.
             $this->initJsVars($js_vars);

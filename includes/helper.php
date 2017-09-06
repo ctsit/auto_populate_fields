@@ -29,7 +29,7 @@ function auto_populate_fields_get_available_features() {
     if (PAGE == 'surveys/index.php' && !(isset($_GET['s']) && defined('NOAUTH'))) {
         return $features;
     }
-    
+
     if (auto_populate_fields_form_has_data()) {
         return $features;
     }
@@ -97,12 +97,7 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
     }
 
     // Establishing a priority queue for action tags.
-    $priority_queue = array(
-        '@DEFAULT',
-        '@DEFAULT-WHEN-VISIBLE',
-        '@DEFAULT-FROM-FIELD',
-        '@DEFAULT-FROM-PREVIOUS-EVENT',
-    );
+    $priority_queue = get_action_tags();
 
     foreach ($priority_queue as $item) {
         $regex = '/(' . $item . ')($|[^(\-)])/';
@@ -122,6 +117,16 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
     return false;
 }
 
+function get_action_tags() {
+    $res = array(
+        '@DEFAULT',
+        '@DEFAULT-ON-VISIBLE',
+        '@DEFAULT-FROM-FIELD',
+        '@DEFAULT-FROM-PREVIOUS-EVENT',
+    );
+    return $res;
+}
+
 /**
  * Gets fields names for the current event.
  *
@@ -133,3 +138,31 @@ function auto_populate_fields_get_fields_names() {
     $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
     return array_keys($fields);
 }
+
+
+/**
+* Get field names and field notes for action tag containing fields.
+* 
+* @return array
+*   A map of field_names and field_note values.
+*/
+function getFieldsWithActionTags() {
+    global $Proj;
+    $res = array();
+    if (!empty($_GET['page'])) {
+        $metadata = $Proj->metadata;
+        $action_tags = get_action_tags();
+        foreach($metadata as $field_name => $field_info) {
+            if (!empty($field_info['misc']) && !empty($field_info['element_note'])) {
+                foreach($action_tags as $action_tag) {
+                    if (strcmp($action_tag, '@DEFAULT') == 0) continue;
+                    if (strpos($field_info['misc'], $action_tag) !== false) {
+                        $res['#'.$field_name.'-tr'] = $field_info['element_note'];
+                    }
+                }
+            }
+        }
+    }
+    return $res;
+}
+?>
