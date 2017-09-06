@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Checking if we are on the Online Designer page.
-    if ($('#div_field_annotation') === 0) {
+    if ($('#div_field_annotation').length === 0) {
         return false;
     }
 
