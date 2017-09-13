@@ -98,7 +98,7 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
     }
 
     // Establishing a priority queue for action tags.
-    $priority_queue = auto_populate_fields_get_action_tags();
+    $priority_queue = auto_populate_fields_get_priority_queue();
 
     foreach ($priority_queue as $item) {
         $regex = '/(' . $item . ')($|[^(\-)])/';
@@ -119,11 +119,12 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
 }
 
 /**
- * Gets the list of action tags.
+ * Gets the action tags that can conflict with each other.
  *
- * $return array containing action tags.
+ * @return array
+ *   List of action tags in priority order.
  */
-function auto_populate_fields_get_action_tags() {
+function auto_populate_fields_get_priority_queue() {
     $res = array(
         '@DEFAULT',
         '@DEFAULT-ON-VISIBLE',
@@ -145,5 +146,3 @@ function auto_populate_fields_get_fields_names() {
     $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
     return array_keys($fields);
 }
-
-?>
