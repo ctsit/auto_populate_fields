@@ -29,13 +29,14 @@ function auto_populate_fields_get_available_features() {
     if (PAGE == 'surveys/index.php' && !(isset($_GET['s']) && defined('NOAUTH'))) {
         return $features;
     }
-    
+
     if (auto_populate_fields_form_has_data()) {
         return $features;
     }
 
     $features[] = 'default_from_field';
     $features[] = 'default_when_visible';
+    $features[] = 'field_note_display';
 
     if (PAGE == 'DataEntry/index.php') {
         $features[] = 'default_from_previous_event';
@@ -97,12 +98,7 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
     }
 
     // Establishing a priority queue for action tags.
-    $priority_queue = array(
-        '@DEFAULT',
-        '@DEFAULT-WHEN-VISIBLE',
-        '@DEFAULT-FROM-FIELD',
-        '@DEFAULT-FROM-PREVIOUS-EVENT',
-    );
+    $priority_queue = auto_populate_fields_get_priority_queue();
 
     foreach ($priority_queue as $item) {
         $regex = '/(' . $item . ')($|[^(\-)])/';
@@ -123,9 +119,24 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
 }
 
 /**
+ * Gets the action tags that can conflict with each other.
+ *
+ * @return array
+ *   List of action tags in priority order.
+ */
+function auto_populate_fields_get_priority_queue() {
+    return array(
+        '@DEFAULT',
+        '@DEFAULT-ON-VISIBLE',
+        '@DEFAULT-FROM-FIELD',
+        '@DEFAULT-FROM-PREVIOUS-EVENT',
+    );
+}
+
+/**
  * Gets fields names for the current event.
  *
- * @return arrray
+ * @return array
  *   An array of fields names.
  */
 function auto_populate_fields_get_fields_names() {
