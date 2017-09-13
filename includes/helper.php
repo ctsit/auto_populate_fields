@@ -129,8 +129,8 @@ function auto_populate_fields_get_action_tags() {
         '@DEFAULT-ON-VISIBLE',
         '@DEFAULT-FROM-FIELD',
         '@DEFAULT-FROM-PREVIOUS-EVENT',
-        '@FIELD-NOTE-DISPLAY'
     );
+
     return $res;
 }
 

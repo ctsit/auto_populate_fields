@@ -1,63 +1,43 @@
 <?php
 /**
  * @file
- * Provides Default When Visible feature.
+ * Provides Field Note Display feature.
  */
 
 require_once 'helper.php';
 
 /**
- * Handles @DEFAULT-WHEN-VISIBLE action tag.
+ * Handles @FIELD-NOTE-DISPLAY action tag.
  */
 function auto_populate_fields_field_note_display() {
     global $Proj;
     $returnVal = array();
+
     foreach (auto_populate_fields_get_fields_names() as $field_name) {
         $field_info = $Proj->metadata[$field_name];
-        if (!$default_value = auto_populate_fields_action_tag_semaphore($field_info['misc'], '@FIELD-NOTE-DISPLAY')) {
+        if (!$field_notes = $field_info['element_note']) {
             continue;
         }
-        switch ($default_value) {
-            case "hover" :
-                $field_map = auto_populate_fields_on_hover($field_name);
-                if ($field_map) {
-                    $subval = array();
-                    $subval[$field_name] = $field_map;
-                    if (!array_key_exists("hover", $returnVal)) {
-                        $returnVal["hover"] = $subval;
-                    } else {
-                        $subRet = $returnVal["hover"];
-                        $subRet[$field_name] = $field_map;
-                        $returnVal["hover"] = $subRet;
-                    }
-                }
-                break;
-            default:
+
+        if (!$display_mode = Form::getValueInQuotesActionTag($field_info['misc'], '@FIELD-NOTE-DISPLAY')) {
+            continue;
+        }
+
+        if (!isset($returnVal[$display_mode])) {
+            $returnVal[$display_mode] = array();
+        }
+
+        switch ($display_mode) {
+            case 'hover':
+                $returnVal[$display_mode]['#' . $field_name . '-tr'] = $field_notes;
                 break;
         }
 
     }
-    if (count($returnVal) > 0) {
-        return $returnVal;
+
+    if (empty($returnVal)) {
+        return false;
     }
-    return false;
+
+    return $returnVal;
 }
-/**
-* Get field names and field notes for action tag containing fields.
-* 
-* @return array
-*   A map of field_names and field_note values.
-*/
-function auto_populate_fields_on_hover($field_name) {
-    global $Proj;
-    $res = false;
-    if (!empty($_GET['page'])) {
-        $field_info = $Proj->metadata[$field_name];
-        if (!empty($field_info['element_note'])) {
-            $res = array();
-            $res['#'.$field_name.'-tr'] = $field_info['element_note'];
-        }
-    }
-    return $res;
-}
-?>
