@@ -24,7 +24,6 @@ class ExternalModule extends AbstractExternalModule {
 
         $js_vars = array();
         $js_files = array('js/helper.js');
-
         foreach ($features as $feature) {
             include_once 'includes/' . $feature . '.php';
 
@@ -33,12 +32,6 @@ class ExternalModule extends AbstractExternalModule {
                 $js_vars[$feature] = $settings;
                 $js_files[] = 'js/' . $feature . '.js';
             }
-        }
-
-        // if features are present then hover field note.
-        if (!empty($features)) {
-            $js_vars['hover_field_note'] = getFieldsWithActionTags();
-            $js_files[] = 'js/hover_field_note.js';
         }
 
         if ($js_vars) {
