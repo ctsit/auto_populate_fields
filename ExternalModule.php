@@ -24,6 +24,7 @@ class ExternalModule extends AbstractExternalModule {
 
         $js_vars = array();
         $js_files = array('js/helper.js');
+
         foreach ($features as $feature) {
             include_once 'includes/' . $feature . '.php';
 

@@ -125,14 +125,12 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
  *   List of action tags in priority order.
  */
 function auto_populate_fields_get_priority_queue() {
-    $res = array(
+    return array(
         '@DEFAULT',
         '@DEFAULT-ON-VISIBLE',
         '@DEFAULT-FROM-FIELD',
         '@DEFAULT-FROM-PREVIOUS-EVENT',
     );
-
-    return $res;
 }
 
 /**
