@@ -23,13 +23,17 @@ class ExternalModule extends AbstractExternalModule {
         $features = auto_populate_fields_get_available_features();
 
         $js_vars = array();
-        $js_files = array('js/helper.js');
+        $js_files = array();
+
+        if (PAGE == 'Design/online_designer.php' && $project_id) {
+            $js_files[] = 'js/helper.js';
+        }
 
         foreach ($features as $feature) {
             include_once 'includes/' . $feature . '.php';
 
             $function = 'auto_populate_fields_' . $feature;
-            if ($settings = $function()) {
+            if (function_exists($function) && ($settings = $function())) {
                 $js_vars[$feature] = $settings;
                 $js_files[] = 'js/' . $feature . '.js';
             }
@@ -63,6 +67,6 @@ class ExternalModule extends AbstractExternalModule {
      *   An array of js variables to set up.
      */
     function initJsVars($vars) {
-        echo '<script> var autoPopulateFields = ' . json_encode($vars) . ';</script>';
+        echo '<script>var autoPopulateFields = ' . json_encode($vars) . ';</script>';
     }
 }
