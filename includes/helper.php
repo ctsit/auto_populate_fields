@@ -36,7 +36,6 @@ function auto_populate_fields_get_available_features() {
 
     $features[] = 'default_from_field';
     $features[] = 'default_when_visible';
-    $features[] = 'field_note_display';
 
     if (PAGE == 'DataEntry/index.php') {
         $features[] = 'default_from_previous_event';
