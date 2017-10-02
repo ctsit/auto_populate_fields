@@ -126,7 +126,7 @@ function auto_populate_fields_action_tag_semaphore($misc, $action_tag, $return_v
 function auto_populate_fields_get_priority_queue() {
     return array(
         '@DEFAULT',
-        '@DEFAULT-ON-VISIBLE',
+        '@DEFAULT-WHEN-VISIBLE',
         '@DEFAULT-FROM-FIELD',
         '@DEFAULT-FROM-PREVIOUS-EVENT',
     );

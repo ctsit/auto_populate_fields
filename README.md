@@ -18,7 +18,7 @@ It allows users to set up a field's default value from an existing field on the 
 - When a form field has been populated in the backend by a DET or API call - `@DEFAULT` cannot handle this.
 
 #### @DEFAULT-WHEN-VISIBLE
-If the field is visible it sets the initial value otherwise it removes the value. This is mainly useful in fields which are visible and hidden by branching logic, e.g. `@DEFAULT-FROM-FIELD="10"`.
+If the field is visible it sets the initial value otherwise it removes the value. This is mainly useful in fields which are visible and hidden by branching logic, e.g. `@DEFAULT-WHEN-VISIBLE="10"`.
 
 #### @DEFAULT-FROM-PREVIOUS-EVENT
 Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`.
