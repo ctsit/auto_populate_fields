@@ -39,6 +39,7 @@ function auto_populate_fields_get_available_features() {
 
     if (PAGE == 'DataEntry/index.php') {
         $features[] = 'default_from_previous_event';
+        $features[] = 'default_ae_id';
     }
 
     return $features;
