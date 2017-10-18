@@ -16,6 +16,11 @@ $(document).ready(function() {
             return $(this).text() === '@DEFAULT';
         }
 
+        // Function that checks if text matches the "@APPUSERNAME-APP" string.
+        var isDefaultAELabelColumn = function() {
+            return $(this).text() === '@APPUSERNAME-APP';
+        }
+
         // Getting @DEFAULT row from action tags help table.
         var $default_action_tag = $popup.find('td').filter(isDefaultLabelColumn).parent();
         if ($default_action_tag.length !== 1) {
@@ -46,7 +51,12 @@ $(document).ready(function() {
             $cols.last().text(descr);
 
             // Placing new action tag.
-            $new_action_tag.insertAfter($default_action_tag);
+            if(tag_name == '@AE_ID') {
+                $default_ae_action_tag = $popup.find('td').filter(isDefaultAELabelColumn).parent();
+                $new_action_tag.insertBefore($default_ae_action_tag);
+            } else{
+                $new_action_tag.insertAfter($default_action_tag);
+            }
         });
     });
 });
