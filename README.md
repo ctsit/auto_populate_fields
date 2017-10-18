@@ -10,7 +10,7 @@ This REDCap Module provides tools to autopopulate fields.
 - For each project you want to use this module, go to the project home page, click on **Manage External Modules** link, and then enable Auto Populate Fields for that project.
 
 ## Features included
-This module provides 3 new [action tags](https://wiki.chpc.utah.edu/pages/viewpage.action?pageId=595001400):
+This module provides 4 new [action tags](https://wiki.chpc.utah.edu/pages/viewpage.action?pageId=595001400):
 
 #### @DEFAULT-FROM-FIELD
 It allows users to set up a field's default value from an existing field on the same form. Use case examples:
