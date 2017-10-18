@@ -22,3 +22,6 @@ If the field is visible it sets the initial value otherwise it removes the value
 
 #### @DEFAULT-FROM-PREVIOUS-EVENT
 Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`.
+
+#### @AE_ID
+Generates custom ids for repeating Adverse Events. The custom id consists of record id, event id and repeating instance id.
