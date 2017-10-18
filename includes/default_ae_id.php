@@ -16,7 +16,10 @@ function auto_populate_fields_default_ae_id() {
 	$record_id = $qs_params['id'];
 	$event_id = $qs_params['event_id'];
 	$instance_id = $qs_params['instance'];
-
+	if(empty($instance_id)) {
+		$instance_id = 1;
+	}
+	
 	// Create custom AE_ID.
 	$ae_id = $record_id."-".$event_id."-".$instance_id;
 	$tag_name = '@AE_ID';
