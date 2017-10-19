@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // get the mappings from php through json_encode.
     var add_default_mappings = autoPopulateFields.default_when_visible.add_default_mappings;
-
+    var forward_map = autoPopulateFields.default_when_visible.forward_map;
     // Initial setup.
     $.each(add_default_mappings, function(field_name, mapping) {
         if ($(mapping.id).is(':visible')) {
@@ -71,12 +71,9 @@ $(document).ready(function() {
         }
     }
 
-    var forward_map = autoPopulateFields.default_when_visible.forward_map;
-    
-    // add an event listener for all the fields which can hide other fields.
-    for (var key in forward_map) {
-        $("#"+key+"-tr").change(function () {
-
+    function listener_helper(key) {
+        return function (event) {
+            console.log("Create listener for field " + key);
             // this map is used to store the state of the field before resetting the fields;
             aux = {};
 
@@ -177,6 +174,13 @@ $(document).ready(function() {
             // forcing redcap to do final branching logic
             calculate();
             doBranching();
-        });
+        };
+    }
+    
+    // add an event listener for all the fields which can hide other fields.
+    for (var key1 in forward_map) {
+    // for (var j = 0; j < forward_map.length; j++) {
+    //     var key = forward_map[j];    
+        $("#"+key1+"-tr").change(listener_helper(key1));
     }
 });
