@@ -10,7 +10,7 @@ This REDCap Module provides tools to autopopulate fields.
 - For each project you want to use this module, go to the project home page, click on **Manage External Modules** link, and then enable Auto Populate Fields for that project.
 
 ## Features included
-This module provides 3 new [action tags](https://wiki.chpc.utah.edu/pages/viewpage.action?pageId=595001400):
+This module provides 4 new [action tags](https://wiki.chpc.utah.edu/pages/viewpage.action?pageId=595001400):
 
 #### @DEFAULT-FROM-FIELD
 It allows users to set up a field's default value from an existing field on the same form. Use case examples:
@@ -22,3 +22,6 @@ If the field is visible it sets the initial value otherwise it removes the value
 
 #### @DEFAULT-FROM-PREVIOUS-EVENT
 Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`.
+
+#### @AE_ID
+Generates custom ids for repeating Adverse Events. The custom id consists of record id, event id and repeating instance id.
