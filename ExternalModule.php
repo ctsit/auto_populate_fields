@@ -20,28 +20,29 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function hook_every_page_top($project_id) {
-        $features = auto_populate_fields_get_available_features();
-
-        $js_vars = array();
         $js_files = array();
 
         if (PAGE == 'Design/online_designer.php' && $project_id) {
             $js_files[] = 'js/helper.js';
         }
 
-        foreach ($features as $feature) {
-            include_once 'includes/' . $feature . '.php';
+        if ($project_id) {
+            $js_vars = array();
 
-            $function = 'auto_populate_fields_' . $feature;
-            if (function_exists($function) && ($settings = $function())) {
-                $js_vars[$feature] = $settings;
-                $js_files[] = 'js/' . $feature . '.js';
+            foreach ($this->getFeatures() as $feature) {
+                include_once 'includes/' . $feature . '.php';
+
+                $function = 'auto_populate_fields_' . $feature;
+                if (function_exists($function) && ($settings = $function())) {
+                    $js_vars[$feature] = $settings;
+                    $js_files[] = 'js/' . $feature . '.js';
+                }
             }
-        }
 
-        if ($js_vars) {
-            // Set up js variables.
-            $this->initJsVars($js_vars);
+            if ($js_vars) {
+                // Set up js variables.
+                $this->initJsVars($js_vars);
+            }
         }
 
         // Loads js files.
@@ -68,5 +69,19 @@ class ExternalModule extends AbstractExternalModule {
      */
     function initJsVars($vars) {
         echo '<script>var autoPopulateFields = ' . json_encode($vars) . ';</script>';
+    }
+
+    /**
+     * Gets auto populate features names.
+     *
+     * @return array
+     *   An array containing the features names.
+     */
+    function getFeatures() {
+        return array(
+            'default_when_visible',
+            'default_enum_key',
+            'default_from_previous_event',
+        );
     }
 }
