@@ -38,17 +38,27 @@ function auto_populate_fields_default_enum_key() {
     }
 
     foreach (auto_populate_fields_get_fields_names() as $target_field_name) {
-        $target_field_info = $Proj->metadata[$target_field_name];
-        if (!$default_value = Form::getValueInQuotesActionTag($target_field_info['misc'], '@DEFAULT')) {
-            continue;
+        $misc = $Proj->metadata[$target_field_name]['misc'];
+
+        // Getting multiple @DEFAULT action tags (e.g. @DEFAULT_1).
+        $action_tags = auto_populate_fields_get_default_action_tags($misc);
+
+        foreach ($action_tags as $action_tag) {
+            $default_value = Form::getValueInQuotesActionTag($misc, $action_tag);
+            if (empty($default_value) && !is_numeric($default_value)) {
+                continue;
+            }
+
+            // Steping ahead REDCap and piping strings in our way.
+            $default_value = Piping::replaceVariablesInLabel($default_value, $_GET['id'] . $entry_num, $_GET['event_id'], $_GET['instance'], array(), false, null, false);
+            if (empty($default_value) && !is_numeric($default_value)) {
+                continue;
+            }
+
+            // Applying value into the action tag.
+            $aux_metadata[$target_field_name]['misc'] = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
+            break;
         }
-
-        // Steping ahead REDCap and piping strings in our way.
-        $default_value = Piping::replaceVariablesInLabel($default_value, $_GET['id'] . $entry_num, $_GET['event_id'], $_GET['instance'], array(), true, null, false);
-
-        // Applying value into the action tag.
-        $misc = $target_field_info['misc'];
-        $aux_metadata[$target_field_name]['misc'] = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
     }
 
     // Now that pipings are done, let's restore original project metadata.

@@ -60,18 +60,13 @@ function auto_populate_fields_default_from_previous_event() {
             }
         }
 
-        if (!empty($default_value)) {
-            $misc = $Proj->metadata[$field_target]['misc'];
-
-            if (strpos($misc, '@DEFAULT=') === false) {
-                $misc .= ' @DEFAULT="' . $default_value . '"';
-            }
-            else {
-                // Override @DEFAULT if exists.
-                $misc = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
-            }
-
-            $Proj->metadata[$field_target]['misc'] = $misc;
+        if (empty($default_value) && !is_numeric($default_value)) {
+            continue;
         }
+
+        $misc = $Proj->metadata[$field_target]['misc'];
+        $misc = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
+
+        $Proj->metadata[$field_target]['misc'] = $misc;
     }
 }

@@ -44,6 +44,30 @@ function auto_populate_fields_get_fields_names() {
 }
 
 /**
+ * Looks for multiple @DEFAULT action tags in a given string.
+ *
+ * Pattern: @DEFAULT_<integer> (e.g. @DEFAULT_1, @DEFAULT_2, etc).
+ *
+ * @param string $subject
+ *   The string to search in.
+ *
+ * @return array
+ *   The list of default action tags found.
+ */
+function auto_populate_fields_get_default_action_tags($subject) {
+    preg_match_all('/(@DEFAULT_\d+)=/', $subject, $matches);
+
+    $action_tags = $matches[1];
+    sort($action_tags);
+
+    if (strpos($misc, '@DEFAULT=') !== false) {
+        array_unshift($action_tags, '@DEFAULT');
+    }
+
+    return $action_tags;
+}
+
+/**
  * Overrides an action tag.
  *
  * @param string $key
@@ -52,11 +76,21 @@ function auto_populate_fields_get_fields_names() {
  *   The value to replace with.
  * @param string $subject
  *   The subject string to override.
+ * @param bool $append_if_not_exists
+ *   Append the action tag value if there is no target to override.
  *
  * @return string
  *   The overriden subject string.
  */
-function auto_populate_fields_override_action_tag($key, $value, $subject) {
-    $regex = '/(' . $key . '\s*=\s*)((\"[^\"]+\")|(\'[^\']+\'))/';
-    return preg_replace($regex, $key . '="' . $value . '"', $subject);
+function auto_populate_fields_override_action_tag($key, $value, $subject, $append_if_not_exists = true) {
+    if (strpos($subject, $key . '=') !== false) {
+        // Override action tag if exists.
+        $regex = '/(' . $key . '\s*=\s*)((\"[^\"]+\")|(\'[^\']+\'))/';
+        $subject = preg_replace($regex, $key . '="' . $value . '"', $subject);
+    }
+    elseif ($append_if_not_exists) {
+        $subject .= ' ' . $key . '="' . $value . '"';
+    }
+
+    return $subject;
 }
