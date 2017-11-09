@@ -15,6 +15,12 @@ function auto_populate_fields_default_when_visible() {
         return;
     }
 
-    $branching_fields = getBranchingFields($_GET['page']);
-    return array('branchingTargets' => array_keys($branching_fields[0]));
+    $equations = array();
+    list($branching_fields, ) = getBranchingFields($_GET['page']);
+
+    foreach ($branching_fields as $field => $equation) {
+        list($equations[$field], ) = LogicTester::formatLogicToJS($equation, false, $_GET['event_id'], true);
+    }
+
+    return array('branchingEquations' => $equations);
 }

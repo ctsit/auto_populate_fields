@@ -20,29 +20,30 @@ class ExternalModule extends AbstractExternalModule {
      * @inheritdoc
      */
     function hook_every_page_top($project_id) {
-        $js_files = array();
+        if (!$project_id) {
+            return;
+        }
 
-        if (PAGE == 'Design/online_designer.php' && $project_id) {
+        $js_files = array();
+        $js_vars = array();
+
+        if (PAGE == 'Design/online_designer.php') {
             $js_files[] = 'js/helper.js';
         }
 
-        if ($project_id) {
-            $js_vars = array();
+        foreach ($this->getFeatures() as $feature) {
+            include_once 'includes/' . $feature . '.php';
 
-            foreach ($this->getFeatures() as $feature) {
-                include_once 'includes/' . $feature . '.php';
-
-                $function = 'auto_populate_fields_' . $feature;
-                if (function_exists($function) && ($settings = $function())) {
-                    $js_vars[$feature] = $settings;
-                    $js_files[] = 'js/' . $feature . '.js';
-                }
+            $function = 'auto_populate_fields_' . $feature;
+            if (function_exists($function) && ($settings = $function())) {
+                $js_vars[$feature] = $settings;
+                $js_files[] = 'js/' . $feature . '.js';
             }
+        }
 
-            if ($js_vars) {
-                // Set up js variables.
-                $this->initJsVars($js_vars);
-            }
+        if ($js_vars) {
+            // Set up js variables.
+            $this->initJsVars($js_vars);
         }
 
         // Loads js files.

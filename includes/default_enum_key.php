@@ -51,6 +51,6 @@ function auto_populate_fields_default_enum_key() {
         $aux_metadata[$target_field_name]['misc'] = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
     }
 
-    // Now that pipings are done, let's restoring original project metadata.
+    // Now that pipings are done, let's restore original project metadata.
     $Proj->metadata = $aux_metadata;
 }

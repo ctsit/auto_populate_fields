@@ -21,6 +21,10 @@ function auto_populate_fields_default_from_previous_event() {
 
     foreach (auto_populate_fields_get_fields_names() as $field_name) {
         $misc = $Proj->metadata[$field_name]['misc'];
+        if (strpos($misc, $action_tag) === false) {
+            continue;
+        }
+
         if (!$source_field = Form::getValueInQuotesActionTag($misc, $action_tag)) {
             // If no value is provided on the action tag, set the same
             // field as source by default.
@@ -47,15 +51,27 @@ function auto_populate_fields_default_from_previous_event() {
         $default_value = null;
 
         foreach ($events as $event) {
-            // TODO: check if event is previous.
+            if ($event == $_GET['event_id']) {
+                break;
+            }
+
             if (!empty($data[$event]) && isset($data[$event][$field_source])) {
                 $default_value = $data[$event][$field_source];
             }
         }
 
         if (!empty($default_value)) {
-            // TODO: override @DEFAULT if exists.
-            $Proj->metadata[$field_target]['misc'] .= ' @DEFAULT="' . $default_value . '"';
+            $misc = $Proj->metadata[$field_target]['misc'];
+
+            if (strpos($misc, '@DEFAULT=') === false) {
+                $misc .= ' @DEFAULT="' . $default_value . '"';
+            }
+            else {
+                // Override @DEFAULT if exists.
+                $misc = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
+            }
+
+            $Proj->metadata[$field_target]['misc'] = $misc;
         }
     }
 }

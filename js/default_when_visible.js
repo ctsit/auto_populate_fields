@@ -16,12 +16,13 @@ autoPopulateFields.default_when_visible.init = function() {
     // Creating another version of evalLogic() that erases fields when message is not shown.
     var evalLogicSubmit = new Function('this_field', 'byPassEraseFieldPrompt', 'logic', evalLogicBody.replace(target, 'var eraseIt = true;'));
 
-    // Overriding formSubmitDataEntry() in order to erase not visible branching
-    // logic fields before saving data.
+    // Overriding formSubmitDataEntry() in order to erase hidden branching logic
+    // fields before saving data.
     var oldFormSubmitDataEntry = formSubmitDataEntry;
     formSubmitDataEntry = function() {
-        $.each(autoPopulateFields.default_when_visible.branchingTargets, function(index, fieldName) {
-            if (!$('#' + fieldName + '-tr').is(':visible')) {
+        $.each(autoPopulateFields.default_when_visible.branchingEquations, function(fieldName, equation) {
+            // If equation result is false, erase field value.
+            if (!eval(equation)) {
                 evalLogicSubmit(fieldName, false, false);
             }
         });
