@@ -31,7 +31,7 @@ function auto_populate_fields_default_enum_key() {
 
         foreach (array_keys($options) as $key) {
             // Replacing selection choices labels with keys.
-            $options[$key] = $key;
+            $options[$key] = $key . ',' . $key;
         }
 
         $Proj->metadata[$field_name]['element_enum'] = implode('\\n', $options);

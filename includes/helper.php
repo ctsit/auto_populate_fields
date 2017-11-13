@@ -60,7 +60,7 @@ function auto_populate_fields_get_default_action_tags($subject) {
     $action_tags = $matches[1];
     sort($action_tags);
 
-    if (strpos($misc, '@DEFAULT=') !== false) {
+    if (strpos($subject, '@DEFAULT=') !== false) {
         array_unshift($action_tags, '@DEFAULT');
     }
 
