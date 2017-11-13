@@ -14,6 +14,7 @@ This REDCap Module provides tools to autopopulate fields on data entry forms.
 ### Default when visible
 By default, when a field that is hidden by branching logic contains a `@DEFAULT` action tag, an annoying alert is displayed on page load.
 > ERASE CURRENT VALUE OF FIELD "<field_name>"?
+
 This module changes the default branching logic behavior in order to avoid that. Now, when some non-empty field gets hidden by branching logic, no more warning messages are shown - instead, the hidden value persists available until form submission, when it is finally erased.
 
 ### Choice key piping on @DEFAULT
@@ -25,5 +26,5 @@ This module provides 2 new [action tags](https://wiki.chpc.utah.edu/pages/viewpa
 #### @DEFAULT-FROM-PREVIOUS-EVENT
 Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`.
 
-#### @DEFAULT_<N>
+#### @DEFAULT_\<N\>
 Provides the possibility to define secondary, tertiary, etc default values. If `@DEFAULT` returns an empty value, the next tag available - let's say `@DEFAULT_1` - is checked. If `@DEFAULT_1` returns empty, the next tag available - let's say `@DEFAULT_2` - is checked, and so on. This is useful when a fallback value is needed for piping (e.g. `@DEFAULT="[first_name]" @DEFAULT_1="Joe Doe"`).
