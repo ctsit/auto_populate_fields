@@ -1,6 +1,14 @@
+## [2.0.0] - 2017-11-13
+### Summary
+- Adding @DEFAULT_<N> action tag
+- Adding "choice key piping on @DEFAULT" feature
+- Refactoring "default when visible" feature
+- Removing @DEFAULT-FROM-FIELD action tag
+
+
 ## [1.0.0] - 2017-10-24
 ### Summary
- - This is the first release
+- This is the first release
 
 ### Added
 - resolve scope issues in change listener for default-when-visible action tag (suryayalla)
