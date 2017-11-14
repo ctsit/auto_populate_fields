@@ -1,9 +1,10 @@
 ## [2.0.0] - 2017-11-13
 ### Summary
-- Adding @DEFAULT_<N> action tag
-- Adding "choice key piping on @DEFAULT" feature
-- Refactoring "default when visible" feature
-- Removing @DEFAULT-FROM-FIELD action tag
+- Added @DEFAULT_<N> action tag
+- Added @DEFAULT-FROM-PREVIOUS-EVENT_<N> action tag
+- Added "choice key piping on @DEFAULT" feature
+- Refactored "default when visible" feature
+- Removed @DEFAULT-FROM-FIELD action tag
 
 
 ## [1.0.0] - 2017-10-24
