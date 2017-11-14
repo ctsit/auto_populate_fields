@@ -41,7 +41,7 @@ function auto_populate_fields_default_enum_key() {
         $misc = $Proj->metadata[$target_field_name]['misc'];
 
         // Getting multiple @DEFAULT action tags (e.g. @DEFAULT_1).
-        $action_tags = auto_populate_fields_get_default_action_tags($misc);
+        $action_tags = auto_populate_fields_get_multiple_action_tags('@DEFAULT', $misc);
 
         foreach ($action_tags as $action_tag) {
             $default_value = Form::getValueInQuotesActionTag($misc, $action_tag);

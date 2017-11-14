@@ -16,28 +16,6 @@ function auto_populate_fields_default_from_previous_event() {
 
     global $Proj;
 
-    $action_tag = '@DEFAULT-FROM-PREVIOUS-EVENT';
-    $targets = array();
-
-    foreach (auto_populate_fields_get_fields_names() as $field_name) {
-        $misc = $Proj->metadata[$field_name]['misc'];
-        if (strpos($misc, $action_tag) === false) {
-            continue;
-        }
-
-        if (!$source_field = Form::getValueInQuotesActionTag($misc, $action_tag)) {
-            // If no value is provided on the action tag, set the same
-            // field as source by default.
-            $source_field = $field_name;
-        }
-
-        $targets[$field_name] = $source_field;
-    }
-
-    if (empty($targets)) {
-        return;
-    }
-
     $data = REDCap::getData($Proj->project['project_id'], 'array', $_GET['id']);
     if (empty($data)) {
         return;
@@ -47,26 +25,44 @@ function auto_populate_fields_default_from_previous_event() {
     $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
     $events = array_keys($Proj->events[$arm]['events']);
 
-    foreach ($targets as $field_target => $field_source) {
-        $default_value = null;
-
-        foreach ($events as $event) {
-            if ($event == $_GET['event_id']) {
-                break;
-            }
-
-            if (!empty($data[$event]) && isset($data[$event][$field_source])) {
-                $default_value = $data[$event][$field_source];
-            }
-        }
-
-        if (empty($default_value) && !is_numeric($default_value)) {
+    foreach (auto_populate_fields_get_fields_names() as $field_name) {
+        $misc = $Proj->metadata[$field_name]['misc'];
+        $action_tags = auto_populate_fields_get_multiple_action_tags('@DEFAULT-FROM-PREVIOUS-EVENT', $misc);
+        if (empty($action_tags)) {
             continue;
         }
 
-        $misc = $Proj->metadata[$field_target]['misc'];
-        $misc = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
+        // Looping over @DEFAULT-FROM-PREVIOUS-EVENT_<N> action tags.
+        foreach ($action_tags as $action_tag) {
+            if (!$source_field = Form::getValueInActionTag($misc, $action_tag)) {
+                // If no value is provided on the action tag, set the same
+                // field as source by default.
+                $source_field = $field_name;
+            }
+            elseif (!isset($Proj->metadata[$source_field])) {
+                // Invalid field.
+                continue;
+            }
 
-        $Proj->metadata[$field_target]['misc'] = $misc;
+            $default_value = '';
+            foreach ($events as $event) {
+                if ($event == $_GET['event_id']) {
+                    break;
+                }
+
+                if (!empty($data[$event]) && isset($data[$event][$source_field])) {
+                    $default_value = $data[$event][$source_field];
+                }
+            }
+
+            if (empty($default_value) && !is_numeric($default_value)) {
+                continue;
+            }
+
+            $misc = auto_populate_fields_override_action_tag('@DEFAULT', $default_value, $misc);
+            $Proj->metadata[$field_name]['misc'] = $misc;
+
+            break;
+        }
     }
 }

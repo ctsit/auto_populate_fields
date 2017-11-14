@@ -44,24 +44,26 @@ function auto_populate_fields_get_fields_names() {
 }
 
 /**
- * Looks for multiple @DEFAULT action tags in a given string.
+ * Looks for multiple action tags in a given string.
  *
- * Pattern: @DEFAULT_<integer> (e.g. @DEFAULT_1, @DEFAULT_2, etc).
+ * Example: @DEFAULT_<N> (e.g. @DEFAULT_1, @DEFAULT_2, etc).
  *
+ * @param string $action_tag
+ *   The action tag (e.g. @DEFAULT).
  * @param string $subject
  *   The string to search in.
  *
  * @return array
  *   The list of default action tags found.
  */
-function auto_populate_fields_get_default_action_tags($subject) {
-    preg_match_all('/(@DEFAULT_\d+)=/', $subject, $matches);
+function auto_populate_fields_get_multiple_action_tags($action_tag, $subject) {
+    preg_match_all('/(' . $action_tag . '_\d+)/', $subject, $matches);
 
     $action_tags = $matches[1];
     sort($action_tags);
 
-    if (strpos($subject, '@DEFAULT=') !== false) {
-        array_unshift($action_tags, '@DEFAULT');
+    if (strpos($subject, $action_tag) !== false) {
+        array_unshift($action_tags, $action_tag);
     }
 
     return $action_tags;
