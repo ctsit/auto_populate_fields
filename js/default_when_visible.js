@@ -1,4 +1,4 @@
-autoPopulateFields.default_when_visible.init = function() {
+autoPopulateFields.defaultWhenVisible.init = function() {
     // Setting branching logic to do not show messages.
     showEraseValuePrompt = 0;
 
@@ -20,7 +20,7 @@ autoPopulateFields.default_when_visible.init = function() {
     // fields before saving data.
     var oldFormSubmitDataEntry = formSubmitDataEntry;
     formSubmitDataEntry = function() {
-        $.each(autoPopulateFields.default_when_visible.branchingEquations, function(fieldName, equation) {
+        $.each(autoPopulateFields.defaultWhenVisible.branchingEquations, function(fieldName, equation) {
             // If equation result is false, erase field value.
             if (!eval(equation)) {
                 evalLogicSubmit(fieldName, false, false);
@@ -31,4 +31,4 @@ autoPopulateFields.default_when_visible.init = function() {
     }
 };
 
-autoPopulateFields.default_when_visible.init();
+autoPopulateFields.defaultWhenVisible.init();
