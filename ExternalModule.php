@@ -14,8 +14,6 @@ use Piping;
 use Records;
 use REDCap;
 
-require_once 'includes/helper.php';
-
 /**
  * ExternalModule class for Auto Populate Fields.
  */
