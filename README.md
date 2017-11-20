@@ -2,7 +2,7 @@
 This REDCap Module provides tools to autopopulate fields on data entry forms.
 
 ## Prerequisites
-- [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules)
+- REDCap >= 8.0.0 (for versions < 8.0.0, [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules) is required).
 
 ## Installation
 - Clone this repo into to `<redcap-root>/modules/auto_populate_fields_v1.0`.
