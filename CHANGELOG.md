@@ -1,6 +1,22 @@
+# Change Log
+All notable changes to the Auto-Populate Fields project will be documented in this file.
+
+## [2.0] - 2017-11-20
+### Added
+- Added @DEFAULT_<N> action tag
+- Added @DEFAULT-FROM-PREVIOUS-EVENT_<N> action tag
+- Added "choice key piping on @DEFAULT" feature
+
+### Changed
+- Refactored "default when visible" feature
+
+### Removed
+- Removed @DEFAULT-FROM-FIELD action tag
+
+
 ## [1.0.0] - 2017-10-24
 ### Summary
- - This is the first release
+- This is the first release
 
 ### Added
 - resolve scope issues in change listener for default-when-visible action tag (suryayalla)
