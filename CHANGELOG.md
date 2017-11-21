@@ -1,9 +1,16 @@
-## [2.0.0] - 2017-11-13
-### Summary
+# Change Log
+All notable changes to the Auto-Populate Fields project will be documented in this file.
+
+## [2.0] - 2017-11-20
+### Added
 - Added @DEFAULT_<N> action tag
 - Added @DEFAULT-FROM-PREVIOUS-EVENT_<N> action tag
 - Added "choice key piping on @DEFAULT" feature
+
+### Changed
 - Refactored "default when visible" feature
+
+### Removed
 - Removed @DEFAULT-FROM-FIELD action tag
 
 
