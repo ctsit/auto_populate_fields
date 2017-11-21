@@ -18,16 +18,22 @@ By default, when a field that is hidden by branching logic contains a `@DEFAULT`
 This module changes the default branching logic behavior in order to avoid that. Now, when some non-empty field gets hidden by branching logic, no more warning messages are shown - instead, the hidden value persists available until form submission, when it is finally erased.
 
 ### Choice key piping on @DEFAULT
-When piping some choice selection field (dropdown, radio buttons) to set a @DEFAULT action tag, the returned value is now the key instead of the label.
+This module changes the display of selection fields when they are referenced in `@DEFAULT` action tags - instead of the label, the key is returned. Example: let's say we have a dropdown field called `animals`, whose options are:
+```
+1,Lion
+2,Monkey
+```
+If we define somewhere `@DEFAULT="[animals]"`, the returned value will be `1` (instead of "Lion") or `2` (instead of "Monkey").
+
 
 ### New action tags
 This module provides 2 new [action tags](https://wiki.chpc.utah.edu/pages/viewpage.action?pageId=595001400):
 
-#### @DEFAULT-FROM-PREVIOUS-EVENT
-Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source field name as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`. Analogously to `@DEFAULT_<N>`, `@DEFAULT-FROM-PREVIOUS-EVENT_<N>` is also provided.
-
 #### @DEFAULT_\<N\>
 Provides the possibility to define secondary, tertiary, etc default values. If `@DEFAULT` returns an empty value, the next tag available - let's say `@DEFAULT_1` - is checked. If `@DEFAULT_1` returns empty, the next tag available - let's say `@DEFAULT_2` - is checked, and so on. This is useful when a fallback value is needed for piping (e.g. `@DEFAULT="[first_name]" @DEFAULT_1="Joe Doe"`).
+
+#### @DEFAULT-FROM-PREVIOUS-EVENT
+Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source field name as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`. Analogously to `@DEFAULT_<N>`, `@DEFAULT-FROM-PREVIOUS-EVENT_<N>` is also provided.
 
 ### Mixing @DEFAULT_\<N\> and @DEFAULT-FROM-PREVIOUS-EVENT_\<N\>
 

@@ -107,7 +107,7 @@ class ExternalModule extends AbstractExternalModule {
             // action tags.
             foreach ($action_tags as $action_tag) {
                 if (strpos($action_tag, '@DEFAULT-FROM-PREVIOUS-EVENT') === 0) {
-                    if (!$source_field = Form::getValueInActionTag($misc, $action_tag)) {
+                    if (!$source_field = self::getValueInActionTag($misc, $action_tag)) {
                         // If no value is provided on the action tag, set the same
                         // field as source by default.
                         $source_field = $field_name;
@@ -116,6 +116,7 @@ class ExternalModule extends AbstractExternalModule {
                         // Invalid field.
                         continue;
                     }
+
                     foreach ($events as $event) {
                         if ($event == $_GET['event_id']) {
                             break;
@@ -314,5 +315,25 @@ class ExternalModule extends AbstractExternalModule {
      */
     protected function setJsSetting($key, $value) {
         echo '<script>autoPopulateFields = {' . $key . ': ' . json_encode($value) . '};</script>';
+    }
+
+    /**
+     * Alternative version of Form::getValueInActionTags.
+     *
+     * Fixes problems with single quoted values.
+     *
+     * @see Form::getValueInActionTags()
+     */
+    public static function getValueInActionTag($subject, $action_tag) {
+        if ($value = Form::getValueInQuotesActionTag($subject, $action_tag)) {
+            return $value;
+        }
+
+        preg_match('/' . $action_tag .'\s*=\s*([^\s]+)/', $subject, $matches);
+        if (empty($matches[1])) {
+            return '';
+        }
+
+        return $matches[1];
     }
 }
