@@ -125,6 +125,18 @@ class ExternalModule extends AbstractExternalModule {
                         if (!empty($data[$event]) && isset($data[$event][$source_field])) {
                             // Getting previous event value.
                             $default_value = $data[$event][$source_field];
+
+                            // Handling checkboxes case.
+                            if (is_array($default_value)) {
+                                $selected = array();
+                                foreach ($default_value as $option => $checked) {
+                                    if ($checked) {
+                                        $selected[] = $option;
+                                    }
+                                }
+
+                                $default_value = implode(',', $selected);
+                            }
                         }
                     }
                 }
