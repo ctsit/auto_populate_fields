@@ -93,7 +93,8 @@ class ExternalModule extends AbstractExternalModule {
 
         $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
         foreach (array_keys($fields) as $field_name) {
-            $misc = $Proj->metadata[$field_name]['misc'];
+            $field_info = $Proj->metadata[$field_name];
+            $misc = $field_info['misc'];
 
             // Getting available action tags.
             $action_tags = $this->getMultipleActionTagsQueue($action_tags_to_look, $misc);
@@ -122,9 +123,9 @@ class ExternalModule extends AbstractExternalModule {
                             break;
                         }
 
-                        if (!empty($data[$event]) && isset($data[$event][$source_field])) {
+                        if (in_array($field_info['form_name'], $Proj->eventsForms[$event])) {
                             // Getting previous event value.
-                            $default_value = $data[$event][$source_field];
+                            $default_value = isset($data[$event][$source_field]) ? $data[$event][$source_field] : '';
 
                             // Handling checkboxes case.
                             if (is_array($default_value)) {
