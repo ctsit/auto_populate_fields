@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+## [2.2] - 2017-11-22
+### Changed
+- Update descriptions for this module (Philip Chase)
+
+
 ## [2.1] - 2017-11-22
 ### Added
 - Handling checkboxes on DEFAULT-FROM-PREVIOUS-EVENT. (Tiago Bember Simeao)
