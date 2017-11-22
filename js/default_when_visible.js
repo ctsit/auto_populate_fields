@@ -32,3 +32,28 @@ autoPopulateFields.defaultWhenVisible.init = function() {
 };
 
 autoPopulateFields.defaultWhenVisible.init();
+
+/**
+ * This block of code prevents "leave with unsaved changes" alerts from being
+ * supressed due to showEraseValuePrompt = 0.
+ */
+$(document).ready(function() {
+    var oldOnBeforeUnload = window.onbeforeunload;
+
+    window.onbeforeunload = function() {
+        // Enable flag when user is leaving the window.
+        showEraseValuePrompt = 1;
+        return oldOnBeforeUnload();
+    }
+
+    $('a').click(function(event) {
+        // Enable flag when user is leaving the window by clicking on a link.
+        showEraseValuePrompt = 1;
+    });
+
+    $('input, select').change(function() {
+        // Disabling flag when some value is changed to preserve
+        // "Default when visible" functionality.
+        showEraseValuePrompt = 0;
+    });
+});
