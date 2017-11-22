@@ -54,21 +54,6 @@ class ExternalModule extends AbstractExternalModule {
     function setDefaultValues() {
         global $Proj, $user_rights, $double_data_entry;
 
-        // Loading useful vars.
-        $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
-        $events = array_keys($Proj->events[$arm]['events']);
-        $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
-        $action_tags_to_look = array('@DEFAULT');
-
-        // Getting current record data, if exists.
-        if ($data = REDCap::getData($Proj->project['project_id'], 'array', $_GET['id'])) {
-            $data = $data[$_GET['id']];
-
-            // Only consider @DEFAULT-FROM-PREVIOUS-EVENT action tag when the
-            // record is already exists.
-            array_unshift($action_tags_to_look, '@DEFAULT-FROM-PREVIOUS-EVENT');
-        }
-
         // Storing old metadata.
         $aux_metadata = $Proj->metadata;
 
@@ -91,7 +76,22 @@ class ExternalModule extends AbstractExternalModule {
             $Proj->metadata[$field_name]['element_enum'] = implode('\\n', $options);
         }
 
+        $action_tags_to_look = array('@DEFAULT');
+
+        // Getting current record data, if exists.
+        if ($data = REDCap::getData($Proj->project['project_id'], 'array', $_GET['id'])) {
+            $data = $data[$_GET['id']];
+
+            // Only consider @DEFAULT-FROM-PREVIOUS-EVENT action tag when the
+            // record is already exists.
+            array_unshift($action_tags_to_look, '@DEFAULT-FROM-PREVIOUS-EVENT');
+        }
+
         $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
+        $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
+        $events = array_keys($Proj->events[$arm]['events']);
+        $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
+
         foreach (array_keys($fields) as $field_name) {
             $field_info = $Proj->metadata[$field_name];
             $misc = $field_info['misc'];
@@ -118,27 +118,27 @@ class ExternalModule extends AbstractExternalModule {
                         continue;
                     }
 
+                    // Getting previous event ID.
                     foreach ($events as $event) {
                         if ($event == $_GET['event_id']) {
                             break;
                         }
 
                         if (in_array($field_info['form_name'], $Proj->eventsForms[$event])) {
-                            // Getting previous event value.
-                            $default_value = isset($data[$event][$source_field]) ? $data[$event][$source_field] : '';
-
-                            // Handling checkboxes case.
-                            if (is_array($default_value)) {
-                                $selected = array();
-                                foreach ($default_value as $option => $checked) {
-                                    if ($checked) {
-                                        $selected[] = $option;
-                                    }
-                                }
-
-                                $default_value = implode(',', $selected);
-                            }
+                            $prev_event = $event;
                         }
+                    }
+
+                    if (!isset($prev_event)) {
+                        continue;
+                    }
+
+                    // Getting previous event value.
+                    $default_value = isset($data[$prev_event][$source_field]) ? $data[$prev_event][$source_field] : '';
+
+                    // Handling checkboxes case.
+                    if (is_array($default_value)) {
+                        $default_value = implode(',', array_keys(array_filter($default_value)));
                     }
                 }
                 else {
