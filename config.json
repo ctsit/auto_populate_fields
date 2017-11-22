@@ -1,7 +1,7 @@
 {
     "name": "Auto Populate Fields",
     "namespace": "AutoPopulateFields\\ExternalModule",
-    "description": "This extension automatically populates field values if proper action tag is given.",
+    "description": "This module provides rich control of default values for data entry fields via a set of action tags. These action tags allow fields to be populated based on values from an ordered list of fields and static values. The fields can be read from the current event or the previous event in longitudinal projects.",
     "permissions": [
         "hook_every_page_top"
     ],
