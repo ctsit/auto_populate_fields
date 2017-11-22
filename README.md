@@ -5,7 +5,7 @@ This REDCap Module provides tools to autopopulate fields on data entry forms.
 - REDCap >= 8.0.0 (for versions < 8.0.0, [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules) is required).
 
 ## Installation
-- Clone this repo into to `<redcap-root>/modules/auto_populate_fields_v2.0`.
+- Clone this repo into to `<redcap-root>/modules/auto_populate_fields_v2.1`.
 - Go to **Control Center > Manage External Modules** and enable Auto Populate Fields.
 - For each project you want to use this module, go to the project home page, click on **Manage External Modules** link, and then enable Auto Populate Fields for that project.
 
@@ -39,10 +39,14 @@ Sets a field's default value based on its own value in a previous event. To map 
 
 When using `@DEFAULT_<N>` and `@DEFAULT-FROM-PREVIOUS-EVENT_<N>` together, using unique numbers on each action tag to ensure the desired precendence. E.g.
 
-    @DEFAULT-FROM-PREVIOUS-EVENT_1="initial_dose"
-    @DEFAULT-FROM-PREVIOUS-EVENT_2="final_dose"
-    @DEFAULT_3="4"
+    @DEFAULT-FROM-PREVIOUS-EVENT_1='initial_dose'
+    @DEFAULT-FROM-PREVIOUS-EVENT_2=intermediate_dose
+    @DEFAULT-FROM-PREVIOUS-EVENT_3="final_dose"
+    @DEFAULT_4="7"
 
-In the above example `initial_dose` from the previous event will be used. Lacking that, final_dose will be used. If neither `initial_dose` nor `final_dose` has been set, the value of 4 will be used.
+In the above example `initial_dose` from the previous event will be used. Lacking that, `intermediate_dose` will be used. If none of `initial_dose`, `intermediate_dose`, and `final_dose` have been set, the value of 7 will be used.
 
 Note that `@DEFAULT` is synonymous with `@DEFAULT_0`.  Similarly `@DEFAULT-FROM-PREVIOUS-EVENT` is synonymous with `@DEFAULT-FROM-PREVIOUS-EVENT_0`.
+
+Note that the square brackets, `[]` common to REDCap piping are neither required nor supported in `@DEFAULT-FROM-PREVIOUS-EVENT` and `@DEFAULT-FROM-PREVIOUS-EVENT_<N>`. They _are_ required in `@DEFAULT_<N>` just like `@DEFAULT`.
+
