@@ -54,21 +54,6 @@ class ExternalModule extends AbstractExternalModule {
     function setDefaultValues() {
         global $Proj, $user_rights, $double_data_entry;
 
-        // Loading useful vars.
-        $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
-        $events = array_keys($Proj->events[$arm]['events']);
-        $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
-        $action_tags_to_look = array('@DEFAULT');
-
-        // Getting current record data, if exists.
-        if ($data = REDCap::getData($Proj->project['project_id'], 'array', $_GET['id'])) {
-            $data = $data[$_GET['id']];
-
-            // Only consider @DEFAULT-FROM-PREVIOUS-EVENT action tag when the
-            // record is already exists.
-            array_unshift($action_tags_to_look, '@DEFAULT-FROM-PREVIOUS-EVENT');
-        }
-
         // Storing old metadata.
         $aux_metadata = $Proj->metadata;
 
@@ -91,9 +76,25 @@ class ExternalModule extends AbstractExternalModule {
             $Proj->metadata[$field_name]['element_enum'] = implode('\\n', $options);
         }
 
+        $action_tags_to_look = array('@DEFAULT');
+
+        // Getting current record data, if exists.
+        if ($data = REDCap::getData($Proj->project['project_id'], 'array', $_GET['id'])) {
+            $data = $data[$_GET['id']];
+
+            // Only consider @DEFAULT-FROM-PREVIOUS-EVENT action tag when the
+            // record is already exists.
+            array_unshift($action_tags_to_look, '@DEFAULT-FROM-PREVIOUS-EVENT');
+        }
+
         $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
+        $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
+        $events = array_keys($Proj->events[$arm]['events']);
+        $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
+
         foreach (array_keys($fields) as $field_name) {
-            $misc = $Proj->metadata[$field_name]['misc'];
+            $field_info = $Proj->metadata[$field_name];
+            $misc = $field_info['misc'];
 
             // Getting available action tags.
             $action_tags = $this->getMultipleActionTagsQueue($action_tags_to_look, $misc);
@@ -107,7 +108,7 @@ class ExternalModule extends AbstractExternalModule {
             // action tags.
             foreach ($action_tags as $action_tag) {
                 if (strpos($action_tag, '@DEFAULT-FROM-PREVIOUS-EVENT') === 0) {
-                    if (!$source_field = Form::getValueInActionTag($misc, $action_tag)) {
+                    if (!$source_field = self::getValueInActionTag($misc, $action_tag)) {
                         // If no value is provided on the action tag, set the same
                         // field as source by default.
                         $source_field = $field_name;
@@ -116,15 +117,28 @@ class ExternalModule extends AbstractExternalModule {
                         // Invalid field.
                         continue;
                     }
+
+                    // Getting previous event ID.
                     foreach ($events as $event) {
                         if ($event == $_GET['event_id']) {
                             break;
                         }
 
-                        if (!empty($data[$event]) && isset($data[$event][$source_field])) {
-                            // Getting previous event value.
-                            $default_value = $data[$event][$source_field];
+                        if (in_array($field_info['form_name'], $Proj->eventsForms[$event])) {
+                            $prev_event = $event;
                         }
+                    }
+
+                    if (!isset($prev_event)) {
+                        continue;
+                    }
+
+                    // Getting previous event value.
+                    $default_value = isset($data[$prev_event][$source_field]) ? $data[$prev_event][$source_field] : '';
+
+                    // Handling checkboxes case.
+                    if (is_array($default_value)) {
+                        $default_value = implode(',', array_keys(array_filter($default_value)));
                     }
                 }
                 else {
@@ -314,5 +328,25 @@ class ExternalModule extends AbstractExternalModule {
      */
     protected function setJsSetting($key, $value) {
         echo '<script>autoPopulateFields = {' . $key . ': ' . json_encode($value) . '};</script>';
+    }
+
+    /**
+     * Alternative version of Form::getValueInActionTags.
+     *
+     * Fixes problems with single quoted values.
+     *
+     * @see Form::getValueInActionTags()
+     */
+    public static function getValueInActionTag($subject, $action_tag) {
+        if ($value = Form::getValueInQuotesActionTag($subject, $action_tag)) {
+            return $value;
+        }
+
+        preg_match('/' . $action_tag .'\s*=\s*([^\s]+)/', $subject, $matches);
+        if (empty($matches[1])) {
+            return '';
+        }
+
+        return $matches[1];
     }
 }

@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+## [2.1] - 2017-11-22
+### Added
+- Handling checkboxes on DEFAULT-FROM-PREVIOUS-EVENT. (Tiago Bember Simeao)
+
+### Changed
+- Assure that DEFAULT-FROM-PREVIOUS-EVENT only looks back one event (Tiago Bember Simeao)
+- Fixing single quotes piping. (Tiago Bember Simeao)
+- Preventing 'leave with unsaved changes' alerts supression. (Tiago Bember Simeao)
+
+
 ## [2.0] - 2017-11-20
 ### Added
 - Added @DEFAULT_<N> action tag
