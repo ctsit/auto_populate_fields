@@ -5,7 +5,7 @@ This REDCap module provides rich control of default values for data entry fields
 - REDCap >= 8.0.0 (for versions < 8.0.0, [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules) is required).
 
 ## Installation
-- Clone this repo into to `<redcap-root>/modules/auto_populate_fields_v2.1`.
+- Clone this repo into to `<redcap-root>/modules/auto_populate_fields_v2.2`.
 - Go to **Control Center > Manage External Modules** and enable Auto Populate Fields.
 - For each project you want to use this module, go to the project home page, click on **Manage External Modules** link, and then enable Auto Populate Fields for that project.
 
