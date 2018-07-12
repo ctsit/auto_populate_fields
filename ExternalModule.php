@@ -102,6 +102,10 @@ class ExternalModule extends AbstractExternalModule {
                 continue;
             }
 
+            if ($prev_event_field = $this->getProjectSetting('chronological_previous_event_enabled')) {
+                $prev_event_field = db_real_escape_string($this->getProjectSetting('chronological_previous_event_field'));
+            }
+
             $default_value = '';
 
             // Looping over @DEFAULT_<N> and @DEFAULT-FROM-PREVIOUS-EVENT_<N>
@@ -118,14 +122,31 @@ class ExternalModule extends AbstractExternalModule {
                         continue;
                     }
 
-                    // Getting previous event ID.
-                    foreach ($events as $event) {
-                        if ($event == $_GET['event_id']) {
-                            break;
-                        }
+                    if ($prev_event_field) {
+                        // Getting previous chronological event ID.
+                        $sql = '
+                            SELECT event_id FROM redcap_data
+                            WHERE record = "' . db_real_escape_string($_GET['id'])  . '" AND
+                                  project_id = "' . db_real_escape_string($Proj->project_id) . '" AND
+                                  field_name = "' . $prev_event_field . '" AND
+                                  (instance IS NULL OR instance = 1)
+                            ORDER BY value DESC LIMIT 1';
 
-                        if (in_array($field_info['form_name'], $Proj->eventsForms[$event])) {
-                            $prev_event = $event;
+                        if (($q = $this->query($sql)) && db_num_rows($q) == 1) {
+                            $prev_event = db_fetch_assoc($q);
+                            $prev_event = $prev_event['event_id'];
+                        }
+                    }
+                    else {
+                        // Getting previous event ID.
+                        foreach ($events as $event) {
+                            if ($event == $_GET['event_id']) {
+                                break;
+                            }
+
+                            if (in_array($field_info['form_name'], $Proj->eventsForms[$event])) {
+                                $prev_event = $event;
+                            }
                         }
                     }
 

@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+## [2.3.0] - 2018-07-12
+### Added
+- Added option to detect previous event based on a date field (tbembersimeao)
+
 ## [2.2] - 2017-11-22
 ### Changed
 - Update descriptions for this module (Philip Chase)

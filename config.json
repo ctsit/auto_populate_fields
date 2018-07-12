@@ -51,5 +51,22 @@
             "email": "",
             "institution": "University of Florida"
         }
+    ],
+    "project-settings": [
+        {
+            "key": "chronological_previous_event_enabled",
+            "name": "Detect previous event based on a date field (useful when the events are not necessarily arranged in a chronological order)",
+            "type": "checkbox"
+        },
+        {
+            "key": "chronological_previous_event_field",
+            "name": "Date field",
+            "type": "field-list",
+            "select2": true,
+            "branchingLogic": {
+                "field": "chronological_previous_event_enabled",
+                "value": true
+            }
+        }
     ]
 }
