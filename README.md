@@ -35,7 +35,7 @@ Provides the possibility to define secondary, tertiary, etc default values. If `
 #### @DEFAULT-FROM-PREVIOUS-EVENT
 Sets a field's default value based on its own value in a previous event. To map the default value from another field, you may specify the source field name as a parameter to the action tag, e.g `@DEFAULT-FROM-PREVIOUS-EVENT="source_field"`. Analogously to `@DEFAULT_<N>`, `@DEFAULT-FROM-PREVIOUS-EVENT_<N>` is also provided.
 
-If your events are not necessarily arranged in a chronological order, you can setup a date field to be responsible for tracking the actual sequence of events. To do that, go to your project page, then access External Modules (at the left sidebar), and then click on Auto Populate Fields configure button:
+If your events are not necessarily arranged in a chronological order, you can enable an option to auto-detect the last chronological event. To do that, go to your project page, then access External Modules (at the left sidebar), and then click on Auto Populate Fields configuration button:
 
 ![Default from previous event configuration](img/default_from_previous_event_config.png)
 
