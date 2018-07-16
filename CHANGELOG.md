@@ -1,9 +1,12 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
-## [2.3.0] - 2018-07-13
+## [2.3.0] - 2018-07-16
 ### Added
-- Added option to chronologically detect previous event (tbembersimeao)
+- Added option to chronologically detect previous event bsed on the redcap\_log\_event table (tbembersimeao)
+- Fixing institution name. (Tiago Bember Simeao)
+- Adding link to GitHub documentation on module description. (Tiago Bember Simeao)
+
 
 ## [2.2] - 2017-11-22
 ### Changed
