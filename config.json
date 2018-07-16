@@ -1,45 +1,47 @@
 {
     "name": "Auto Populate Fields",
     "namespace": "AutoPopulateFields\\ExternalModule",
-    "description": "This module provides rich control of default values for data entry fields via a set of action tags. These action tags allow fields to be populated based on values from an ordered list of fields and static values. The fields can be read from the current event or the previous event in longitudinal projects.",
+    "description": "This module provides rich control of default values for data entry fields via a set of action tags. These action tags allow fields to be populated based on values from an ordered list of fields and static values. The fields can be read from the current event or the previous event in longitudinal projects. <strong><a href=\"https://github.com/ctsit/auto_populate_fields\">See full documentation here</a></strong>.",
     "permissions": [
-        "hook_every_page_top"
+        "redcap_every_page_top",
+        "redcap_module_system_enable",
+        "redcap_module_system_change_version"
     ],
     "authors": [
         {
             "name": "Philip Chase",
             "email": "pbc@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Taryn Stoffs",
             "email": "tls@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Surya Prasanna",
             "email": "suryayalla@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Prasad Lanka",
             "email": "planka@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Dileep Rajput",
             "email": "rajputd@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Stewart Wehmeyer",
             "email": "swehmeyer@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Tiago Bember",
             "email": "tbembersimeao@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Mike Conlon, Ph.D.",
@@ -50,6 +52,13 @@
             "name": "Carl J Pepine, M.D., MACC",
             "email": "",
             "institution": "University of Florida"
+        }
+    ],
+    "project-settings": [
+        {
+            "key": "chronological_previous_event",
+            "name": "Enable chronological previous event detection (useful when the events are not necessarily arranged in a chronological order)",
+            "type": "checkbox"
         }
     ]
 }
