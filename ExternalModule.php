@@ -22,7 +22,7 @@ class ExternalModule extends AbstractExternalModule {
     /**
      * @inheritdoc
      */
-    function hook_every_page_top($project_id) {
+    function redcap_every_page_top($project_id) {
         if (!$project_id) {
             return;
         }
@@ -39,6 +39,26 @@ class ExternalModule extends AbstractExternalModule {
                 $this->setDefaultWhenVisible();
             }
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function redcap_module_system_enable($version) {
+        $sql = 'SELECT 1 FROM INFORMATION_SCHEMA.STATISTICS WHERE `table_schema` = DATABASE() AND `table_name` = "redcap_log_event" AND `index_name` = "project_id"';
+
+        // Indexing redcap_log_event's project_id column for performance
+        // reasons.
+        if (($q = $this->query($sql)) && !db_num_rows($q)) {
+            $this->query('ALTER TABLE `redcap_log_event` ADD INDEX `project_id` (`project_id`)');
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function redcap_module_system_version_change($version, $old_version) {
+        $this->redcap_module_system_enable($version);
     }
 
     /**
@@ -85,11 +105,31 @@ class ExternalModule extends AbstractExternalModule {
             // Only consider @DEFAULT-FROM-PREVIOUS-EVENT action tag when the
             // record is already exists.
             array_unshift($action_tags_to_look, '@DEFAULT-FROM-PREVIOUS-EVENT');
+
+            if ($this->getProjectSetting('chronological_previous_event')) {
+                // Getting chronological sequence of events.
+                $events = array();
+
+                $sql = '
+                    SELECT MIN(log_event_id), event_id FROM redcap_log_event
+                    WHERE pk = "' . db_real_escape_string($_GET['id']) . '" AND
+                          project_id = "' . db_real_escape_string($Proj->project_id) . '"
+                    GROUP BY event_id
+                    ORDER BY log_event_id';
+
+                if (($q = $this->query($sql)) && db_num_rows($q)) {
+                    while ($result = db_fetch_assoc($q)) {
+                        $events[] = $result['event_id'];
+                    }
+                }
+            }
+            else {
+                $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
+                $events = array_keys($Proj->events[$arm]['events']);
+            }
         }
 
         $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
-        $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
-        $events = array_keys($Proj->events[$arm]['events']);
         $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
 
         foreach (array_keys($fields) as $field_name) {
@@ -118,18 +158,21 @@ class ExternalModule extends AbstractExternalModule {
                         continue;
                     }
 
+                    $prev_event = false;
+                    $source_form = $Proj->metadata[$source_field]['form_name'];
+
                     // Getting previous event ID.
                     foreach ($events as $event) {
                         if ($event == $_GET['event_id']) {
                             break;
                         }
 
-                        if (in_array($field_info['form_name'], $Proj->eventsForms[$event])) {
+                        if (in_array($source_form, $Proj->eventsForms[$event])) {
                             $prev_event = $event;
                         }
                     }
 
-                    if (!isset($prev_event)) {
+                    if (!$prev_event) {
                         continue;
                     }
 
