@@ -195,6 +195,47 @@ class ExternalModule extends AbstractExternalModule {
                     continue;
                 }
 
+                // Date data must follow Y-M-D regardless of how it is validated
+                // Piping support makes pulling the data stored in the source field difficult
+                $field_validation = $aux_metadata[$field_name]['element_validation_type'];
+                // if starts with 'date'
+                if (substr($field_validation, 0, 4) == 'date') {
+                    switch($field_validation){
+                        case 'date_mdy':
+                            $out_format = 'Y-m-d';
+                            $in_format = '!m-d-Y';
+                            break;
+                        case 'date_dmy':
+                            $out_format = 'Y-m-d';
+                            $in_format = '!d-m-Y';
+                            break;
+                        case 'datetime_mdy':
+                            $out_format = 'Y-m-d H:i';
+                            $in_format = 'm-d-Y H:i';
+                            break;
+                        case 'datetime_dmy':
+                            $out_format = 'Y-m-d H:i';
+                            $in_format = 'd-m-Y H:i';
+                            break;
+                        case 'datetime_seconds_mdy':
+                            $out_format = 'Y-m-d H:i:s';
+                            $in_format = 'm-d-Y H:i:s';
+                            break;
+                        case 'datetime_seconds_dmy':
+                            $out_format = 'Y-m-d H:i:s';
+                            $in_format = 'd-m-Y H:i:s';
+                            break;
+                        default:
+                            // break 2 or continue 2 do not continue after parent if
+                            $in_format = 'ymd';
+                            break;
+                    }
+                    if ($in_format !== 'ymd') {
+                        $date = \DateTime::createFromFormat($in_format, $default_value);
+                        $default_value = $date->format($out_format);
+                    }
+                }
+
                 // The first non empty default value wins!
                 $misc = $this->overrideActionTag('@DEFAULT', $default_value, $misc);
                 $aux_metadata[$field_name]['misc'] = $misc;
