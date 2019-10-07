@@ -3,7 +3,6 @@
  * @file
  * Provides ExternalModule class for Auto Populate Fields.
  */
-
 namespace AutoPopulateFields\ExternalModule;
 
 use ExternalModules\AbstractExternalModule;
@@ -49,6 +48,7 @@ class ExternalModule extends AbstractExternalModule {
 
         // Indexing redcap_log_event's project_id column for performance
         // reasons.
+        // TODO: check user priviliges, send message reminding of requirements and disable if not able to alter db
         if (($q = $this->query($sql)) && !db_num_rows($q)) {
             $this->query('ALTER TABLE `redcap_log_event` ADD INDEX `project_id` (`project_id`)');
         }
