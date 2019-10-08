@@ -177,7 +177,13 @@ class ExternalModule extends AbstractExternalModule {
                     }
 
                     // Getting previous event value.
-                    $default_value = isset($data[$prev_event][$source_field]) ? $data[$prev_event][$source_field] : '';
+                    if (isset($data[$prev_event][$source_field])) {
+                        $default_value = $data[$prev_event][$source_field];
+                    } elseif (isset($data['repeat_instances'][$prev_event][""])) {
+                        // Handling repeat events by using the most recent instance of the previous event to source values
+                        $most_recent_instance = array_slice($data['repeat_instances'][$prev_event][""], -1)[0];
+                        $default_value = $most_recent_instance[$source_field];
+                    }
 
                     // Handling checkboxes case.
                     if (is_array($default_value)) {
