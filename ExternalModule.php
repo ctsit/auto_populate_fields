@@ -30,7 +30,7 @@ class ExternalModule extends AbstractExternalModule {
         if (PAGE == 'Design/online_designer.php') {
             $this->includeJs('js/helper.js');
         }
-        elseif (PAGE == 'DataEntry/index.php' && !empty($_GET['id'])) {
+        elseif ( (PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
             }
