@@ -3,7 +3,6 @@
  * @file
  * Provides ExternalModule class for Auto Populate Fields.
  */
-
 namespace AutoPopulateFields\ExternalModule;
 
 use ExternalModules\AbstractExternalModule;
@@ -30,7 +29,7 @@ class ExternalModule extends AbstractExternalModule {
         if (PAGE == 'Design/online_designer.php') {
             $this->includeJs('js/helper.js');
         }
-        elseif (PAGE == 'DataEntry/index.php' && !empty($_GET['id'])) {
+        elseif ( (PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
             }
@@ -49,6 +48,7 @@ class ExternalModule extends AbstractExternalModule {
 
         // Indexing redcap_log_event's project_id column for performance
         // reasons.
+        // TODO: check user priviliges, send message reminding of requirements and disable if not able to alter db
         if (($q = $this->query($sql)) && !db_num_rows($q)) {
             $this->query('ALTER TABLE `redcap_log_event` ADD INDEX `project_id` (`project_id`)');
         }
@@ -177,7 +177,13 @@ class ExternalModule extends AbstractExternalModule {
                     }
 
                     // Getting previous event value.
-                    $default_value = isset($data[$prev_event][$source_field]) ? $data[$prev_event][$source_field] : '';
+                    if (isset($data[$prev_event][$source_field])) {
+                        $default_value = $data[$prev_event][$source_field];
+                    } elseif (isset($data['repeat_instances'][$prev_event][""])) {
+                        // Handling repeat events by using the most recent instance of the previous event to source values
+                        $most_recent_instance = array_slice($data['repeat_instances'][$prev_event][""], -1)[0];
+                        $default_value = $most_recent_instance[$source_field];
+                    }
 
                     // Handling checkboxes case.
                     if (is_array($default_value)) {
@@ -193,6 +199,47 @@ class ExternalModule extends AbstractExternalModule {
 
                 if (empty($default_value) && !is_numeric($default_value)) {
                     continue;
+                }
+
+                // Date data must follow Y-M-D regardless of how it is validated
+                // Piping support makes pulling the data stored in the source field difficult
+                $field_validation = $aux_metadata[$field_name]['element_validation_type'];
+                // if starts with 'date'
+                if (substr($field_validation, 0, 4) == 'date') {
+                    switch($field_validation){
+                        case 'date_mdy':
+                            $out_format = 'Y-m-d';
+                            $in_format = '!m-d-Y';
+                            break;
+                        case 'date_dmy':
+                            $out_format = 'Y-m-d';
+                            $in_format = '!d-m-Y';
+                            break;
+                        case 'datetime_mdy':
+                            $out_format = 'Y-m-d H:i';
+                            $in_format = 'm-d-Y H:i';
+                            break;
+                        case 'datetime_dmy':
+                            $out_format = 'Y-m-d H:i';
+                            $in_format = 'd-m-Y H:i';
+                            break;
+                        case 'datetime_seconds_mdy':
+                            $out_format = 'Y-m-d H:i:s';
+                            $in_format = 'm-d-Y H:i:s';
+                            break;
+                        case 'datetime_seconds_dmy':
+                            $out_format = 'Y-m-d H:i:s';
+                            $in_format = 'd-m-Y H:i:s';
+                            break;
+                        default:
+                            // break 2 or continue 2 do not continue after parent if
+                            $in_format = 'ymd';
+                            break;
+                    }
+                    if ($in_format !== 'ymd') {
+                        $date = \DateTime::createFromFormat($in_format, $default_value);
+                        $default_value = $date->format($out_format);
+                    }
                 }
 
                 // The first non empty default value wins!

@@ -9,6 +9,9 @@ This REDCap module provides rich control of default values for data entry fields
 - Go to **Control Center > Manage External Modules** and enable Auto Populate Fields.
 - For each project you want to use this module, go to the project home page, click on **Manage External Modules** link, and then enable Auto Populate Fields for that project.
 
+## Requirements
+This module **must** be _enabled_ by a user with alter-table privileges, it will fail to be enabled otherwise.
+
 ## Features included
 
 ### Default when visible

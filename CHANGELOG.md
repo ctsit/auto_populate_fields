@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+## [2.4.0] - 2019-10-20
+### Added
+- Auto populate date fields in the same format they were entered. (Kyle Chesney)
+- Document the need for alter-table privileges to enable the module. (Kyle Chesney)
+- Allow auto population on repeating events using the most recent field value. (Kyle Chesney)
+
+### Changed
+- Fix auto population from previous events on survey fields with branching logic. (Kyle Chesney)
+
+
 ## [2.3.0] - 2018-07-16
 ### Added
 - Added option to chronologically detect previous event bsed on the redcap\_log\_event table (tbembersimeao)
