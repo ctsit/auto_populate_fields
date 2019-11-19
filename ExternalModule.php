@@ -238,7 +238,9 @@ class ExternalModule extends AbstractExternalModule {
                     }
                     if ($in_format !== 'ymd') {
                         $date = \DateTime::createFromFormat($in_format, $default_value);
-                        $default_value = $date->format($out_format);
+                        // This ternary prevents crashing for mixed source and target formats (e.g. YMD -> DMY)
+                        // users will get validation errors
+                        $default_value = ($date) ? $date->format($out_format) : $default_value;
                     }
                 }
 
