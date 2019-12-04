@@ -44,7 +44,7 @@ If your events are not necessarily arranged in a chronological order, you can en
 
 ### Mixing @DEFAULT_\<N\> and @DEFAULT-FROM-PREVIOUS-EVENT_\<N\>
 
-When using `@DEFAULT_<N>` and `@DEFAULT-FROM-PREVIOUS-EVENT_<N>` together, using unique numbers on each action tag to ensure the desired precendence. E.g.
+When using `@DEFAULT_<N>` and `@DEFAULT-FROM-PREVIOUS-EVENT_<N>` together, using unique numbers on each action tag to ensure the desired precedence. E.g.
 
     @DEFAULT-FROM-PREVIOUS-EVENT_1='initial_dose'
     @DEFAULT-FROM-PREVIOUS-EVENT_2=intermediate_dose
@@ -57,3 +57,10 @@ Note that `@DEFAULT` is synonymous with `@DEFAULT_0`.  Similarly `@DEFAULT-FROM-
 
 Note that the square brackets, `[]` common to REDCap piping are neither required nor supported in `@DEFAULT-FROM-PREVIOUS-EVENT` and `@DEFAULT-FROM-PREVIOUS-EVENT_<N>`. They _are_ required in `@DEFAULT_<N>` just like `@DEFAULT`.
 
+## Considerations
+
+Please note that when using **Enable chronological previous event detection**, deleting data from a form might change the expected behavior of auto-population. 
+
+Though the data is erased, the null value written to the record is still a legitimate value that could be copied to next event filled in. This will only occur in new data entry if the last event in the sequence was deleted. Note that "sequence" here refers to chronological order.
+
+For example, if data is keyed into the _wrong_ event and deleted, the data will not auto-populate when the correct event is opened. That said, if you open the correct event _before_ deleting the data from the wrong event, the data keyed into the wrong event will auto-populate into the correct event. 
