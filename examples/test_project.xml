@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="auto_populate_fields test" AsOfDateTime="2019-12-04T17:04:53" CreationDateTime="2019-12-04T17:04:53" SourceSystem="REDCap" SourceSystemVersion="9.1.1">
+<Study OID="Project.AutopopulatefieldsTest">
+<GlobalVariables>
+	<StudyName>auto_populate_fields test</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "auto_populate_fields test".</StudyDescription>
+	<ProtocolName>auto_populate_fields test</ProtocolName>
+	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
+	<redcap:CustomRecordLabel></redcap:CustomRecordLabel>
+	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
+	<redcap:SchedulingEnabled>0</redcap:SchedulingEnabled>
+	<redcap:SurveysEnabled>0</redcap:SurveysEnabled>
+	<redcap:SurveyInvitationEmailField></redcap:SurveyInvitationEmailField>
+	<redcap:Purpose>2</redcap:Purpose>
+	<redcap:PurposeOther>7</redcap:PurposeOther>
+	<redcap:ProjectNotes></redcap:ProjectNotes>
+</GlobalVariables>
+<MetaDataVersion OID="Metadata.AutopopulatefieldsTest_2019-12-04_1704" Name="auto_populate_fields test" redcap:RecordIdField="study_id">
+	<Protocol>
+		<StudyEventRef StudyEventOID="Event.baseline_arm_1" OrderNumber="1" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.visit_1_arm_1" OrderNumber="2" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.visit_2_arm_1" OrderNumber="3" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.visit_3_arm_1" OrderNumber="4" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.visit_4_arm_1" OrderNumber="5" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.unschedule_visit_1_arm_1" OrderNumber="6" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.unschedule_visit_2_arm_1" OrderNumber="7" Mandatory="No"/>
+		<StudyEventRef StudyEventOID="Event.unschedule_visit_3_arm_1" OrderNumber="8" Mandatory="No"/>
+	</Protocol>
+	<StudyEventDef OID="Event.baseline_arm_1" Name="Baseline" Type="Common" Repeating="No" redcap:EventName="Baseline" redcap:CustomEventLabel="" redcap:UniqueEventName="baseline_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="1" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.demographics" OrderNumber="1" Mandatory="No" redcap:FormName="demographics"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.visit_1_arm_1" Name="Visit 1" Type="Common" Repeating="No" redcap:EventName="Visit 1" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_1_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="2" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
+		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.visit_2_arm_1" Name="Visit 2" Type="Common" Repeating="No" redcap:EventName="Visit 2" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_2_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="3" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
+		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.visit_3_arm_1" Name="Visit 3" Type="Common" Repeating="No" redcap:EventName="Visit 3" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_3_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="4" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
+		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.visit_4_arm_1" Name="Visit 4" Type="Common" Repeating="No" redcap:EventName="Visit 4" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_4_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="5" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
+		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.unschedule_visit_1_arm_1" Name="Unschedule visit 1" Type="Common" Repeating="No" redcap:EventName="Unschedule visit 1" redcap:CustomEventLabel="" redcap:UniqueEventName="unschedule_visit_1_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="6" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
+		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.unschedule_visit_2_arm_1" Name="Unschedule visit 2" Type="Common" Repeating="No" redcap:EventName="Unschedule visit 2" redcap:CustomEventLabel="" redcap:UniqueEventName="unschedule_visit_2_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="7" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
+		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+	</StudyEventDef>
+	<StudyEventDef OID="Event.unschedule_visit_3_arm_1" Name="Unschedule visit 3" Type="Common" Repeating="No" redcap:EventName="Unschedule visit 3" redcap:CustomEventLabel="" redcap:UniqueEventName="unschedule_visit_3_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="8" redcap:OffsetMin="0" redcap:OffsetMax="0">
+		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
+		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+	</StudyEventDef>
+	<FormDef OID="Form.demographics" Name="Demographics" Repeating="No" redcap:FormName="demographics">
+		<ItemGroupRef ItemGroupOID="demographics.study_id" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="demographics.date_enrolled" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="demographics.patient_document" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="demographics.first_name" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="demographics.last_name" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="demographics.demographics_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.test_categorical_data" Name="Test categorical data" Repeating="No" redcap:FormName="test_categorical_data">
+		<ItemGroupRef ItemGroupOID="test_categorical_data.dropdown_from_previous" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="test_categorical_data.test_categorical_data_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.test_dates" Name="Test dates" Repeating="No" redcap:FormName="test_dates">
+		<ItemGroupRef ItemGroupOID="test_dates.birthdate_mdy" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="test_dates.test_dates_complete" Mandatory="No"/>
+	</FormDef>
+	<ItemGroupDef OID="demographics.study_id" Name="Demographics" Repeating="No">
+		<ItemRef ItemOID="study_id" Mandatory="No" redcap:Variable="study_id"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="demographics.date_enrolled" Name="Consent Information" Repeating="No">
+		<ItemRef ItemOID="date_enrolled" Mandatory="No" redcap:Variable="date_enrolled"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="demographics.patient_document" Name="Demographics" Repeating="No">
+		<ItemRef ItemOID="patient_document" Mandatory="No" redcap:Variable="patient_document"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="demographics.first_name" Name="Contact Information" Repeating="No">
+		<ItemRef ItemOID="first_name" Mandatory="No" redcap:Variable="first_name"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="demographics.last_name" Name="Demographics" Repeating="No">
+		<ItemRef ItemOID="last_name" Mandatory="No" redcap:Variable="last_name"/>
+		<ItemRef ItemOID="address" Mandatory="No" redcap:Variable="address"/>
+		<ItemRef ItemOID="telephone_1" Mandatory="No" redcap:Variable="telephone_1"/>
+		<ItemRef ItemOID="email" Mandatory="No" redcap:Variable="email"/>
+		<ItemRef ItemOID="dob" Mandatory="No" redcap:Variable="dob"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="demographics.demographics_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="demographics_complete" Mandatory="No" redcap:Variable="demographics_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="test_categorical_data.dropdown_from_previous" Name="Test categorical data" Repeating="No">
+		<ItemRef ItemOID="dropdown_from_previous" Mandatory="No" redcap:Variable="dropdown_from_previous"/>
+		<ItemRef ItemOID="radio_from_previous" Mandatory="No" redcap:Variable="radio_from_previous"/>
+		<ItemRef ItemOID="checkbox_from_previous___0" Mandatory="No" redcap:Variable="checkbox_from_previous"/>
+		<ItemRef ItemOID="checkbox_from_previous___1" Mandatory="No" redcap:Variable="checkbox_from_previous"/>
+		<ItemRef ItemOID="checkbox_from_previous___2" Mandatory="No" redcap:Variable="checkbox_from_previous"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="test_categorical_data.test_categorical_data_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="test_categorical_data_complete" Mandatory="No" redcap:Variable="test_categorical_data_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="test_dates.birthdate_mdy" Name="Test dates" Repeating="No">
+		<ItemRef ItemOID="birthdate_mdy" Mandatory="No" redcap:Variable="birthdate_mdy"/>
+		<ItemRef ItemOID="birthday_dmy" Mandatory="No" redcap:Variable="birthday_dmy"/>
+		<ItemRef ItemOID="birthday_ymd" Mandatory="No" redcap:Variable="birthday_ymd"/>
+		<ItemRef ItemOID="birthday_ymd_hms" Mandatory="No" redcap:Variable="birthday_ymd_hms"/>
+		<ItemRef ItemOID="birthday_mdy_from_ymd" Mandatory="No" redcap:Variable="birthday_mdy_from_ymd"/>
+		<ItemRef ItemOID="birthday_mdy_from_ymd_static" Mandatory="No" redcap:Variable="birthday_mdy_from_ymd_static"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="test_dates.test_dates_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="test_dates_complete" Mandatory="No" redcap:Variable="test_dates_complete"/>
+	</ItemGroupDef>
+	<ItemDef OID="study_id" Name="study_id" DataType="text" Length="999" redcap:Variable="study_id" redcap:FieldType="text">
+		<Question><TranslatedText>Study ID</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="date_enrolled" Name="date_enrolled" DataType="partialDatetime" Length="999" redcap:Variable="date_enrolled" redcap:FieldType="text" redcap:TextValidationType="datetime_mdy" redcap:FieldNote="YYYY-MM-DD" redcap:SectionHeader="Consent Information">
+		<Question><TranslatedText>Date subject signed consent</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="patient_document" Name="patient_document" DataType="text" Length="999" redcap:Variable="patient_document" redcap:FieldType="file">
+		<Question><TranslatedText>Upload the patient&#039;s consent form</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="first_name" Name="first_name" DataType="text" Length="999" redcap:Variable="first_name" redcap:FieldType="text" redcap:SectionHeader="Contact Information" redcap:Identifier="y">
+		<Question><TranslatedText>First Name</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="last_name" Name="last_name" DataType="text" Length="999" redcap:Variable="last_name" redcap:FieldType="text" redcap:Identifier="y">
+		<Question><TranslatedText>Last Name</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="address" Name="address" DataType="text" Length="999" redcap:Variable="address" redcap:FieldType="textarea" redcap:Identifier="y">
+		<Question><TranslatedText>Street, City, State, ZIP</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="telephone_1" Name="telephone_1" DataType="text" Length="999" redcap:Variable="telephone_1" redcap:FieldType="text" redcap:TextValidationType="phone" redcap:FieldNote="Include Area Code" redcap:Identifier="y">
+		<Question><TranslatedText>Phone number</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="email" Name="email" DataType="text" Length="999" redcap:Variable="email" redcap:FieldType="text" redcap:TextValidationType="email" redcap:Identifier="y">
+		<Question><TranslatedText>E-mail</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="dob" Name="dob" DataType="date" Length="999" redcap:Variable="dob" redcap:FieldType="text" redcap:TextValidationType="date_ymd" redcap:Identifier="y">
+		<Question><TranslatedText>Date of birth</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="demographics_complete" Name="demographics_complete" DataType="text" Length="1" redcap:Variable="demographics_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="demographics_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="dropdown_from_previous" Name="dropdown_from_previous" DataType="text" Length="1" redcap:Variable="dropdown_from_previous" redcap:FieldType="select" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>dropdown from previous</TranslatedText></Question>
+		<CodeListRef CodeListOID="dropdown_from_previous.choices"/>
+	</ItemDef>
+	<ItemDef OID="radio_from_previous" Name="radio_from_previous" DataType="text" Length="1" redcap:Variable="radio_from_previous" redcap:FieldType="radio" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>radio from previous</TranslatedText></Question>
+		<CodeListRef CodeListOID="radio_from_previous.choices"/>
+	</ItemDef>
+	<ItemDef OID="checkbox_from_previous___0" Name="checkbox_from_previous___0" DataType="boolean" Length="1" redcap:Variable="checkbox_from_previous" redcap:FieldType="checkbox" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>checkbox from previous</TranslatedText></Question>
+		<CodeListRef CodeListOID="checkbox_from_previous___0.choices"/>
+	</ItemDef>
+	<ItemDef OID="checkbox_from_previous___1" Name="checkbox_from_previous___1" DataType="boolean" Length="1" redcap:Variable="checkbox_from_previous" redcap:FieldType="checkbox" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>checkbox from previous</TranslatedText></Question>
+		<CodeListRef CodeListOID="checkbox_from_previous___1.choices"/>
+	</ItemDef>
+	<ItemDef OID="checkbox_from_previous___2" Name="checkbox_from_previous___2" DataType="boolean" Length="1" redcap:Variable="checkbox_from_previous" redcap:FieldType="checkbox" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>checkbox from previous</TranslatedText></Question>
+		<CodeListRef CodeListOID="checkbox_from_previous___2.choices"/>
+	</ItemDef>
+	<ItemDef OID="test_categorical_data_complete" Name="test_categorical_data_complete" DataType="text" Length="1" redcap:Variable="test_categorical_data_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="test_categorical_data_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="birthdate_mdy" Name="birthdate_mdy" DataType="date" Length="999" redcap:Variable="birthdate_mdy" redcap:FieldType="text" redcap:TextValidationType="date_mdy" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>birthdate_mdy</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="birthday_dmy" Name="birthday_dmy" DataType="date" Length="999" redcap:Variable="birthday_dmy" redcap:FieldType="text" redcap:TextValidationType="date_dmy" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>birthday_dmy</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="birthday_ymd" Name="birthday_ymd" DataType="date" Length="999" redcap:Variable="birthday_ymd" redcap:FieldType="text" redcap:TextValidationType="date_ymd" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>birthday_ymd</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="birthday_ymd_hms" Name="birthday_ymd_hms" DataType="datetime" Length="999" redcap:Variable="birthday_ymd_hms" redcap:FieldType="text" redcap:TextValidationType="datetime_seconds_ymd" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>birthday_ymd_HMS</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="birthday_mdy_from_ymd" Name="birthday_mdy_from_ymd" DataType="date" Length="999" redcap:Variable="birthday_mdy_from_ymd" redcap:FieldType="text" redcap:TextValidationType="date_mdy" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT=birthday_ymd">
+		<Question><TranslatedText>birthday_mdy_from_ymd</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="birthday_mdy_from_ymd_static" Name="birthday_mdy_from_ymd_static" DataType="date" Length="999" redcap:Variable="birthday_mdy_from_ymd_static" redcap:FieldType="text" redcap:TextValidationType="date_mdy" redcap:FieldAnnotation="@DEFAULT_0=&#039;2019-06-29&#039;">
+		<Question><TranslatedText>birthday_mdy_from_ymd_static</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="test_dates_complete" Name="test_dates_complete" DataType="text" Length="1" redcap:Variable="test_dates_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="test_dates_complete.choices"/>
+	</ItemDef>
+	<CodeList OID="demographics_complete.choices" Name="demographics_complete" DataType="text" redcap:Variable="demographics_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="dropdown_from_previous.choices" Name="dropdown_from_previous" DataType="text" redcap:Variable="dropdown_from_previous">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>less than 5</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>5-10</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>6-15</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>over 15</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="radio_from_previous.choices" Name="radio_from_previous" DataType="text" redcap:Variable="radio_from_previous">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>less than 5</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>5-10</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>6-15</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="checkbox_from_previous___0.choices" Name="checkbox_from_previous___0" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5 | 1, 5-10 | 2, 6-15">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="checkbox_from_previous___1.choices" Name="checkbox_from_previous___1" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5 | 1, 5-10 | 2, 6-15">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="checkbox_from_previous___2.choices" Name="checkbox_from_previous___2" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5 | 1, 5-10 | 2, 6-15">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="test_categorical_data_complete.choices" Name="test_categorical_data_complete" DataType="text" redcap:Variable="test_categorical_data_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="test_dates_complete.choices" Name="test_dates_complete" DataType="text" redcap:Variable="test_dates_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+</MetaDataVersion>
+</Study>
+<ClinicalData StudyOID="Project.AutopopulatefieldsTest" MetaDataVersionOID="Metadata.AutopopulatefieldsTest_2019-12-04_1704">
+	<SubjectData SubjectKey="1" redcap:RecordIdField="study_id">
+		<StudyEventData StudyEventOID="Event.baseline_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="baseline_arm_1">
+			<FormData FormOID="Form.demographics" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="demographics.study_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="study_id" Value="1"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="demographics.date_enrolled" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="date_enrolled" Value="2019-12-04T16:51"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="demographics.first_name" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="first_name" Value="Alphons"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="demographics.last_name" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="last_name" Value="Aggarwal"/>
+					<ItemData ItemOID="email" Value="aa@example.org"/>
+					<ItemData ItemOID="dob" Value="1970-04-01"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="demographics.demographics_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="demographics_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+		</StudyEventData>
+		<StudyEventData StudyEventOID="Event.visit_1_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="visit_1_arm_1">
+			<FormData FormOID="Form.test_categorical_data" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="test_categorical_data.dropdown_from_previous" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="dropdown_from_previous" Value="0"/>
+					<ItemData ItemOID="radio_from_previous" Value="1"/>
+					<ItemData ItemOID="checkbox_from_previous___0" Value="0"/>
+					<ItemData ItemOID="checkbox_from_previous___1" Value="1"/>
+					<ItemData ItemOID="checkbox_from_previous___2" Value="1"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="test_categorical_data.test_categorical_data_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="test_categorical_data_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.test_dates" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="test_dates.birthdate_mdy" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="birthdate_mdy" Value="2019-12-04"/>
+					<ItemData ItemOID="birthday_dmy" Value="2019-12-04"/>
+					<ItemData ItemOID="birthday_ymd" Value="2019-12-04"/>
+					<ItemData ItemOID="birthday_ymd_hms" Value="2019-12-04T16:30:42"/>
+					<ItemData ItemOID="birthday_mdy_from_ymd" Value="2019-12-04"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="test_dates.test_dates_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="test_dates_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+		</StudyEventData>
+		<StudyEventData StudyEventOID="Event.visit_2_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="visit_2_arm_1">
+			<FormData FormOID="Form.test_categorical_data" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="test_categorical_data.dropdown_from_previous" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="dropdown_from_previous" Value="0"/>
+					<ItemData ItemOID="radio_from_previous" Value="1"/>
+					<ItemData ItemOID="checkbox_from_previous___0" Value="0"/>
+					<ItemData ItemOID="checkbox_from_previous___1" Value="1"/>
+					<ItemData ItemOID="checkbox_from_previous___2" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="test_categorical_data.test_categorical_data_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="test_categorical_data_complete" Value="0"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.test_dates" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="test_dates.birthdate_mdy" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="birthdate_mdy" Value="2019-12-04"/>
+					<ItemData ItemOID="birthday_dmy" Value="2019-12-04"/>
+					<ItemData ItemOID="birthday_ymd" Value="2019-12-04"/>
+					<ItemData ItemOID="birthday_ymd_hms" Value="2019-12-04T16:30:42"/>
+					<ItemData ItemOID="birthday_mdy_from_ymd" Value="2019-12-04"/>
+					<ItemData ItemOID="birthday_mdy_from_ymd_static" Value="2019-06-29"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="test_dates.test_dates_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="test_dates_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+		</StudyEventData>
+	</SubjectData>
+</ClinicalData>
+</ODM>
