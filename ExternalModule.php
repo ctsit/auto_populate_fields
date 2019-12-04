@@ -41,27 +41,6 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
-     * @inheritdoc
-     */
-    function redcap_module_system_enable($version) {
-        $sql = 'SELECT 1 FROM INFORMATION_SCHEMA.STATISTICS WHERE `table_schema` = DATABASE() AND `table_name` = "redcap_log_event" AND `index_name` = "project_id"';
-
-        // Indexing redcap_log_event's project_id column for performance
-        // reasons.
-        // TODO: check user priviliges, send message reminding of requirements and disable if not able to alter db
-        if (($q = $this->query($sql)) && !db_num_rows($q)) {
-            $this->query('ALTER TABLE `redcap_log_event` ADD INDEX `project_id` (`project_id`)');
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    function redcap_module_system_version_change($version, $old_version) {
-        $this->redcap_module_system_enable($version);
-    }
-
-    /**
      * Extends @DEFAULT action tag.
      *
      * Features included:
