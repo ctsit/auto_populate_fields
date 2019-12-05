@@ -32,30 +32,37 @@
 	<StudyEventDef OID="Event.visit_1_arm_1" Name="Visit 1" Type="Common" Repeating="No" redcap:EventName="Visit 1" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_1_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="2" redcap:OffsetMin="0" redcap:OffsetMax="0">
 		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
 		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+		<FormRef FormOID="Form.test_branching_logic" OrderNumber="3" Mandatory="No" redcap:FormName="test_branching_logic"/>
 	</StudyEventDef>
 	<StudyEventDef OID="Event.visit_2_arm_1" Name="Visit 2" Type="Common" Repeating="No" redcap:EventName="Visit 2" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_2_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="3" redcap:OffsetMin="0" redcap:OffsetMax="0">
 		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
 		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+		<FormRef FormOID="Form.test_branching_logic" OrderNumber="3" Mandatory="No" redcap:FormName="test_branching_logic"/>
 	</StudyEventDef>
 	<StudyEventDef OID="Event.visit_3_arm_1" Name="Visit 3" Type="Common" Repeating="No" redcap:EventName="Visit 3" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_3_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="4" redcap:OffsetMin="0" redcap:OffsetMax="0">
 		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
 		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+		<FormRef FormOID="Form.test_branching_logic" OrderNumber="3" Mandatory="No" redcap:FormName="test_branching_logic"/>
 	</StudyEventDef>
 	<StudyEventDef OID="Event.visit_4_arm_1" Name="Visit 4" Type="Common" Repeating="No" redcap:EventName="Visit 4" redcap:CustomEventLabel="" redcap:UniqueEventName="visit_4_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="5" redcap:OffsetMin="0" redcap:OffsetMax="0">
 		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
 		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+		<FormRef FormOID="Form.test_branching_logic" OrderNumber="3" Mandatory="No" redcap:FormName="test_branching_logic"/>
 	</StudyEventDef>
 	<StudyEventDef OID="Event.unschedule_visit_1_arm_1" Name="Unschedule visit 1" Type="Common" Repeating="No" redcap:EventName="Unschedule visit 1" redcap:CustomEventLabel="" redcap:UniqueEventName="unschedule_visit_1_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="6" redcap:OffsetMin="0" redcap:OffsetMax="0">
 		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
 		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+		<FormRef FormOID="Form.test_branching_logic" OrderNumber="3" Mandatory="No" redcap:FormName="test_branching_logic"/>
 	</StudyEventDef>
 	<StudyEventDef OID="Event.unschedule_visit_2_arm_1" Name="Unschedule visit 2" Type="Common" Repeating="No" redcap:EventName="Unschedule visit 2" redcap:CustomEventLabel="" redcap:UniqueEventName="unschedule_visit_2_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="7" redcap:OffsetMin="0" redcap:OffsetMax="0">
 		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
 		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+		<FormRef FormOID="Form.test_branching_logic" OrderNumber="3" Mandatory="No" redcap:FormName="test_branching_logic"/>
 	</StudyEventDef>
 	<StudyEventDef OID="Event.unschedule_visit_3_arm_1" Name="Unschedule visit 3" Type="Common" Repeating="No" redcap:EventName="Unschedule visit 3" redcap:CustomEventLabel="" redcap:UniqueEventName="unschedule_visit_3_arm_1" redcap:ArmNum="1" redcap:ArmName="Drug A" redcap:DayOffset="8" redcap:OffsetMin="0" redcap:OffsetMax="0">
 		<FormRef FormOID="Form.test_categorical_data" OrderNumber="1" Mandatory="No" redcap:FormName="test_categorical_data"/>
 		<FormRef FormOID="Form.test_dates" OrderNumber="2" Mandatory="No" redcap:FormName="test_dates"/>
+		<FormRef FormOID="Form.test_branching_logic" OrderNumber="3" Mandatory="No" redcap:FormName="test_branching_logic"/>
 	</StudyEventDef>
 	<FormDef OID="Form.demographics" Name="Demographics" Repeating="No" redcap:FormName="demographics">
 		<ItemGroupRef ItemGroupOID="demographics.study_id" Mandatory="No"/>
@@ -72,6 +79,10 @@
 	<FormDef OID="Form.test_dates" Name="Test dates" Repeating="No" redcap:FormName="test_dates">
 		<ItemGroupRef ItemGroupOID="test_dates.birthdate_mdy" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="test_dates.test_dates_complete" Mandatory="No"/>
+	</FormDef>
+	<FormDef OID="Form.test_branching_logic" Name="Test branching logic" Repeating="No" redcap:FormName="test_branching_logic">
+		<ItemGroupRef ItemGroupOID="test_branching_logic.choice_1" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="test_branching_logic.test_branching_logic_complete" Mandatory="No"/>
 	</FormDef>
 	<ItemGroupDef OID="demographics.study_id" Name="Demographics" Repeating="No">
 		<ItemRef ItemOID="study_id" Mandatory="No" redcap:Variable="study_id"/>
@@ -115,6 +126,13 @@
 	</ItemGroupDef>
 	<ItemGroupDef OID="test_dates.test_dates_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="test_dates_complete" Mandatory="No" redcap:Variable="test_dates_complete"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="test_branching_logic.choice_1" Name="Test branching logic" Repeating="No">
+		<ItemRef ItemOID="choice_1" Mandatory="No" redcap:Variable="choice_1"/>
+		<ItemRef ItemOID="choice_2" Mandatory="No" redcap:Variable="choice_2"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="test_branching_logic.test_branching_logic_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="test_branching_logic_complete" Mandatory="No" redcap:Variable="test_branching_logic_complete"/>
 	</ItemGroupDef>
 	<ItemDef OID="study_id" Name="study_id" DataType="text" Length="999" redcap:Variable="study_id" redcap:FieldType="text">
 		<Question><TranslatedText>Study ID</TranslatedText></Question>
@@ -193,6 +211,17 @@
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
 		<CodeListRef CodeListOID="test_dates_complete.choices"/>
 	</ItemDef>
+	<ItemDef OID="choice_1" Name="choice_1" DataType="text" Length="1" redcap:Variable="choice_1" redcap:FieldType="radio">
+		<Question><TranslatedText>Show choice 2?</TranslatedText></Question>
+		<CodeListRef CodeListOID="choice_1.choices"/>
+	</ItemDef>
+	<ItemDef OID="choice_2" Name="choice_2" DataType="text" Length="999" redcap:Variable="choice_2" redcap:FieldType="text" redcap:FieldNote="This field uses @DEFAULT-FROM-PREVIOUS-EVENT to autopopulate" redcap:BranchingLogic="[choice_1] = &#039;1&#039;" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
+		<Question><TranslatedText>Choice 2</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="test_branching_logic_complete" Name="test_branching_logic_complete" DataType="text" Length="1" redcap:Variable="test_branching_logic_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="test_branching_logic_complete.choices"/>
+	</ItemDef>
 	<CodeList OID="demographics_complete.choices" Name="demographics_complete" DataType="text" redcap:Variable="demographics_complete">
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
@@ -227,6 +256,16 @@
 		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
 	</CodeList>
 	<CodeList OID="test_dates_complete.choices" Name="test_dates_complete" DataType="text" redcap:Variable="test_dates_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="choice_1.choices" Name="choice_1" DataType="text" redcap:Variable="choice_1">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>No</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Yes</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>I don&#039;t know</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="test_branching_logic_complete.choices" Name="test_branching_logic_complete" DataType="text" redcap:Variable="test_branching_logic_complete">
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
@@ -281,6 +320,15 @@
 					<ItemData ItemOID="test_dates_complete" Value="0"/>
 				</ItemGroupData>
 			</FormData>
+			<FormData FormOID="Form.test_branching_logic" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="test_branching_logic.choice_1" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="choice_1" Value="1"/>
+					<ItemData ItemOID="choice_2" Value="visit 1 choice 2"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="test_branching_logic.test_branching_logic_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="test_branching_logic_complete" Value="1"/>
+				</ItemGroupData>
+			</FormData>
 		</StudyEventData>
 		<StudyEventData StudyEventOID="Event.visit_2_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="visit_2_arm_1">
 			<FormData FormOID="Form.test_categorical_data" FormRepeatKey="1">
@@ -306,6 +354,11 @@
 				</ItemGroupData>
 				<ItemGroupData ItemGroupOID="test_dates.test_dates_complete" ItemGroupRepeatKey="1">
 					<ItemData ItemOID="test_dates_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+			<FormData FormOID="Form.test_branching_logic" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="test_branching_logic.test_branching_logic_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="test_branching_logic_complete" Value="0"/>
 				</ItemGroupData>
 			</FormData>
 		</StudyEventData>
