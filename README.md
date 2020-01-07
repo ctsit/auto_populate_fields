@@ -64,3 +64,7 @@ Please note that when using **Enable chronological previous event detection**, d
 Though the data is erased, the null value written to the record is still a legitimate value that could be copied to next event filled in. This will only occur in new data entry if the last event in the sequence was deleted. Note that "sequence" here refers to chronological order.
 
 For example, if data is keyed into the _wrong_ event and deleted, the data will not auto-populate when the correct event is opened. That said, if you open the correct event _before_ deleting the data from the wrong event, the data keyed into the wrong event will auto-populate into the correct event. 
+
+## Example
+
+An example project that demonstrates some of the features of this module is available in the [examples](examples/) folder.
