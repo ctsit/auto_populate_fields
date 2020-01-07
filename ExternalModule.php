@@ -41,27 +41,6 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
-     * @inheritdoc
-     */
-    function redcap_module_system_enable($version) {
-        $sql = 'SELECT 1 FROM INFORMATION_SCHEMA.STATISTICS WHERE `table_schema` = DATABASE() AND `table_name` = "redcap_log_event" AND `index_name` = "project_id"';
-
-        // Indexing redcap_log_event's project_id column for performance
-        // reasons.
-        // TODO: check user priviliges, send message reminding of requirements and disable if not able to alter db
-        if (($q = $this->query($sql)) && !db_num_rows($q)) {
-            $this->query('ALTER TABLE `redcap_log_event` ADD INDEX `project_id` (`project_id`)');
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    function redcap_module_system_version_change($version, $old_version) {
-        $this->redcap_module_system_enable($version);
-    }
-
-    /**
      * Extends @DEFAULT action tag.
      *
      * Features included:
@@ -110,8 +89,10 @@ class ExternalModule extends AbstractExternalModule {
                 // Getting chronological sequence of events.
                 $events = array();
 
+                $log_event_table = method_exists('\REDCap', 'getLogEventTable') ? \REDCap::getLogEventTable($project_id) : "redcap_log_event";
+
                 $sql = '
-                    SELECT MIN(log_event_id), event_id FROM redcap_log_event
+                    SELECT MIN(log_event_id), event_id FROM ' . $log_event_table . '
                     WHERE pk = "' . db_real_escape_string($_GET['id']) . '" AND
                           project_id = "' . db_real_escape_string($Proj->project_id) . '"
                     GROUP BY event_id
@@ -238,7 +219,9 @@ class ExternalModule extends AbstractExternalModule {
                     }
                     if ($in_format !== 'ymd') {
                         $date = \DateTime::createFromFormat($in_format, $default_value);
-                        $default_value = $date->format($out_format);
+                        // This ternary prevents crashing for mixed source and target formats (e.g. YMD -> DMY)
+                        // users will get validation errors
+                        $default_value = ($date) ? $date->format($out_format) : $default_value;
                     }
                 }
 
