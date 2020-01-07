@@ -1,6 +1,23 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+
+## [2.5.0] - 2020-01-07
+### Added
+- Add Zenodo doi to README.md (Kyle Chesney)
+- Update queries of redcap_log_event tables to support REDCap >= 9.6.0 (Kyle Chesney)
+- Add text_project.xml (Philip Chase)
+- Add discussion of temporal order and null auto-population in README (Kyle Chesney)
+- Create authors.md (Philip Chase)
+
+### Changed
+- Fix crashing on mismatched Date formats (Kyle Chesney)
+- Update authors in config.json (Philip Chase)
+
+### Removed
+- Remove setting project_id as an index in redcap_log_event table project_id is already a composite index (Kyle Chesney)
+
+
 ## [2.4.0] - 2019-10-20
 ### Added
 - Auto populate date fields in the same format they were entered. (Kyle Chesney)
