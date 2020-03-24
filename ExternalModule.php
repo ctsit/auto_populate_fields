@@ -26,6 +26,7 @@ class ExternalModule extends AbstractExternalModule {
             return;
         }
 
+        $this->initializeJsObject();
         if (PAGE == 'Design/online_designer.php') {
             $this->includeJs('js/helper.js');
         }
@@ -259,6 +260,9 @@ class ExternalModule extends AbstractExternalModule {
             list($equations[$field], ) = LogicTester::formatLogicToJS($equation, false, $_GET['event_id'], true);
         }
 
+        // More current versions of REDCap do not have all js libraries loaded in time
+        $this->setJsSetting('versionMod', version_compare(REDCAP_VERSION, '9.4.1', '>='));
+
         $this->setJsSetting('defaultWhenVisible', array('branchingEquations' => $equations));
         $this->includeJs('js/default_when_visible.js');
     }
@@ -400,7 +404,12 @@ class ExternalModule extends AbstractExternalModule {
      *   The setting value.
      */
     protected function setJsSetting($key, $value) {
-        echo '<script>autoPopulateFields = {' . $key . ': ' . json_encode($value) . '};</script>';
+        // initializeJsObject MUST be run once before this function
+        echo '<script>autoPopulateFields.' . $key . ' = ' . json_encode($value) . ';</script>';
+    }
+
+    protected function initializeJsObject() {
+        echo '<script>autoPopulateFields = {};</script>';
     }
 
     /**
