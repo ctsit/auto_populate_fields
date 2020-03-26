@@ -1,6 +1,6 @@
 # REDCap Auto-Populate Fields
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3561117.svg)](https://doi.org/10.5281/zenodo.3561117)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3561116.svg)](https://doi.org/10.5281/zenodo.3561116)
 
 This REDCap module provides rich control of default values for data entry fields via a set of action tags. These action tags allow fields to be populated based on values from an ordered list of fields and static values. The fields can be read from the current event or the previous event in longitudinal projects.
 
