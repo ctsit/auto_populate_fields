@@ -1,7 +1,4 @@
 autoPopulateFields.defaultWhenVisible.init = function() {
-    // Setting branching logic to do not show messages.
-    showEraseValuePrompt = 0;
-
     // Extracting evalLogic function body.
     var evalLogicBody = evalLogic.toString();
     var evalLogicBody = evalLogicBody.slice(evalLogicBody.indexOf('{') + 1, evalLogicBody.lastIndexOf('}'));
@@ -31,13 +28,23 @@ autoPopulateFields.defaultWhenVisible.init = function() {
     }
 };
 
-autoPopulateFields.defaultWhenVisible.init();
+// Setting branching logic to not show messages.
+showEraseValuePrompt = 0;
+
+// In REDCap >= 9.4.1 evalLogic is not always in scope immediately
+if (!autoPopulateFields.versionMod) {
+    autoPopulateFields.defaultWhenVisible.init();
+}
 
 /**
  * This block of code prevents "leave with unsaved changes" alerts from being
  * supressed due to showEraseValuePrompt = 0.
  */
 $(document).ready(function() {
+    if (autoPopulateFields.versionMod) {
+        autoPopulateFields.defaultWhenVisible.init(); // override evalLogic when it is in scope
+        doBranching(); // recalculate branching logic with the modified evalLogic
+    }
     var oldOnBeforeUnload = window.onbeforeunload;
 
     window.onbeforeunload = function() {

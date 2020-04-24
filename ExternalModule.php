@@ -26,6 +26,7 @@ class ExternalModule extends AbstractExternalModule {
             return;
         }
 
+        $this->initializeJsObject();
         if (PAGE == 'Design/online_designer.php') {
             $this->includeJs('js/helper.js');
         }
@@ -34,7 +35,7 @@ class ExternalModule extends AbstractExternalModule {
                 $this->setDefaultValues();
             }
 
-            if (isset($_GET['page']) && function_exists('getBranchingFields')) {
+            if (isset($_GET['page']) && (function_exists('getBranchingFields') || method_exists('\DataEntry', 'getBranchingFields')) ) {
                 $this->setDefaultWhenVisible();
             }
         }
@@ -89,7 +90,7 @@ class ExternalModule extends AbstractExternalModule {
                 // Getting chronological sequence of events.
                 $events = array();
 
-                $log_event_table = method_exists('\REDCap', 'getLogEventTable') ? \REDCap::getLogEventTable($project_id) : "redcap_log_event";
+                $log_event_table = method_exists('\REDCap', 'getLogEventTable') ? \REDCap::getLogEventTable($Proj->project_id) : "redcap_log_event";
 
                 $sql = '
                     SELECT MIN(log_event_id), event_id FROM ' . $log_event_table . '
@@ -253,11 +254,16 @@ class ExternalModule extends AbstractExternalModule {
      */
     function setDefaultWhenVisible() {
         $equations = array();
-        list($branching_fields, ) = getBranchingFields($_GET['page']);
+        list($branching_fields, ) = (function_exists('getBranchingFields')) ?
+            getBranchingFields($_GET['page']) :
+            \DataEntry::getBranchingFields($_GET['page']);
 
         foreach ($branching_fields as $field => $equation) {
             list($equations[$field], ) = LogicTester::formatLogicToJS($equation, false, $_GET['event_id'], true);
         }
+
+        // More current versions of REDCap do not have all js libraries loaded in time
+        $this->setJsSetting('versionMod', version_compare(REDCAP_VERSION, '9.4.1', '>='));
 
         $this->setJsSetting('defaultWhenVisible', array('branchingEquations' => $equations));
         $this->includeJs('js/default_when_visible.js');
@@ -400,7 +406,12 @@ class ExternalModule extends AbstractExternalModule {
      *   The setting value.
      */
     protected function setJsSetting($key, $value) {
-        echo '<script>autoPopulateFields = {' . $key . ': ' . json_encode($value) . '};</script>';
+        // initializeJsObject MUST be run once before this function
+        echo '<script>autoPopulateFields.' . $key . ' = ' . json_encode($value) . ';</script>';
+    }
+
+    protected function initializeJsObject() {
+        echo '<script>autoPopulateFields = {};</script>';
     }
 
     /**
