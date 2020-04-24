@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+## [2.5.1] - 2020-04-24
+### Changed
+- Address issues found in REDCap 9.4.1 - 9.8.4 (Kyle Chesney)
+- Rename license file to match Vandy's spec (Philip Chase)
+
 
 ## [2.5.0] - 2020-01-07
 ### Added
