@@ -8,6 +8,7 @@ namespace AutoPopulateFields\ExternalModule;
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 use Form;
+use DataEntry;
 use LogicTester;
 use Piping;
 use Records;
@@ -35,7 +36,7 @@ class ExternalModule extends AbstractExternalModule {
                 $this->setDefaultValues();
             }
 
-            if (isset($_GET['page']) && function_exists('getBranchingFields')) {
+            if (isset($_GET['page']) && (function_exists('getBranchingFields') || method_exists('DataEntry', 'getBranchingFields')) ) {
                 $this->setDefaultWhenVisible();
             }
         }
@@ -254,7 +255,9 @@ class ExternalModule extends AbstractExternalModule {
      */
     function setDefaultWhenVisible() {
         $equations = array();
-        list($branching_fields, ) = getBranchingFields($_GET['page']);
+        list($branching_fields, ) = (function_exists('getBranchingFields')) ?
+            getBranchingFields($_GET['page']) :
+            DataEntry::getBranchingFields($_GET['page']);
 
         foreach ($branching_fields as $field => $equation) {
             list($equations[$field], ) = LogicTester::formatLogicToJS($equation, false, $_GET['event_id'], true);
