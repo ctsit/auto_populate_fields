@@ -90,7 +90,7 @@ class ExternalModule extends AbstractExternalModule {
                 // Getting chronological sequence of events.
                 $events = array();
 
-                $log_event_table = method_exists('\REDCap', 'getLogEventTable') ? \REDCap::getLogEventTable($project_id) : "redcap_log_event";
+                $log_event_table = method_exists('\REDCap', 'getLogEventTable') ? \REDCap::getLogEventTable($Proj->project_id) : "redcap_log_event";
 
                 $sql = '
                     SELECT MIN(log_event_id), event_id FROM ' . $log_event_table . '
