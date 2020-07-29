@@ -33,9 +33,6 @@ autoPopulateFields.defaultWhenVisible.init = function() {
                 }
             }
             catch ( e ) {
-                console.log( 'eval equation is "' + equation + '"');
-                console.log( 'fieldname is "' + fieldName + '"');
-                console.log( 'evalLogicBody is "' + JSON.stringify( evalLogicBody ) + '"');
                 evalLogicSubmit( fieldName, false, false );
             }
         });
