@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+## [2.5.2] - 2020-08-21
+### Changed
+- Added a element check to prevent attempting to hide nonexistent elements (James Pence)
+- add minimum REDCap version requirement of 8.0.3 (Kyle Chesney)
+
 ## [2.5.1] - 2020-04-24
 ### Changed
 - Address issues found in REDCap 9.4.1 - 9.8.4 (Kyle Chesney)
