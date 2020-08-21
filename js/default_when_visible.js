@@ -1,11 +1,19 @@
 autoPopulateFields.defaultWhenVisible.init = function() {
+    
     // Extracting evalLogic function body.
-    var evalLogicBody = evalLogic.toString();
-    var evalLogicBody = evalLogicBody.slice(evalLogicBody.indexOf('{') + 1, evalLogicBody.lastIndexOf('}'));
-
+    var evalLogicBodyString = evalLogic.toString();
+    
+    // To prevent style setting on nonexistent elements adding in a check for existence before trying to hide an element.
+    evalLogicBodyString =  evalLogicBodyString.replace(
+        /document\.getElementById\(this_field\+\'\-tr\'\)\.style\.display=\'none\';/g,
+        'if ( document.getElementById(this_field + \'-tr\') != null ){ document.getElementById(this_field + \'-tr\').style.display = \'none\'; }'
+    );
+    
+    evalLogicBody = evalLogicBodyString.slice(evalLogicBodyString.indexOf('{') + 1, evalLogicBodyString.lastIndexOf('}'));
+    
     // Changing evalLogic() function behavior: hide fields even when the message is not shown.
     var target = 'var eraseIt = false;';
-    var replacement = 'var eraseIt = false; document.getElementById(this_field + \'-tr\').style.display = \'none\';';
+    var replacement = 'var eraseIt = false; if( document.getElementById(this_field + \'-tr\') != null ){ document.getElementById(this_field + \'-tr\').style.display = \'none\'; }';
 
     // Overriding original function.
     evalLogic = new Function('this_field', 'byPassEraseFieldPrompt', 'logic', evalLogicBody.replace(target, replacement));
@@ -19,8 +27,13 @@ autoPopulateFields.defaultWhenVisible.init = function() {
     formSubmitDataEntry = function() {
         $.each(autoPopulateFields.defaultWhenVisible.branchingEquations, function(fieldName, equation) {
             // If equation result is false, erase field value.
-            if (!eval(equation)) {
-                evalLogicSubmit(fieldName, false, false);
+            try {
+                if ( !eval( equation ) ) {
+                    evalLogicSubmit( fieldName, false, false );
+                }
+            }
+            catch ( e ) {
+                evalLogicSubmit( fieldName, false, false );
             }
         });
 
