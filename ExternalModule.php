@@ -31,7 +31,7 @@ class ExternalModule extends AbstractExternalModule {
         if (PAGE == 'Design/online_designer.php') {
             $this->includeJs('js/helper.js');
         }
-        elseif ( (PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
+        elseif ( (PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id']) ) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
             }
@@ -43,11 +43,12 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     function redcap_survey_page_top($project_id) {
+        if ( !$this->getProjectSetting('use_in_survey') ) return;
         global $elements;
         // set the action_tag_class as it would be in the DataEntry context
         foreach( $elements as &$element) {
             $i = array_search($element['name'], $this->survey_APF_fields);
-            if ( $i !== FALSE ) {
+            if ( $i !== false ) {
                 $element['action_tag_class'] = '@DEFAULT';
                 unset($this->survey_APF_fields[$i]);
                 if ( empty($this->survey_APF_fields) ) break;

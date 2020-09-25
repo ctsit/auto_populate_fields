@@ -30,6 +30,11 @@
     ],
     "project-settings": [
         {
+            "key": "use_in_survey",
+            "name": "Enable Auto Populate Fields on survey pages",
+            "type": "checkbox"
+        },
+        {
             "key": "chronological_previous_event",
             "name": "Enable chronological previous event detection (useful when the events are not necessarily arranged in a chronological order)",
             "type": "checkbox"
