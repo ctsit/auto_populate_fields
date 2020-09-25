@@ -17,6 +17,7 @@ use REDCap;
  * ExternalModule class for Auto Populate Fields.
  */
 class ExternalModule extends AbstractExternalModule {
+    private $survey_APF_fields = [];
 
     /**
      * @inheritdoc
@@ -37,6 +38,16 @@ class ExternalModule extends AbstractExternalModule {
 
             if (isset($_GET['page']) && (function_exists('getBranchingFields') || method_exists('\DataEntry', 'getBranchingFields')) ) {
                 $this->setDefaultWhenVisible();
+            }
+        }
+    }
+
+    function redcap_survey_page_top($project_id) {
+        global $elements;
+        // set the action_tag_class as it would be in the DataEntry context
+        foreach( $elements as &$element) {
+            if ( in_array($element['name'], $this->survey_APF_fields) ) {
+                $element['action_tag_class'] = '@DEFAULT';
             }
         }
     }
@@ -229,6 +240,7 @@ class ExternalModule extends AbstractExternalModule {
                 // The first non empty default value wins!
                 $misc = $this->overrideActionTag('@DEFAULT', $default_value, $misc);
                 $aux_metadata[$field_name]['misc'] = $misc;
+                array_push($this->survey_APF_fields, $field_name);
 
                 break;
             }
