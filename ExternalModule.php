@@ -46,8 +46,11 @@ class ExternalModule extends AbstractExternalModule {
         global $elements;
         // set the action_tag_class as it would be in the DataEntry context
         foreach( $elements as &$element) {
-            if ( in_array($element['name'], $this->survey_APF_fields) ) {
+            $i = array_search($element['name'], $this->survey_APF_fields);
+            if ( $i !== FALSE ) {
                 $element['action_tag_class'] = '@DEFAULT';
+                unset($this->survey_APF_fields[$i]);
+                if ( empty($this->survey_APF_fields) ) break;
             }
         }
     }
