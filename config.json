@@ -7,6 +7,7 @@
     },
     "permissions": [
         "redcap_every_page_top",
+        "redcap_survey_page_top",
         "redcap_module_system_enable",
         "redcap_module_system_change_version"
     ],
@@ -28,6 +29,11 @@
         }
     ],
     "project-settings": [
+        {
+            "key": "use_in_survey",
+            "name": "Enable Auto Populate Fields on survey pages",
+            "type": "checkbox"
+        },
         {
             "key": "chronological_previous_event",
             "name": "Enable chronological previous event detection (useful when the events are not necessarily arranged in a chronological order)",

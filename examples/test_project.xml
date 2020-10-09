@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="auto_populate_fields test" AsOfDateTime="2019-12-04T17:04:53" CreationDateTime="2019-12-04T17:04:53" SourceSystem="REDCap" SourceSystemVersion="9.1.1">
-<Study OID="Project.AutopopulatefieldsTest">
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="APF - multisurvey" AsOfDateTime="2020-09-25T16:27:06" CreationDateTime="2020-09-25T16:27:06" SourceSystem="REDCap" SourceSystemVersion="10.3.3">
+<Study OID="Project.APFMultisurvey">
 <GlobalVariables>
-	<StudyName>auto_populate_fields test</StudyName>
-	<StudyDescription>This file contains the metadata, events, and data for REDCap project "auto_populate_fields test".</StudyDescription>
-	<ProtocolName>auto_populate_fields test</ProtocolName>
+	<StudyName>APF - multisurvey</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "APF - multisurvey".</StudyDescription>
+	<ProtocolName>APF - multisurvey</ProtocolName>
 	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
 	<redcap:CustomRecordLabel></redcap:CustomRecordLabel>
 	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
 	<redcap:SchedulingEnabled>0</redcap:SchedulingEnabled>
-	<redcap:SurveysEnabled>0</redcap:SurveysEnabled>
+	<redcap:SurveysEnabled>1</redcap:SurveysEnabled>
 	<redcap:SurveyInvitationEmailField></redcap:SurveyInvitationEmailField>
-	<redcap:Purpose>2</redcap:Purpose>
-	<redcap:PurposeOther>7</redcap:PurposeOther>
+	<redcap:Purpose>0</redcap:Purpose>
+	<redcap:PurposeOther></redcap:PurposeOther>
 	<redcap:ProjectNotes></redcap:ProjectNotes>
+	<redcap:MissingDataCodes></redcap:MissingDataCodes>
+	<redcap:SurveysGroup>
+		<redcap:Surveys form_name="demographics" title="Demographics" instructions="&lt;p&gt;&lt;strong&gt;Please complete the survey below.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Thank you!&lt;/p&gt;" acknowledgement="&lt;p&gt;&lt;strong&gt;Thank you for taking the survey.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Have a nice day!&lt;/p&gt;" question_by_section="0" display_page_number="0" question_auto_numbering="1" survey_enabled="1" save_and_return="0" save_and_return_code_bypass="0" logo="" hide_title="0" view_results="0" min_responses_view_results="10" check_diversity_view_results="0" end_survey_redirect_url="" survey_expiration="" promis_skip_question="0" survey_auth_enabled_single="0" edit_completed_response="0" hide_back_button="0" show_required_field_text="1" confirmation_email_subject="" confirmation_email_content="" confirmation_email_from="" confirmation_email_from_display="" confirmation_email_attach_pdf="0" confirmation_email_attachment="" text_to_speech="0" text_to_speech_language="en" end_survey_redirect_next_survey="0" theme="" text_size="1" font_family="16" theme_text_buttons="" theme_bg_page="" theme_text_title="" theme_bg_title="" theme_text_sectionheader="" theme_bg_sectionheader="" theme_text_question="" theme_bg_question="" enhanced_choices="0" repeat_survey_enabled="0" repeat_survey_btn_text="" repeat_survey_btn_location="AFTER_SUBMIT" response_limit="" response_limit_include_partials="1" response_limit_custom_text="&lt;p&gt;Thank you for your interest; however, the survey is closed because the maximum number of responses has been reached.&lt;/p&gt;" survey_time_limit_days="" survey_time_limit_hours="" survey_time_limit_minutes="" email_participant_field="" end_of_survey_pdf_download="0" pdf_auto_archive="0" pdf_econsent_version="" pdf_econsent_type="" pdf_econsent_firstname_field="" pdf_econsent_firstname_event_id="" pdf_econsent_lastname_field="" pdf_econsent_lastname_event_id="" pdf_econsent_dob_field="" pdf_econsent_dob_event_id="" pdf_econsent_allow_edit="0" pdf_econsent_signature_field1="" pdf_econsent_signature_field2="" pdf_econsent_signature_field3="" pdf_econsent_signature_field4="" pdf_econsent_signature_field5=""/>
+		<redcap:Surveys form_name="test_categorical_data" title="Test categorical data" instructions="&lt;p&gt;&lt;strong&gt;Please complete the survey below.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Thank you!&lt;/p&gt;" acknowledgement="&lt;p&gt;&lt;strong&gt;Thank you for taking the survey.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Have a nice day!&lt;/p&gt;" question_by_section="0" display_page_number="0" question_auto_numbering="1" survey_enabled="1" save_and_return="0" save_and_return_code_bypass="0" logo="" hide_title="0" view_results="0" min_responses_view_results="10" check_diversity_view_results="0" end_survey_redirect_url="" survey_expiration="" promis_skip_question="0" survey_auth_enabled_single="0" edit_completed_response="0" hide_back_button="0" show_required_field_text="1" confirmation_email_subject="" confirmation_email_content="" confirmation_email_from="" confirmation_email_from_display="" confirmation_email_attach_pdf="0" confirmation_email_attachment="" text_to_speech="0" text_to_speech_language="en" end_survey_redirect_next_survey="0" theme="" text_size="1" font_family="16" theme_text_buttons="" theme_bg_page="" theme_text_title="" theme_bg_title="" theme_text_sectionheader="" theme_bg_sectionheader="" theme_text_question="" theme_bg_question="" enhanced_choices="0" repeat_survey_enabled="0" repeat_survey_btn_text="" repeat_survey_btn_location="AFTER_SUBMIT" response_limit="" response_limit_include_partials="1" response_limit_custom_text="&lt;p&gt;Thank you for your interest; however, the survey is closed because the maximum number of responses has been reached.&lt;/p&gt;" survey_time_limit_days="" survey_time_limit_hours="" survey_time_limit_minutes="" email_participant_field="" end_of_survey_pdf_download="0" pdf_auto_archive="0" pdf_econsent_version="" pdf_econsent_type="" pdf_econsent_firstname_field="" pdf_econsent_firstname_event_id="" pdf_econsent_lastname_field="" pdf_econsent_lastname_event_id="" pdf_econsent_dob_field="" pdf_econsent_dob_event_id="" pdf_econsent_allow_edit="0" pdf_econsent_signature_field1="" pdf_econsent_signature_field2="" pdf_econsent_signature_field3="" pdf_econsent_signature_field4="" pdf_econsent_signature_field5=""/>
+		<redcap:Surveys form_name="test_dates" title="Test dates" instructions="&lt;p&gt;&lt;strong&gt;Please complete the survey below.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Thank you!&lt;/p&gt;" acknowledgement="&lt;p&gt;&lt;strong&gt;Thank you for taking the survey.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Have a nice day!&lt;/p&gt;" question_by_section="0" display_page_number="0" question_auto_numbering="1" survey_enabled="1" save_and_return="0" save_and_return_code_bypass="0" logo="" hide_title="0" view_results="0" min_responses_view_results="10" check_diversity_view_results="0" end_survey_redirect_url="" survey_expiration="" promis_skip_question="0" survey_auth_enabled_single="0" edit_completed_response="0" hide_back_button="0" show_required_field_text="1" confirmation_email_subject="" confirmation_email_content="" confirmation_email_from="" confirmation_email_from_display="" confirmation_email_attach_pdf="0" confirmation_email_attachment="" text_to_speech="0" text_to_speech_language="en" end_survey_redirect_next_survey="0" theme="" text_size="1" font_family="16" theme_text_buttons="" theme_bg_page="" theme_text_title="" theme_bg_title="" theme_text_sectionheader="" theme_bg_sectionheader="" theme_text_question="" theme_bg_question="" enhanced_choices="0" repeat_survey_enabled="0" repeat_survey_btn_text="" repeat_survey_btn_location="AFTER_SUBMIT" response_limit="" response_limit_include_partials="1" response_limit_custom_text="&lt;p&gt;Thank you for your interest; however, the survey is closed because the maximum number of responses has been reached.&lt;/p&gt;" survey_time_limit_days="" survey_time_limit_hours="" survey_time_limit_minutes="" email_participant_field="" end_of_survey_pdf_download="0" pdf_auto_archive="0" pdf_econsent_version="" pdf_econsent_type="" pdf_econsent_firstname_field="" pdf_econsent_firstname_event_id="" pdf_econsent_lastname_field="" pdf_econsent_lastname_event_id="" pdf_econsent_dob_field="" pdf_econsent_dob_event_id="" pdf_econsent_allow_edit="0" pdf_econsent_signature_field1="" pdf_econsent_signature_field2="" pdf_econsent_signature_field3="" pdf_econsent_signature_field4="" pdf_econsent_signature_field5=""/>
+		<redcap:Surveys form_name="test_branching_logic" title="Test branching logic" instructions="&lt;p&gt;&lt;strong&gt;Please complete the survey below.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Thank you!&lt;/p&gt;" acknowledgement="&lt;p&gt;&lt;strong&gt;Thank you for taking the survey.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Have a nice day!&lt;/p&gt;" question_by_section="0" display_page_number="0" question_auto_numbering="0" survey_enabled="1" save_and_return="0" save_and_return_code_bypass="0" logo="" hide_title="0" view_results="0" min_responses_view_results="10" check_diversity_view_results="0" end_survey_redirect_url="" survey_expiration="" promis_skip_question="0" survey_auth_enabled_single="0" edit_completed_response="0" hide_back_button="0" show_required_field_text="1" confirmation_email_subject="" confirmation_email_content="" confirmation_email_from="" confirmation_email_from_display="" confirmation_email_attach_pdf="0" confirmation_email_attachment="" text_to_speech="0" text_to_speech_language="en" end_survey_redirect_next_survey="0" theme="" text_size="1" font_family="16" theme_text_buttons="" theme_bg_page="" theme_text_title="" theme_bg_title="" theme_text_sectionheader="" theme_bg_sectionheader="" theme_text_question="" theme_bg_question="" enhanced_choices="0" repeat_survey_enabled="0" repeat_survey_btn_text="" repeat_survey_btn_location="AFTER_SUBMIT" response_limit="" response_limit_include_partials="1" response_limit_custom_text="&lt;p&gt;Thank you for your interest; however, the survey is closed because the maximum number of responses has been reached.&lt;/p&gt;" survey_time_limit_days="" survey_time_limit_hours="" survey_time_limit_minutes="" email_participant_field="" end_of_survey_pdf_download="0" pdf_auto_archive="0" pdf_econsent_version="" pdf_econsent_type="" pdf_econsent_firstname_field="" pdf_econsent_firstname_event_id="" pdf_econsent_lastname_field="" pdf_econsent_lastname_event_id="" pdf_econsent_dob_field="" pdf_econsent_dob_event_id="" pdf_econsent_allow_edit="0" pdf_econsent_signature_field1="" pdf_econsent_signature_field2="" pdf_econsent_signature_field3="" pdf_econsent_signature_field4="" pdf_econsent_signature_field5=""/>
+	</redcap:SurveysGroup>
 </GlobalVariables>
-<MetaDataVersion OID="Metadata.AutopopulatefieldsTest_2019-12-04_1704" Name="auto_populate_fields test" redcap:RecordIdField="study_id">
+<MetaDataVersion OID="Metadata.APFMultisurvey_2020-09-25_1627" Name="APF - multisurvey" redcap:RecordIdField="study_id">
 	<Protocol>
 		<StudyEventRef StudyEventOID="Event.baseline_arm_1" OrderNumber="1" Mandatory="No"/>
 		<StudyEventRef StudyEventOID="Event.visit_1_arm_1" OrderNumber="2" Mandatory="No"/>
@@ -66,6 +81,7 @@
 	</StudyEventDef>
 	<FormDef OID="Form.demographics" Name="Demographics" Repeating="No" redcap:FormName="demographics">
 		<ItemGroupRef ItemGroupOID="demographics.study_id" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="demographics.demographics_timestamp" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="demographics.date_enrolled" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="demographics.patient_document" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="demographics.first_name" Mandatory="No"/>
@@ -73,19 +89,24 @@
 		<ItemGroupRef ItemGroupOID="demographics.demographics_complete" Mandatory="No"/>
 	</FormDef>
 	<FormDef OID="Form.test_categorical_data" Name="Test categorical data" Repeating="No" redcap:FormName="test_categorical_data">
-		<ItemGroupRef ItemGroupOID="test_categorical_data.dropdown_from_previous" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="test_categorical_data.test_categorical_data_timestamp" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="test_categorical_data.test_categorical_data_complete" Mandatory="No"/>
 	</FormDef>
 	<FormDef OID="Form.test_dates" Name="Test dates" Repeating="No" redcap:FormName="test_dates">
-		<ItemGroupRef ItemGroupOID="test_dates.birthdate_mdy" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="test_dates.test_dates_timestamp" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="test_dates.test_dates_complete" Mandatory="No"/>
 	</FormDef>
 	<FormDef OID="Form.test_branching_logic" Name="Test branching logic" Repeating="No" redcap:FormName="test_branching_logic">
-		<ItemGroupRef ItemGroupOID="test_branching_logic.choice_1" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="test_branching_logic.test_branching_logic_timestamp" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="test_branching_logic.test_branching_logic_complete" Mandatory="No"/>
 	</FormDef>
 	<ItemGroupDef OID="demographics.study_id" Name="Demographics" Repeating="No">
 		<ItemRef ItemOID="study_id" Mandatory="No" redcap:Variable="study_id"/>
+		<ItemRef ItemOID="redcap_survey_identifier" Mandatory="No" redcap:Variable="redcap_survey_identifier"/>
+		<ItemRef ItemOID="demographics_timestamp" Mandatory="No" redcap:Variable="demographics_timestamp"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="demographics.demographics_timestamp" Name="" Repeating="No">
+		<ItemRef ItemOID="demographics_timestamp" Mandatory="No" redcap:Variable="demographics_timestamp"/>
 	</ItemGroupDef>
 	<ItemGroupDef OID="demographics.date_enrolled" Name="Consent Information" Repeating="No">
 		<ItemRef ItemOID="date_enrolled" Mandatory="No" redcap:Variable="date_enrolled"/>
@@ -106,7 +127,8 @@
 	<ItemGroupDef OID="demographics.demographics_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="demographics_complete" Mandatory="No" redcap:Variable="demographics_complete"/>
 	</ItemGroupDef>
-	<ItemGroupDef OID="test_categorical_data.dropdown_from_previous" Name="Test categorical data" Repeating="No">
+	<ItemGroupDef OID="test_categorical_data.test_categorical_data_timestamp" Name="Test categorical data" Repeating="No">
+		<ItemRef ItemOID="test_categorical_data_timestamp" Mandatory="No" redcap:Variable="test_categorical_data_timestamp"/>
 		<ItemRef ItemOID="dropdown_from_previous" Mandatory="No" redcap:Variable="dropdown_from_previous"/>
 		<ItemRef ItemOID="radio_from_previous" Mandatory="No" redcap:Variable="radio_from_previous"/>
 		<ItemRef ItemOID="checkbox_from_previous___0" Mandatory="No" redcap:Variable="checkbox_from_previous"/>
@@ -116,7 +138,8 @@
 	<ItemGroupDef OID="test_categorical_data.test_categorical_data_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="test_categorical_data_complete" Mandatory="No" redcap:Variable="test_categorical_data_complete"/>
 	</ItemGroupDef>
-	<ItemGroupDef OID="test_dates.birthdate_mdy" Name="Test dates" Repeating="No">
+	<ItemGroupDef OID="test_dates.test_dates_timestamp" Name="Test dates" Repeating="No">
+		<ItemRef ItemOID="test_dates_timestamp" Mandatory="No" redcap:Variable="test_dates_timestamp"/>
 		<ItemRef ItemOID="birthdate_mdy" Mandatory="No" redcap:Variable="birthdate_mdy"/>
 		<ItemRef ItemOID="birthday_dmy" Mandatory="No" redcap:Variable="birthday_dmy"/>
 		<ItemRef ItemOID="birthday_ymd" Mandatory="No" redcap:Variable="birthday_ymd"/>
@@ -127,7 +150,8 @@
 	<ItemGroupDef OID="test_dates.test_dates_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="test_dates_complete" Mandatory="No" redcap:Variable="test_dates_complete"/>
 	</ItemGroupDef>
-	<ItemGroupDef OID="test_branching_logic.choice_1" Name="Test branching logic" Repeating="No">
+	<ItemGroupDef OID="test_branching_logic.test_branching_logic_timestamp" Name="Test branching logic" Repeating="No">
+		<ItemRef ItemOID="test_branching_logic_timestamp" Mandatory="No" redcap:Variable="test_branching_logic_timestamp"/>
 		<ItemRef ItemOID="choice_1" Mandatory="No" redcap:Variable="choice_1"/>
 		<ItemRef ItemOID="choice_2" Mandatory="No" redcap:Variable="choice_2"/>
 	</ItemGroupDef>
@@ -136,6 +160,15 @@
 	</ItemGroupDef>
 	<ItemDef OID="study_id" Name="study_id" DataType="text" Length="999" redcap:Variable="study_id" redcap:FieldType="text">
 		<Question><TranslatedText>Study ID</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="redcap_survey_identifier" Name="redcap_survey_identifier" DataType="text" Length="999" redcap:Variable="redcap_survey_identifier">
+		<Question><TranslatedText>Survey Identifier</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="demographics_timestamp" Name="demographics_timestamp" DataType="datetime" Length="999" redcap:Variable="demographics_timestamp">
+		<Question><TranslatedText>Survey Timestamp</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="demographics_timestamp" Name="demographics_timestamp" DataType="datetime" Length="999" redcap:Variable="demographics_timestamp">
+		<Question><TranslatedText>Survey Timestamp</TranslatedText></Question>
 	</ItemDef>
 	<ItemDef OID="date_enrolled" Name="date_enrolled" DataType="partialDatetime" Length="999" redcap:Variable="date_enrolled" redcap:FieldType="text" redcap:TextValidationType="datetime_mdy" redcap:FieldNote="YYYY-MM-DD" redcap:SectionHeader="Consent Information">
 		<Question><TranslatedText>Date subject signed consent</TranslatedText></Question>
@@ -165,6 +198,9 @@
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
 		<CodeListRef CodeListOID="demographics_complete.choices"/>
 	</ItemDef>
+	<ItemDef OID="test_categorical_data_timestamp" Name="test_categorical_data_timestamp" DataType="datetime" Length="999" redcap:Variable="test_categorical_data_timestamp">
+		<Question><TranslatedText>Survey Timestamp</TranslatedText></Question>
+	</ItemDef>
 	<ItemDef OID="dropdown_from_previous" Name="dropdown_from_previous" DataType="text" Length="1" redcap:Variable="dropdown_from_previous" redcap:FieldType="select" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
 		<Question><TranslatedText>dropdown from previous</TranslatedText></Question>
 		<CodeListRef CodeListOID="dropdown_from_previous.choices"/>
@@ -189,6 +225,9 @@
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
 		<CodeListRef CodeListOID="test_categorical_data_complete.choices"/>
 	</ItemDef>
+	<ItemDef OID="test_dates_timestamp" Name="test_dates_timestamp" DataType="datetime" Length="999" redcap:Variable="test_dates_timestamp">
+		<Question><TranslatedText>Survey Timestamp</TranslatedText></Question>
+	</ItemDef>
 	<ItemDef OID="birthdate_mdy" Name="birthdate_mdy" DataType="date" Length="999" redcap:Variable="birthdate_mdy" redcap:FieldType="text" redcap:TextValidationType="date_mdy" redcap:FieldAnnotation="@DEFAULT-FROM-PREVIOUS-EVENT">
 		<Question><TranslatedText>birthdate_mdy</TranslatedText></Question>
 	</ItemDef>
@@ -210,6 +249,9 @@
 	<ItemDef OID="test_dates_complete" Name="test_dates_complete" DataType="text" Length="1" redcap:Variable="test_dates_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
 		<CodeListRef CodeListOID="test_dates_complete.choices"/>
+	</ItemDef>
+	<ItemDef OID="test_branching_logic_timestamp" Name="test_branching_logic_timestamp" DataType="datetime" Length="999" redcap:Variable="test_branching_logic_timestamp">
+		<Question><TranslatedText>Survey Timestamp</TranslatedText></Question>
 	</ItemDef>
 	<ItemDef OID="choice_1" Name="choice_1" DataType="text" Length="1" redcap:Variable="choice_1" redcap:FieldType="radio">
 		<Question><TranslatedText>Show choice 2?</TranslatedText></Question>
@@ -238,15 +280,15 @@
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>5-10</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="2"><Decode><TranslatedText>6-15</TranslatedText></Decode></CodeListItem>
 	</CodeList>
-	<CodeList OID="checkbox_from_previous___0.choices" Name="checkbox_from_previous___0" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5 | 1, 5-10 | 2, 6-15">
+	<CodeList OID="checkbox_from_previous___0.choices" Name="checkbox_from_previous___0" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5|1, 5-10|2, 6-15">
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
 	</CodeList>
-	<CodeList OID="checkbox_from_previous___1.choices" Name="checkbox_from_previous___1" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5 | 1, 5-10 | 2, 6-15">
+	<CodeList OID="checkbox_from_previous___1.choices" Name="checkbox_from_previous___1" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5|1, 5-10|2, 6-15">
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
 	</CodeList>
-	<CodeList OID="checkbox_from_previous___2.choices" Name="checkbox_from_previous___2" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5 | 1, 5-10 | 2, 6-15">
+	<CodeList OID="checkbox_from_previous___2.choices" Name="checkbox_from_previous___2" DataType="boolean" redcap:Variable="checkbox_from_previous" redcap:CheckboxChoices="0, less than 5|1, 5-10|2, 6-15">
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
 	</CodeList>
@@ -272,7 +314,7 @@
 	</CodeList>
 </MetaDataVersion>
 </Study>
-<ClinicalData StudyOID="Project.AutopopulatefieldsTest" MetaDataVersionOID="Metadata.AutopopulatefieldsTest_2019-12-04_1704">
+<ClinicalData StudyOID="Project.APFMultisurvey" MetaDataVersionOID="Metadata.APFMultisurvey_2020-09-25_1627">
 	<SubjectData SubjectKey="1" redcap:RecordIdField="study_id">
 		<StudyEventData StudyEventOID="Event.baseline_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="baseline_arm_1">
 			<FormData FormOID="Form.demographics" FormRepeatKey="1">
@@ -297,7 +339,7 @@
 		</StudyEventData>
 		<StudyEventData StudyEventOID="Event.visit_1_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="visit_1_arm_1">
 			<FormData FormOID="Form.test_categorical_data" FormRepeatKey="1">
-				<ItemGroupData ItemGroupOID="test_categorical_data.dropdown_from_previous" ItemGroupRepeatKey="1">
+				<ItemGroupData ItemGroupOID="" ItemGroupRepeatKey="1">
 					<ItemData ItemOID="dropdown_from_previous" Value="0"/>
 					<ItemData ItemOID="radio_from_previous" Value="1"/>
 					<ItemData ItemOID="checkbox_from_previous___0" Value="0"/>
@@ -309,56 +351,24 @@
 				</ItemGroupData>
 			</FormData>
 			<FormData FormOID="Form.test_dates" FormRepeatKey="1">
-				<ItemGroupData ItemGroupOID="test_dates.birthdate_mdy" ItemGroupRepeatKey="1">
+				<ItemGroupData ItemGroupOID="" ItemGroupRepeatKey="1">
 					<ItemData ItemOID="birthdate_mdy" Value="2019-12-04"/>
 					<ItemData ItemOID="birthday_dmy" Value="2019-12-04"/>
 					<ItemData ItemOID="birthday_ymd" Value="2019-12-04"/>
 					<ItemData ItemOID="birthday_ymd_hms" Value="2019-12-04T16:30:42"/>
 					<ItemData ItemOID="birthday_mdy_from_ymd" Value="2019-12-04"/>
-				</ItemGroupData>
-				<ItemGroupData ItemGroupOID="test_dates.test_dates_complete" ItemGroupRepeatKey="1">
-					<ItemData ItemOID="test_dates_complete" Value="0"/>
-				</ItemGroupData>
-			</FormData>
-			<FormData FormOID="Form.test_branching_logic" FormRepeatKey="1">
-				<ItemGroupData ItemGroupOID="test_branching_logic.choice_1" ItemGroupRepeatKey="1">
-					<ItemData ItemOID="choice_1" Value="1"/>
-					<ItemData ItemOID="choice_2" Value="visit 1 choice 2"/>
-				</ItemGroupData>
-				<ItemGroupData ItemGroupOID="test_branching_logic.test_branching_logic_complete" ItemGroupRepeatKey="1">
-					<ItemData ItemOID="test_branching_logic_complete" Value="1"/>
-				</ItemGroupData>
-			</FormData>
-		</StudyEventData>
-		<StudyEventData StudyEventOID="Event.visit_2_arm_1" StudyEventRepeatKey="1" redcap:UniqueEventName="visit_2_arm_1">
-			<FormData FormOID="Form.test_categorical_data" FormRepeatKey="1">
-				<ItemGroupData ItemGroupOID="test_categorical_data.dropdown_from_previous" ItemGroupRepeatKey="1">
-					<ItemData ItemOID="dropdown_from_previous" Value="0"/>
-					<ItemData ItemOID="radio_from_previous" Value="1"/>
-					<ItemData ItemOID="checkbox_from_previous___0" Value="0"/>
-					<ItemData ItemOID="checkbox_from_previous___1" Value="1"/>
-					<ItemData ItemOID="checkbox_from_previous___2" Value="0"/>
-				</ItemGroupData>
-				<ItemGroupData ItemGroupOID="test_categorical_data.test_categorical_data_complete" ItemGroupRepeatKey="1">
-					<ItemData ItemOID="test_categorical_data_complete" Value="0"/>
-				</ItemGroupData>
-			</FormData>
-			<FormData FormOID="Form.test_dates" FormRepeatKey="1">
-				<ItemGroupData ItemGroupOID="test_dates.birthdate_mdy" ItemGroupRepeatKey="1">
-					<ItemData ItemOID="birthdate_mdy" Value="2019-12-04"/>
-					<ItemData ItemOID="birthday_dmy" Value="2019-12-04"/>
-					<ItemData ItemOID="birthday_ymd" Value="2019-12-04"/>
-					<ItemData ItemOID="birthday_ymd_hms" Value="2019-12-04T16:30:42"/>
-					<ItemData ItemOID="birthday_mdy_from_ymd" Value="2019-12-04"/>
-					<ItemData ItemOID="birthday_mdy_from_ymd_static" Value="2019-06-29"/>
 				</ItemGroupData>
 				<ItemGroupData ItemGroupOID="test_dates.test_dates_complete" ItemGroupRepeatKey="1">
 					<ItemData ItemOID="test_dates_complete" Value="2"/>
 				</ItemGroupData>
 			</FormData>
 			<FormData FormOID="Form.test_branching_logic" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="choice_1" Value="1"/>
+					<ItemData ItemOID="choice_2" Value="visit 1 choice 2"/>
+				</ItemGroupData>
 				<ItemGroupData ItemGroupOID="test_branching_logic.test_branching_logic_complete" ItemGroupRepeatKey="1">
-					<ItemData ItemOID="test_branching_logic_complete" Value="0"/>
+					<ItemData ItemOID="test_branching_logic_complete" Value="1"/>
 				</ItemGroupData>
 			</FormData>
 		</StudyEventData>
