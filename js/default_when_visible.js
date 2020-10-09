@@ -33,7 +33,10 @@ autoPopulateFields.defaultWhenVisible.init = function() {
                 }
             }
             catch ( e ) {
-                evalLogicSubmit( fieldName, false, false );
+                // field specified in equation was not present
+                if ( document.getElementsByName(fieldName).length !== 0 ) { // must check if fieldName is present on multipage forms
+                    evalLogicSubmit( fieldName, false, false );
+                }
             }
         });
 
