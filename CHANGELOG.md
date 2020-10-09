@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to the Auto-Populate Fields project will be documented in this file.
 
+
+## [2.6.0] - 2020-10-09
+### Changed
+- Upgrade test_project to enable surveys (Kyle Chesney)
+- Explicitly check that field to hide is present in a form prevents bug on multipage forms in surveys. (Kyle Chesney)
+
+### Added
+- Add support for Surveys (Kyle Chesney)
+
+
 ## [2.5.2] - 2020-08-21
 ### Changed
 - Added a element check to prevent attempting to hide nonexistent elements (James Pence)

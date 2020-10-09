@@ -17,6 +17,7 @@ use REDCap;
  * ExternalModule class for Auto Populate Fields.
  */
 class ExternalModule extends AbstractExternalModule {
+    private $survey_APF_fields = [];
 
     /**
      * @inheritdoc
@@ -30,13 +31,27 @@ class ExternalModule extends AbstractExternalModule {
         if (PAGE == 'Design/online_designer.php') {
             $this->includeJs('js/helper.js');
         }
-        elseif ( (PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
+        elseif ( (PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id']) ) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
             }
 
             if (isset($_GET['page']) && (function_exists('getBranchingFields') || method_exists('\DataEntry', 'getBranchingFields')) ) {
                 $this->setDefaultWhenVisible();
+            }
+        }
+    }
+
+    function redcap_survey_page_top($project_id) {
+        if ( !$this->getProjectSetting('use_in_survey') ) return;
+        global $elements;
+        // set the action_tag_class as it would be in the DataEntry context
+        foreach( $elements as &$element) {
+            $i = array_search($element['name'], $this->survey_APF_fields);
+            if ( $i !== false ) {
+                $element['action_tag_class'] = '@DEFAULT';
+                unset($this->survey_APF_fields[$i]);
+                if ( empty($this->survey_APF_fields) ) break;
             }
         }
     }
@@ -229,6 +244,7 @@ class ExternalModule extends AbstractExternalModule {
                 // The first non empty default value wins!
                 $misc = $this->overrideActionTag('@DEFAULT', $default_value, $misc);
                 $aux_metadata[$field_name]['misc'] = $misc;
+                array_push($this->survey_APF_fields, $field_name);
 
                 break;
             }
