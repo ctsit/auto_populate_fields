@@ -52,7 +52,8 @@ class ExternalModule extends AbstractExternalModule {
         foreach( $elements as &$element) {
             $i = array_search($element['name'], $this->survey_APF_fields);
             if ( $i !== false ) {
-                $element['action_tag_class'] .= " @DEFAULT"; // append to preserve existing tags. This can result in duplicate @DEFAULT action tags
+                // append to preserve existing tags. This can result in duplicate @DEFAULT action tags but there appear to be no affects from this
+                $element['action_tag_class'] .= " @DEFAULT";
                 unset($this->survey_APF_fields[$i]);
                 if ( empty($this->survey_APF_fields) ) break;
             }
