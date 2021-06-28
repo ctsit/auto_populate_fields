@@ -164,7 +164,10 @@ class ExternalModule extends AbstractExternalModule {
 
                     // Getting previous event ID.
                     foreach ($events as $event) {
-                        if ($event == $_GET['event_id']) {
+                        // Event instances share the same event id for every instance. 
+                        // To support event instances we only break on the first instance, and allow execution for all future instances i.e., $_GET['instance'] greater than 1. 
+                        // Event instances are enabled under: Project Setup > Enable optional modules and customizations > Repeatable instruments and events > 'Repeat instruments (repeat independently of each other)`
+                        if ($event == $_GET['event_id'] && $_GET['instance'] == 1) {
                             break;
                         }
 
@@ -178,11 +181,14 @@ class ExternalModule extends AbstractExternalModule {
                     }
 
                     // Getting previous event value.
-                    if (isset($data[$prev_event][$source_field])) {
-                        $default_value = $data[$prev_event][$source_field];
-                    } elseif (isset($data['repeat_instances'][$prev_event][""])) {
+                    // isset returns true for event instances when $prev_event_field_value is equal to an empty string ("").
+                    // An additional check to verify the value is not empty is required.
+                    $prev_event_field_value = $data[$prev_event][$source_field];
+                    if (isset($prev_event_field_value) && !empty($prev_event_field_value)) {
+                        $default_value = $prev_event_field_value;
+                    } elseif ($data['repeat_instances'][$prev_event][$source_form]) {
                         // Handling repeat events by using the most recent instance of the previous event to source values
-                        $most_recent_instance = array_slice($data['repeat_instances'][$prev_event][""], -1)[0];
+                        $most_recent_instance = array_slice($data['repeat_instances'][$prev_event][$source_form], -1)[0];
                         $default_value = $most_recent_instance[$source_field];
                     }
 
