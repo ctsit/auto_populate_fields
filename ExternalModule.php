@@ -20,6 +20,34 @@ class ExternalModule extends AbstractExternalModule {
     private $survey_APF_fields = [];
 
     /**
+     * Returns true if the event is either a "Repeat Entire Event" or "Repeat Instrument" repeating event.
+     */
+    function isRepeatEvent() {
+        $val = ($this->isRepeatEntireEvent() || $this->isRepeatInstrument());
+        return $val;
+    }
+
+    /**
+     * Returns true if the event is a "Repeat Entire Event (repeat all instruments together)". 
+     */
+    function isRepeatEntireEvent() {
+        if ($_GET['instance'] > 1 && isset($_GET['oldinstance'])) {
+            return true;
+        } 
+        return false;
+    }
+
+    /**
+     * Returns true if the event is a "Repeat Instrument (repeat independently of each other)". 
+     */
+    function isRepeatInstrument() {
+        if ($_GET['instance'] > 1 && !isset($_GET['oldinstance'])) {
+            return true;
+        } 
+        return false;
+    }
+
+    /**
      * @inheritdoc
      */
     function redcap_every_page_top($project_id) {
@@ -145,6 +173,7 @@ class ExternalModule extends AbstractExternalModule {
 
             $default_value = '';
 
+            $form_name = "";
             // Looping over @DEFAULT_<N> and @DEFAULT-FROM-PREVIOUS-EVENT_<N>
             // action tags.
             foreach ($action_tags as $action_tag) {
@@ -163,16 +192,28 @@ class ExternalModule extends AbstractExternalModule {
                     $source_form = $Proj->metadata[$source_field]['form_name'];
 
                     // Getting previous event ID.
+                    // For non repeating events the previous event is the closest event prior to the current event
+                    // For repeating events, (Repeat Entire Event & Repeat Instrument) the previous event is the current event
                     foreach ($events as $event) {
-                        // Event instances share the same event id for every instance. 
-                        // To support event instances we only break on the first instance, and allow execution for all future instances i.e., $_GET['instance'] greater than 1. 
-                        // Event instances are enabled under: Project Setup > Enable optional modules and customizations > Repeatable instruments and events > 'Repeat instruments (repeat independently of each other)`
-                        if ($event == $_GET['event_id'] && $_GET['instance'] == 1) {
+                        // Only break for non repeating events. 
+                        // Non repeating events should not get data from current event, whereas, repeating events with instances depend on data from the current event i.e., $_GET['event_id']
+                        if ($event == $_GET['event_id'] && !$this->isRepeatEvent()) {
                             break;
                         }
 
-                        if (in_array($source_form, $Proj->eventsForms[$event])) {
+                        if (in_array($source_form, $Proj->eventsForms[$event]) && !$this->isRepeatEvent()) {
                             $prev_event = $event;
+                            $form_name = "";
+                        } elseif (in_array($source_form, $Proj->eventsForms[$event]) && $this->isRepeatEntireEvent()) {
+                            $prev_event = $_GET['event_id'];
+                            $form_name = "";
+                            break;
+                        } elseif (in_array($source_form, $Proj->eventsForms[$event]) && $this->isRepeatInstrument()) {
+                            // Repeat instruments behave differently from 'Repeat Entire Event' and non repeating events.
+                            // Repeat instruments require the $Proj->metadata[$field_name]['form_name'] when looking up the data from the event
+                            $prev_event = $_GET['event_id'];
+                            $form_name = $source_form;
+                            break;
                         }
                     }
 
@@ -186,9 +227,9 @@ class ExternalModule extends AbstractExternalModule {
                     $prev_event_field_value = $data[$prev_event][$source_field];
                     if (isset($prev_event_field_value) && !empty($prev_event_field_value)) {
                         $default_value = $prev_event_field_value;
-                    } elseif ($data['repeat_instances'][$prev_event][$source_form]) {
+                    } elseif (isset($data['repeat_instances'][$prev_event][$form_name])) {
                         // Handling repeat events by using the most recent instance of the previous event to source values
-                        $most_recent_instance = array_slice($data['repeat_instances'][$prev_event][$source_form], -1)[0];
+                        $most_recent_instance = array_slice($data['repeat_instances'][$prev_event][$form_name], -1)[0];
                         $default_value = $most_recent_instance[$source_field];
                     }
 
