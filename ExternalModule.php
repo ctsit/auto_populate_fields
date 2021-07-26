@@ -28,10 +28,13 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
-     * Returns true if the event is a "Repeat Entire Event (repeat all instruments together)". 
+     * Returns true if the event is a "Repeat Entire Event (repeat all instruments together)" and is not first instance.
      */
     function isRepeatEntireEvent() {
-        if ($_GET['instance'] > 1 && isset($_GET['oldinstance'])) {
+        // The first instance of Repeating events are treated differently from events where $_GET['instance'] > 1.
+        // For the first instance, we look at previous event. For $_GET['instance'] > 1, we look at the current event.
+        // Because $GLOBALS['isRepeatingEvent'] is true regardless of the instance of the event, we also check for the current instance.
+        if ($_GET['instance'] > 1 && $GLOBALS['isRepeatingEvent']) {
             return true;
         } 
         return false;
@@ -41,10 +44,7 @@ class ExternalModule extends AbstractExternalModule {
      * Returns true if the event is a "Repeat Instrument (repeat independently of each other)". 
      */
     function isRepeatInstrument() {
-        if ($_GET['instance'] > 1 && !isset($_GET['oldinstance'])) {
-            return true;
-        } 
-        return false;
+        return $GLOBALS['isRepeatingForm'];
     }
 
     /**
