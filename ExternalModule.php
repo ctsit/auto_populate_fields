@@ -19,21 +19,30 @@ use REDCap;
 class ExternalModule extends AbstractExternalModule {
     private $survey_APF_fields = [];
 
-    /**
-     * Returns true if the event is either a "Repeat Entire Event" or "Repeat Instrument" repeating event.
-     */
-    function isRepeatEvent() {
-        $val = ($this->isRepeatEntireEvent() || $this->isRepeatInstrument());
+    function isFirstRepeatEventOrForm() {
+        $val = ($this->isFirstRepeatEvent() || $this->isFirstRepeatForm());
+        return $val;
+    }
+
+    function isNthRepeatEventOrForm() {
+        $val = ($this->isNthRepeatEvent() || $this->isNthRepeatForm());
         return $val;
     }
 
     /**
-     * Returns true if the event is a "Repeat Entire Event (repeat all instruments together)" and is not first instance.
+     * Returns true if the event is a "Repeat Entire Event (repeat all instruments together)" and is the first instance.
      */
-    function isRepeatEntireEvent() {
-        // The first instance of Repeating events are treated differently from events where $_GET['instance'] > 1.
-        // For the first instance, we look at previous event. For $_GET['instance'] > 1, we look at the current event.
-        // Because $GLOBALS['isRepeatingEvent'] is true regardless of the instance of the event, we also check for the current instance.
+    function isFirstRepeatEvent() {
+        if ($_GET['instance'] == 1 && $GLOBALS['isRepeatingEvent']) {
+            return true;
+        } 
+        return false;
+    }
+
+    /**
+     * Returns true if the event is a "Repeat Entire Event (repeat all instruments together)" and is NOT first instance.
+     */
+    function isNthRepeatEvent() {
         if ($_GET['instance'] > 1 && $GLOBALS['isRepeatingEvent']) {
             return true;
         } 
@@ -41,10 +50,17 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
-     * Returns true if the event is a "Repeat Instrument (repeat independently of each other)". 
+     * Returns true if the event is a "Repeat Instrument (repeat independently of each other)" and is the first instance.
      */
-    function isRepeatInstrument() {
-        return $GLOBALS['isRepeatingForm'];
+    function isFirstRepeatForm() {
+        return ($_GET['instance'] == 1 && $GLOBALS['isRepeatingForm']);
+    }
+
+    /**
+     * Returns true if the event is a "Repeat Instrument (repeat independently of each other)" and is NOT the first instance. 
+     */
+    function isNthRepeatForm() {
+        return ($_GET['instance'] > 1 && $GLOBALS['isRepeatingForm']);
     }
 
     /**
@@ -192,29 +208,27 @@ class ExternalModule extends AbstractExternalModule {
                     $source_form = $Proj->metadata[$source_field]['form_name'];
 
                     // Getting previous event ID.
-                    // For non repeating events the previous event is the closest event prior to the current event
-                    // For repeating events, (Repeat Entire Event & Repeat Instrument) the previous event is the current event
+                    // For the first instance of a repeating event/form, the previous event is the closest saved event/form prior to the current event/form.
+                    // For the nth instance of a repeating event/form, the previous event is the current event.
                     foreach ($events as $event) {
-                        // Only break for non repeating events. 
-                        // Non repeating events should not get data from current event, whereas, repeating events with instances depend on data from the current event i.e., $_GET['event_id']
-                        if ($event == $_GET['event_id'] && !$this->isRepeatEvent()) {
+                        if (!in_array($source_form, $Proj->eventsForms[$event])) {
                             break;
                         }
 
-                        if (in_array($source_form, $Proj->eventsForms[$event]) && !$this->isRepeatEvent()) {
+                        // Only break for the first instance of an event/form.
+                        // First instance events or forms need data from previous events/forms, whereas, nth repeating events/forms depend on data from the current event i.e., $_GET['event_id']
+                        if ($event == $_GET['event_id'] && $this->isFirstRepeatEventOrForm()) {
+                            break;
+                        } 
+
+                        // Set the previous event for first instance of a repeat event/form to the previous event.
+                        // Set the previous event for the nth instance of a repeat event/form to the current event.
+                        if ($this->isFirstRepeatEventOrForm()) {
                             $prev_event = $event;
-                            $form_name = "";
-                        } elseif (in_array($source_form, $Proj->eventsForms[$event]) && $this->isRepeatEntireEvent()) {
+                        } elseif ($this->isNthRepeatEventOrForm()) {
                             $prev_event = $_GET['event_id'];
-                            $form_name = "";
                             break;
-                        } elseif (in_array($source_form, $Proj->eventsForms[$event]) && $this->isRepeatInstrument()) {
-                            // Repeat instruments behave differently from 'Repeat Entire Event' and non repeating events.
-                            // Repeat instruments require the $Proj->metadata[$field_name]['form_name'] when looking up the data from the event
-                            $prev_event = $_GET['event_id'];
-                            $form_name = $source_form;
-                            break;
-                        }
+                        } 
                     }
 
                     if (!$prev_event) {
@@ -225,12 +239,20 @@ class ExternalModule extends AbstractExternalModule {
                     // isset returns true for event instances when $prev_event_field_value is equal to an empty string ("").
                     // An additional check to verify the value is not empty is required.
                     $prev_event_field_value = $data[$prev_event][$source_field];
+
+                    // The object returned by $instances = $data['repeat_instances'][$event] changes dependening on if the data is from an event or a form.
+                    // For repeating events, the key for $instances is an empty string ("") i.e., ["": ...]
+                    // For repeating forms, the key for $instances is the form name i.e., ["baseline_data": ...]
+                    $instances = ($data['repeat_instances'][$prev_event][$source_form]) ?? ($data['repeat_instances'][$prev_event][""]);
+
                     if (isset($prev_event_field_value) && !empty($prev_event_field_value)) {
                         $default_value = $prev_event_field_value;
-                    } elseif (isset($data['repeat_instances'][$prev_event][$form_name])) {
+                    } elseif (isset($instances)) {
                         // Handling repeat events by using the most recent instance of the previous event to source values
-                        $most_recent_instance = array_slice($data['repeat_instances'][$prev_event][$form_name], -1)[0];
-                        $default_value = $most_recent_instance[$source_field];
+                        // $instances are out of order when form data is deleted.
+                        // In that case, using array_slice($instances, -1)[0] is unreliable and can return the wrong instance.
+                        $max = max(array_keys($instances));
+                        $default_value = $instances[$max][$source_field];
                     }
 
                     // Handling checkboxes case.
