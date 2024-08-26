@@ -1,6 +1,6 @@
-# Change Log
-All notable changes to the Auto-Populate Fields project will be documented in this file.
-
+# auto_populate_fields 2.6.1 (released 2024-08-26)
+- Initialize eventsForms[$event] as an array if null (@saipavan10-git, #61, #62)
+- Preserves survey field action tags (@michael-bentz, #52, #53)
 
 ## [2.6.0] - 2020-10-09
 ### Changed
