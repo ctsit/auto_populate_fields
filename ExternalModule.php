@@ -167,7 +167,9 @@ class ExternalModule extends AbstractExternalModule {
                         if ($event == $_GET['event_id']) {
                             break;
                         }
-
+                        // assign a data type to prevent PHP warning using null coalescing operator
+                        $Proj->eventsForms[$event] ??= [];
+                        
                         if (in_array($source_form, $Proj->eventsForms[$event])) {
                             $prev_event = $event;
                         }
