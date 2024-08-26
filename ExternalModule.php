@@ -42,6 +42,9 @@ class ExternalModule extends AbstractExternalModule {
         }
     }
 
+    // Because REDCap does not recognize custom action tags this block appends 
+    // the REDCap action tag @DEFAULT in the case that any custom actions tags (@DEFAULT-*)
+    // have been applied to a field.
     function redcap_survey_page_top($project_id) {
         if ( !$this->getProjectSetting('use_in_survey') ) return;
         global $elements;
@@ -49,7 +52,8 @@ class ExternalModule extends AbstractExternalModule {
         foreach( $elements as &$element) {
             $i = array_search($element['name'], $this->survey_APF_fields);
             if ( $i !== false ) {
-                $element['action_tag_class'] = '@DEFAULT';
+                // append to preserve existing tags. This can result in duplicate @DEFAULT action tags but there appear to be no affects from this
+                $element['action_tag_class'] .= " @DEFAULT";
                 unset($this->survey_APF_fields[$i]);
                 if ( empty($this->survey_APF_fields) ) break;
             }
@@ -163,7 +167,9 @@ class ExternalModule extends AbstractExternalModule {
                         if ($event == $_GET['event_id']) {
                             break;
                         }
-
+                        // assign a data type to prevent PHP warning using null coalescing operator
+                        $Proj->eventsForms[$event] ??= [];
+                        
                         if (in_array($source_form, $Proj->eventsForms[$event])) {
                             $prev_event = $event;
                         }
