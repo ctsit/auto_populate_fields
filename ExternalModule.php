@@ -46,7 +46,8 @@ class ExternalModule extends AbstractExternalModule {
     // the REDCap action tag @DEFAULT in the case that any custom actions tags (@DEFAULT-*)
     // have been applied to a field.
     function redcap_survey_page_top($project_id) {
-        if ( !$this->getProjectSetting('use_in_survey') ) return;
+        $project_settings = $this->getProjectSettings();
+        if (!$project_settings['use_in_survey']) return;
         global $elements;
         // set the action_tag_class as it would be in the DataEntry context
         foreach( $elements as &$element) {
@@ -105,22 +106,26 @@ class ExternalModule extends AbstractExternalModule {
             // record is already exists.
             array_unshift($action_tags_to_look, '@DEFAULT-FROM-PREVIOUS-EVENT');
 
-            if ($this->getProjectSetting('chronological_previous_event')) {
+            $project_settings = $this->getProjectSettings();
+            if ($project_settings['chronological_previous_event']) {
                 // Getting chronological sequence of events.
-                $events = array();
+                $events = [];
 
                 $log_event_table = method_exists('\REDCap', 'getLogEventTable') ? \REDCap::getLogEventTable($Proj->project_id) : "redcap_log_event";
-
-                $sql = '
-                    SELECT MIN(log_event_id), event_id FROM ' . $log_event_table . '
-                    WHERE pk = "' . db_real_escape_string($_GET['id']) . '" AND
-                          project_id = "' . db_real_escape_string($Proj->project_id) . '"
+                $sql = "
+                    SELECT MIN(log_event_id), event_id 
+                    FROM " . $log_event_table . "
+                    WHERE pk = ? AND project_id = ?
                     GROUP BY event_id
-                    ORDER BY log_event_id';
+                    ORDER BY log_event_id
+                ";
+                
+                $params = [$_GET['id'], $Proj->project_id];
 
-                if (($q = $this->query($sql)) && db_num_rows($q)) {
-                    while ($result = db_fetch_assoc($q)) {
-                        $events[] = $result['event_id'];
+                $result = $this->query($sql, $params);
+                if ($result) {
+                    while ($row = $result->fetch_assoc()) {
+                        $events[] = $row['event_id'];
                     }
                 }
             }
@@ -243,7 +248,7 @@ class ExternalModule extends AbstractExternalModule {
                         $date = \DateTime::createFromFormat($in_format, $default_value);
                         // This ternary prevents crashing for mixed source and target formats (e.g. YMD -> DMY)
                         // users will get validation errors
-                        $default_value = ($date) ? $date->format($out_format) : $default_value;
+                        $default_value = $date ? $date->format($out_format) : $default_value;
                     }
                 }
 
@@ -332,7 +337,7 @@ class ExternalModule extends AbstractExternalModule {
      *   The sorted list of the fetched action tags.
      */
     function getMultipleActionTagsQueue($action_tags, $subject) {
-        $results = array();
+        $results = [];
 
         if (is_string($action_tags)) {
             $action_tags = array($action_tags);
@@ -345,7 +350,7 @@ class ExternalModule extends AbstractExternalModule {
         $priority = array_flip($action_tags);
 
         // Buiding aux array to assist the sorting procedure.
-        $aux = array();
+        $aux = [];
         foreach ($action_tags as $tag) {
             // Checking first for action tag without number suffix.
             if (strpos($subject, $tag . '=') !== false || strpos($subject, $tag . ' ') !== false) {
@@ -358,7 +363,7 @@ class ExternalModule extends AbstractExternalModule {
                 list(, $delta) = explode('_', $result);
 
                 if (!isset($aux[$delta])) {
-                    $aux[$delta] = array();
+                    $aux[$delta] = [];
                 }
 
                 $aux[$delta][$priority[$tag]] = $result;
@@ -399,7 +404,7 @@ class ExternalModule extends AbstractExternalModule {
     function overrideActionTag($key, $value, $subject, $append_if_not_exists = true) {
         if (strpos($subject, $key . '=') !== false) {
             // Override action tag if exists.
-            $regex = '/(' . $key . '\s*=\s*)((\"[^\"]+\")|(\'[^\']+\'))/';
+            $regex = "/(' . $key . '\s*=\s*)((\"[^\"]+\")|(\'[^\']+\'))/";
             $subject = preg_replace($regex, $key . '="' . $value . '"', $subject);
         }
         elseif ($append_if_not_exists) {
@@ -448,7 +453,7 @@ class ExternalModule extends AbstractExternalModule {
             return $value;
         }
 
-        preg_match('/' . $action_tag .'\s*=\s*([^\s]+)/', $subject, $matches);
+        preg_match("/' . $action_tag .'\s*=\s*([^\s]+)/", $subject, $matches);
         if (empty($matches[1])) {
             return '';
         }
