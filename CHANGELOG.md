@@ -1,3 +1,8 @@
+# auto_populate_fields 2.6.2 (released 2024-09-03)
+- Set a minimum PHP version of 7.4 (@saipavan10-git, #64, #65)
+- Remove eval() from the module (@saipavan10-git, #64, #65)
+- Bump framework version to 15 (@saipavan10-git, #63, #65)
+
 # auto_populate_fields 2.6.1 (released 2024-08-26)
 - Initialize eventsForms[$event] as an array if null (@saipavan10-git, #61, #62)
 - Preserves survey field action tags (@michael-bentz, #52, #53)
