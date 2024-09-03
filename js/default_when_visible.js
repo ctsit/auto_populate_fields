@@ -27,9 +27,10 @@ autoPopulateFields.defaultWhenVisible.init = function() {
     formSubmitDataEntry = function() {
         $.each(autoPopulateFields.defaultWhenVisible.branchingEquations, function(fieldName, equation) {
             // If equation result is false, erase field value.
-            try {
-                if ( !eval( equation ) ) {
-                    evalLogicSubmit( fieldName, false, false );
+            try {                
+                var equationResult = new Function('return (' + equation + ')')(); // Use Function constructor instead
+                if (!equationResult) {
+                    evalLogicSubmit(fieldName, false, false);
                 }
             }
             catch ( e ) {
