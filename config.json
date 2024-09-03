@@ -2,15 +2,11 @@
     "name": "Auto Populate Fields",
     "namespace": "AutoPopulateFields\\ExternalModule",
     "description": "This module provides rich control of default values for data entry fields via a set of action tags. These action tags allow fields to be populated based on values from an ordered list of fields and static values. The fields can be read from the current event or the previous event in longitudinal projects. <strong><a href=\"https://github.com/ctsit/auto_populate_fields\">See full documentation here</a></strong>.",
+    "framework-version": 15,
     "compatibility": {
-        "redcap-version-min": "8.0.3"
+        "redcap-version-min": "14.0.2",
+        "php-version-min": "7.4.0"
     },
-    "permissions": [
-        "redcap_every_page_top",
-        "redcap_survey_page_top",
-        "redcap_module_system_enable",
-        "redcap_module_system_change_version"
-    ],
     "authors": [
         {
             "name": "Philip Chase",
@@ -25,6 +21,11 @@
         {
             "name": "Kyle Chesney",
             "email": "kyle.chesney@ufl.edu",
+            "institution": "University of Florida - CTSI"
+        },
+        {
+            "name": "Sai Pavan Kamma",
+            "email": "saipavankamma@ufl.edu",
             "institution": "University of Florida - CTSI"
         }
     ],

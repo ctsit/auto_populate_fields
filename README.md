@@ -5,7 +5,8 @@
 This REDCap module provides rich control of default values for data entry fields via a set of action tags. These action tags allow fields to be populated based on values from an ordered list of fields and static values. The fields can be read from the current event or the previous event in longitudinal projects.
 
 ## Prerequisites
-- REDCap >= 8.0.0 (for versions < 8.0.0, [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules) is required).
+- REDCap >= 14.0.2
+- PHP >= 7.4
 
 ## Installation
 - Clone this repo into to `<redcap-root>/modules/auto_populate_fields_v2.2`.
