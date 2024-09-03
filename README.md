@@ -6,6 +6,7 @@ This REDCap module provides rich control of default values for data entry fields
 
 ## Prerequisites
 - REDCap >= 14.0.2
+- PHP >= 7.4
 
 ## Installation
 - Clone this repo into to `<redcap-root>/modules/auto_populate_fields_v2.2`.
