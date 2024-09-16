@@ -26,8 +26,7 @@
     "access_right": "open",
     "license": "Apache-2.0",
     "references": [
-    "PA Harris, R Taylor, BL Minor, V Elliott, M Fernandez, L O'Neal, L McLeod, G Delacqua, F Delacqua, J Kirby, SN Duda, REDCap Consortium, The REDCap consortium: Building an international community of software partners, J Biomed Inform. 2019 May 9 [doi: 10.1016/j.jbi.2019.103208]",
-    "Chase, P., tbembersimeao, Chesney, K., Kamma, S. P., Prasanna, S., Gotti, M., & jrpence. (2024). ctsit/auto_populate_fields: Auto-populate Fields (2.6.2). Zenodo. https://doi.org/10.5281/zenodo.13650776"
+        "PA Harris, R Taylor, BL Minor, V Elliott, M Fernandez, L O'Neal, L McLeod, G Delacqua, F Delacqua, J Kirby, SN Duda, REDCap Consortium, The REDCap consortium: Building an international community of software partners, J Biomed Inform. 2019 May 9 [doi: 10.1016/j.jbi.2019.103208]"
     ],
     "keywords": [
         "redcap",
