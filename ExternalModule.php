@@ -51,6 +51,8 @@ class ExternalModule extends AbstractExternalModule {
         global $elements;
         // set the action_tag_class as it would be in the DataEntry context
         foreach( $elements as &$element) {
+            $element['name'] ??=[];
+            $this->survey_APF_fields ??=[];
             $i = array_search($element['name'], $this->survey_APF_fields);
             if ( $i !== false ) {
                 // append to preserve existing tags. This can result in duplicate @DEFAULT action tags but there appear to be no affects from this
@@ -80,14 +82,15 @@ class ExternalModule extends AbstractExternalModule {
         // Temporarily overriding project metadata.
         foreach ($Proj->metadata as $field_name => $field_info) {
             // Overriding choice selection fields - checkboxes, radios and dropdowns.
-            if (!in_array($field_info['element_type'], array('checkbox', 'radio', 'select'))) {
+            $field_info['element_type'] ??= '';
+            if (!in_array($field_info['element_type'], ['checkbox', 'radio', 'select'])) {
                 continue;
             }
 
             if (!$options = parseEnum($Proj->metadata[$field_name]['element_enum'])) {
                 continue;
             }
-
+            $options ??= [];
             foreach (array_keys($options) as $key) {
                 // Replacing selection choices labels with keys.
                 $options[$key] = $key . ',' . $key;
@@ -96,7 +99,7 @@ class ExternalModule extends AbstractExternalModule {
             $Proj->metadata[$field_name]['element_enum'] = implode('\\n', $options);
         }
 
-        $action_tags_to_look = array('@DEFAULT');
+        $action_tags_to_look = ['@DEFAULT'];
 
         // Getting current record data, if exists.
         if ($data = REDCap::getData($Proj->project['project_id'], 'array', $_GET['id'])) {
@@ -131,13 +134,14 @@ class ExternalModule extends AbstractExternalModule {
             }
             else {
                 $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
+                $Proj->events[$arm]['events'] ??= [];
                 $events = array_keys($Proj->events[$arm]['events']);
             }
         }
 
         $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
         $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
-
+        $fields ??= [];
         foreach (array_keys($fields) as $field_name) {
             $field_info = $Proj->metadata[$field_name];
             $misc = $field_info['misc'];
