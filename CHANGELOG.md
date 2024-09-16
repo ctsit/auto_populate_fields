@@ -1,3 +1,7 @@
+# auto_populate_fields 2.6.3 (released 2024-09-16)
+- Add zenodo.json and update the authors block in config (@saipavan10-git, #67, #68)
+- Fix #66 (@saipavan10-git, #66, #68)
+
 # auto_populate_fields 2.6.2 (released 2024-09-03)
 - Set a minimum PHP version of 7.4 (@saipavan10-git, #64, #65)
 - Remove eval() from the module (@saipavan10-git, #64, #65)
