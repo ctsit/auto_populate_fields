@@ -51,8 +51,6 @@ class ExternalModule extends AbstractExternalModule {
         global $elements;
         // set the action_tag_class as it would be in the DataEntry context
         foreach( $elements as &$element) {
-            $element['name'] ??=[];
-            $this->survey_APF_fields ??=[];
             $i = array_search($element['name'], $this->survey_APF_fields);
             if ( $i !== false ) {
                 // append to preserve existing tags. This can result in duplicate @DEFAULT action tags but there appear to be no affects from this
@@ -82,7 +80,6 @@ class ExternalModule extends AbstractExternalModule {
         // Temporarily overriding project metadata.
         foreach ($Proj->metadata as $field_name => $field_info) {
             // Overriding choice selection fields - checkboxes, radios and dropdowns.
-            $field_info['element_type'] ??= '';
             if (!in_array($field_info['element_type'], ['checkbox', 'radio', 'select'])) {
                 continue;
             }
@@ -90,7 +87,7 @@ class ExternalModule extends AbstractExternalModule {
             if (!$options = parseEnum($Proj->metadata[$field_name]['element_enum'])) {
                 continue;
             }
-            $options ??= [];
+
             foreach (array_keys($options) as $key) {
                 // Replacing selection choices labels with keys.
                 $options[$key] = $key . ',' . $key;
@@ -141,7 +138,7 @@ class ExternalModule extends AbstractExternalModule {
 
         $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
         $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
-        $fields ??= [];
+
         foreach (array_keys($fields) as $field_name) {
             $field_info = $Proj->metadata[$field_name];
             $misc = $field_info['misc'];
