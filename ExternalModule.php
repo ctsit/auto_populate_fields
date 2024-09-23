@@ -131,7 +131,6 @@ class ExternalModule extends AbstractExternalModule {
             }
             else {
                 $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
-                $Proj->events[$arm]['events'] ??= [];
                 $events = array_keys($Proj->events[$arm]['events']);
             }
         }
@@ -139,6 +138,8 @@ class ExternalModule extends AbstractExternalModule {
         $fields = empty($_GET['page']) ? $Proj->metadata : $Proj->forms[$_GET['page']]['fields'];
         $entry_num = ($double_data_entry && $user_rights['double_data'] != 0) ? '--' . $user_rights['double_data'] : '';
 
+        if (isset($fields))
+        {
         foreach (array_keys($fields) as $field_name) {
             $field_info = $Proj->metadata[$field_name];
             $misc = $field_info['misc'];
@@ -261,6 +262,7 @@ class ExternalModule extends AbstractExternalModule {
                 break;
             }
         }
+    }
 
         // Now that pipings are done, let's restore original project metadata.
         $Proj->metadata = $aux_metadata;
