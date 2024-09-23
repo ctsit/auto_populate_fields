@@ -306,7 +306,7 @@ class ExternalModule extends AbstractExternalModule {
      *   TRUE if the current form contains data, FALSE otherwise.
      */
     function currentFormHasData() {
-        global $double_data_entry, $user_rights, $quesion_by_section, $pageFields;
+        global $double_data_entry, $user_rights, $question_by_section, $pageFields;
 
         $record = $_GET['id'];
         if ($double_data_entry && $user_rights['double_data'] != 0) {
