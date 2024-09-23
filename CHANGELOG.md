@@ -1,3 +1,9 @@
+# auto_populate_fields 2.6.4 (released 2024-09-23)
+- Run code formatter on ExternalModule.php (@pbchase, #70)
+- Fix typo in the module (@saipavan10-git, #70)
+- Fix #66 (@saipavan10-git, #70)
+- Fix the bug introduced by adding null coalescing (@saipavan10-git, #70)
+
 # auto_populate_fields 2.6.3 (released 2024-09-16)
 - Add zenodo.json and update the authors block in config (@saipavan10-git, #67, #68)
 - Fix #66 (@saipavan10-git, #66, #68)
