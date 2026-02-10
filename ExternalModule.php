@@ -135,7 +135,7 @@ class ExternalModule extends AbstractExternalModule
                 }
             } else {
                 $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
-                $events = array_keys($Proj->events[$arm]['events']);
+                $events = array_keys($Proj->events[$arm]['events'] ?? []);
             }
         }
 
