@@ -39,7 +39,17 @@ class ExternalModule extends AbstractExternalModule
                 $this->setDefaultValues();
             }
 
-            if (isset($_GET['page']) && (function_exists('getBranchingFields') || method_exists('\DataEntry', 'getBranchingFields'))) {
+            if (
+                isset($_GET['page']) &&
+                (
+                 function_exists('getBranchingFields') ||
+                 method_exists('\DataEntry', 'getBranchingFields')
+                )
+            ) {
+                if (!defined("USERID")) {
+                    // prevents potential undefined constant issues in getBranchingFields
+                   define("USERID", NULL);
+                }
                 $this->setDefaultWhenVisible();
             }
         }
