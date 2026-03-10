@@ -39,7 +39,17 @@ class ExternalModule extends AbstractExternalModule
                 $this->setDefaultValues();
             }
 
-            if (isset($_GET['page']) && (function_exists('getBranchingFields') || method_exists('\DataEntry', 'getBranchingFields'))) {
+            if (
+                isset($_GET['page']) &&
+                (
+                 function_exists('getBranchingFields') ||
+                 method_exists('\DataEntry', 'getBranchingFields')
+                )
+            ) {
+                if (!defined("USERID")) {
+                    // prevents potential undefined constant issues in getBranchingFields
+                   define("USERID", NULL);
+                }
                 $this->setDefaultWhenVisible();
             }
         }
@@ -135,7 +145,7 @@ class ExternalModule extends AbstractExternalModule
                 }
             } else {
                 $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
-                $events = array_keys($Proj->events[$arm]['events']);
+                $events = array_keys($Proj->events[$arm]['events'] ?? []);
             }
         }
 
