@@ -10,7 +10,6 @@ namespace AutoPopulateFields\ExternalModule;
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 use Form;
-use LogicTester;
 use Piping;
 use Records;
 use REDCap;
@@ -31,26 +30,11 @@ class ExternalModule extends AbstractExternalModule
             return;
         }
 
-        $this->initializeJsObject();
         if (PAGE == 'Design/online_designer.php') {
             $this->includeJs('js/helper.js');
         } elseif ((PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
-            }
-
-            if (
-                isset($_GET['page']) &&
-                (
-                 function_exists('getBranchingFields') ||
-                 method_exists('\DataEntry', 'getBranchingFields')
-                )
-            ) {
-                if (!defined("USERID")) {
-                    // prevents potential undefined constant issues in getBranchingFields
-                   define("USERID", NULL);
-                }
-                $this->setDefaultWhenVisible();
             }
         }
     }
@@ -280,38 +264,6 @@ class ExternalModule extends AbstractExternalModule
     }
 
     /**
-     * Enables Default When Visible functionality.
-     *
-     * Overrides branching logic behavior in order to permit @DEFAULT action
-     * tags to work on hidden fields - without any alerts, making the default
-     * value available when its field gets visible.
-     *
-     * Behavior changes:
-     * - Branching logic alerts disabled;
-     * - Field values are no longer erased when hidden by branching logic - they
-     *   are now erased on form submission.
-     *
-     * @see js/default_when_visible.js
-     */
-    function setDefaultWhenVisible()
-    {
-        $equations = array();
-        list($branching_fields,) = (function_exists('getBranchingFields')) ?
-            getBranchingFields($_GET['page']) :
-            \DataEntry::getBranchingFields($_GET['page']);
-
-        foreach ($branching_fields as $field => $equation) {
-            list($equations[$field],) = LogicTester::formatLogicToJS($equation, false, $_GET['event_id'], true);
-        }
-
-        // More current versions of REDCap do not have all js libraries loaded in time
-        $this->setJsSetting('versionMod', version_compare(REDCAP_VERSION, '9.4.1', '>='));
-
-        $this->setJsSetting('defaultWhenVisible', array('branchingEquations' => $equations));
-        $this->includeJs('js/default_when_visible.js');
-    }
-
-    /**
      * Checks if the current form has data.
      *
      * @return bool
@@ -440,25 +392,6 @@ class ExternalModule extends AbstractExternalModule
     protected function includeJs($path)
     {
         echo '<script src="' . $this->getUrl($path) . '"></script>';
-    }
-
-    /**
-     * Sets a JS setting.
-     *
-     * @param string $key
-     *   The setting key to be appended to the module settings object.
-     * @param mixed $value
-     *   The setting value.
-     */
-    protected function setJsSetting($key, $value)
-    {
-        // initializeJsObject MUST be run once before this function
-        echo '<script>autoPopulateFields.' . $key . ' = ' . json_encode($value) . ';</script>';
-    }
-
-    protected function initializeJsObject()
-    {
-        echo '<script>autoPopulateFields = {};</script>';
     }
 
     /**
