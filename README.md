@@ -42,7 +42,7 @@ If your events are not necessarily arranged in a chronological order, you can en
 When using `@DEFAULT_<N>` and `@DEFAULT-FROM-PREVIOUS-EVENT_<N>` together, use unique numbers on each action tag to ensure the desired precedence. E.g.
 
     @DEFAULT-FROM-PREVIOUS-EVENT_1='initial_dose'
-    @DEFAULT-FROM-PREVIOUS-EVENT_2=intermediate_dose
+    @DEFAULT-FROM-PREVIOUS-EVENT_2="intermediate_dose"
     @DEFAULT-FROM-PREVIOUS-EVENT_3="final_dose"
     @DEFAULT_4="7"
 
