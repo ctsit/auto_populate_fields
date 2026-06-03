@@ -5,7 +5,7 @@
 This REDCap module provides rich control of default values for data entry fields via a set of action tags. These action tags allow fields to be populated based on values from an ordered list of fields and static values. The fields can be read from the current event or the previous event in longitudinal projects.
 
 ## Prerequisites
-- REDCap >= 14.0.2
+- REDCap >= 14.6.4
 - PHP >= 7.4
 
 ## Installation
