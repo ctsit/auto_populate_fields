@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+title: REDCap Auto-Populate Fields
+message: >-
+  If you use this software, please cite it using the metadata
+  in CITATION.cff or https://doi.org/10.5281/zenodo.3561116
+type: software
+authors:
+  - family-names: Chase
+    given-names: Philip B
+    email: pbc@ufl.edu
+    affiliation: University of Florida
+    orcid: https://orcid.org/0000-0002-5318-9420
+  - family-names: Chesney
+    given-names: Kyle
+    email: kyle.chesney@vumc.org
+    affiliation: Vanderbilt Health, VICTR
+    orcid: https://orcid.org/0000-0002-0479-7251
+  - family-names: Kamma
+    given-names: Sai Pavan
+    email: saipavankamma@ufl.edu
+    affiliation: University of Florida
+    orcid: https://orcid.org/0009-0004-4619-0409
+  - family-names: Bentz
+    given-names: Michael
+    affiliation: University of Florida
+    orcid: https://orcid.org/0000-0002-5790-4268
+repository-code: https://github.com/ctsit/auto_populate_fields
+url: https://github.com/ctsit/auto_populate_fields
+abstract: >-
+  Auto Populate Fields is a REDCap module that provides rich control of
+  default values for data entry fields via a set of action tags. These
+  action tags allow fields to be populated based on values from an ordered
+  list of fields and static values. The fields can be read from the current
+  event or the previous event in longitudinal projects.
+keywords:
+  - redcap
+  - "redcap repo"
+  - "redcap external module"
+  - DEFAULT action tag
+  - php
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.3561116
+license: Apache-2.0
+version: 2.6.5
+date-released: '2024-09-23'
