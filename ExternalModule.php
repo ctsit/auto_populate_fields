@@ -24,26 +24,35 @@ class ExternalModule extends AbstractExternalModule
     /**
      * @inheritdoc
      */
-    function redcap_every_page_top($project_id)
+    function redcap_data_entry_form_top($project_id)
     {
         if (!$project_id) {
             return;
         }
 
-        if ((PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
+        if (!empty($_GET['id'])) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
             }
         }
     }
 
-    // Because REDCap does not recognize custom action tags this block appends 
-    // the REDCap action tag @DEFAULT in the case that any custom actions tags (@DEFAULT-*)
+    // Because REDCap does not recognize custom action tags this block appends
+    // the REDCap action tag @DEFAULT in the case that any custom action tags (@DEFAULT-*)
     // have been applied to a field.
     function redcap_survey_page_top($project_id)
     {
+        if (!$project_id) {
+            return;
+        }
+
         $project_settings = $this->getProjectSettings();
         if (!$project_settings['use_in_survey']) return;
+
+        if (!empty($_GET['id']) && !$this->currentFormHasData()) {
+            $this->setDefaultValues();
+        }
+
         global $elements;
         // set the action_tag_class as it would be in the DataEntry context
         foreach ($elements as &$element) {
