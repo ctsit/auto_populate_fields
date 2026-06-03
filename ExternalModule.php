@@ -30,9 +30,7 @@ class ExternalModule extends AbstractExternalModule
             return;
         }
 
-        if (PAGE == 'Design/online_designer.php') {
-            $this->includeJs('js/helper.js');
-        } elseif ((PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
+        if ((PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
             }
@@ -381,17 +379,6 @@ class ExternalModule extends AbstractExternalModule
         }
 
         return $subject;
-    }
-
-    /**
-     * Includes a local JS file.
-     *
-     * @param string $path
-     *   The relative path to the js file.
-     */
-    protected function includeJs($path)
-    {
-        echo '<script src="' . $this->getUrl($path) . '"></script>';
     }
 
     /**

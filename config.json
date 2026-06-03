@@ -14,6 +14,20 @@
             "institution": "University of Florida - CTSI"
         }
     ],
+    "action-tags": [
+        {
+            "tag": "@DEFAULT_<N>",
+            "description": "Provides the possibility to define secondary, tertiary, etc. default values. If @DEFAULT returns an empty value, the next tag available - e.g. @DEFAULT_1 - is checked. If @DEFAULT_1 returns empty, the next tag available - e.g. @DEFAULT_2 - is checked, and so on. This is useful when a fallback value is needed for piping (e.g. <code>@DEFAULT=\"[first_name]\" @DEFAULT_1=\"Joe Doe\"</code>)."
+        },
+        {
+            "tag": "@DEFAULT-FROM-PREVIOUS-EVENT",
+            "description": "Sets a field's default value based on its own value in a previous event. To map the default value from another field, specify the source field name as a parameter, e.g. <code>@DEFAULT-FROM-PREVIOUS-EVENT=\"source_field\"</code>. Gets priority over @DEFAULT."
+        },
+        {
+            "tag": "@DEFAULT-FROM-PREVIOUS-EVENT_<N>",
+            "description": "Analogous to @DEFAULT_&lt;N&gt;. Numbered variant of @DEFAULT-FROM-PREVIOUS-EVENT for precedence control when mixing fallback sources."
+        }
+    ],
     "project-settings": [
         {
             "key": "use_in_survey",
