@@ -42,5 +42,5 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.3561116
 license: Apache-2.0
-version: 2.6.5
-date-released: '2024-09-23'
+version: 2.7.0
+date-released: '2026-06-04'
