@@ -10,7 +10,6 @@ namespace AutoPopulateFields\ExternalModule;
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 use Form;
-use LogicTester;
 use Piping;
 use Records;
 use REDCap;
@@ -25,33 +24,35 @@ class ExternalModule extends AbstractExternalModule
     /**
      * @inheritdoc
      */
-    function redcap_every_page_top($project_id)
+    function redcap_data_entry_form_top($project_id)
     {
         if (!$project_id) {
             return;
         }
 
-        $this->initializeJsObject();
-        if (PAGE == 'Design/online_designer.php') {
-            $this->includeJs('js/helper.js');
-        } elseif ((PAGE == 'DataEntry/index.php' || PAGE == 'surveys/index.php') && !empty($_GET['id'])) {
+        if (!empty($_GET['id'])) {
             if (!$this->currentFormHasData()) {
                 $this->setDefaultValues();
-            }
-
-            if (isset($_GET['page']) && (function_exists('getBranchingFields') || method_exists('\DataEntry', 'getBranchingFields'))) {
-                $this->setDefaultWhenVisible();
             }
         }
     }
 
-    // Because REDCap does not recognize custom action tags this block appends 
-    // the REDCap action tag @DEFAULT in the case that any custom actions tags (@DEFAULT-*)
+    // Because REDCap does not recognize custom action tags this block appends
+    // the REDCap action tag @DEFAULT in the case that any custom action tags (@DEFAULT-*)
     // have been applied to a field.
     function redcap_survey_page_top($project_id)
     {
+        if (!$project_id) {
+            return;
+        }
+
         $project_settings = $this->getProjectSettings();
         if (!$project_settings['use_in_survey']) return;
+
+        if (!empty($_GET['id']) && !$this->currentFormHasData()) {
+            $this->setDefaultValues();
+        }
+
         global $elements;
         // set the action_tag_class as it would be in the DataEntry context
         foreach ($elements as &$element) {
@@ -135,7 +136,7 @@ class ExternalModule extends AbstractExternalModule
                 }
             } else {
                 $arm = $Proj->eventInfo[$_GET['event_id']]['arm_num'];
-                $events = array_keys($Proj->events[$arm]['events']);
+                $events = array_keys($Proj->events[$arm]['events'] ?? []);
             }
         }
 
@@ -270,38 +271,6 @@ class ExternalModule extends AbstractExternalModule
     }
 
     /**
-     * Enables Default When Visible functionality.
-     *
-     * Overrides branching logic behavior in order to permit @DEFAULT action
-     * tags to work on hidden fields - without any alerts, making the default
-     * value available when its field gets visible.
-     *
-     * Behavior changes:
-     * - Branching logic alerts disabled;
-     * - Field values are no longer erased when hidden by branching logic - they
-     *   are now erased on form submission.
-     *
-     * @see js/default_when_visible.js
-     */
-    function setDefaultWhenVisible()
-    {
-        $equations = array();
-        list($branching_fields,) = (function_exists('getBranchingFields')) ?
-            getBranchingFields($_GET['page']) :
-            \DataEntry::getBranchingFields($_GET['page']);
-
-        foreach ($branching_fields as $field => $equation) {
-            list($equations[$field],) = LogicTester::formatLogicToJS($equation, false, $_GET['event_id'], true);
-        }
-
-        // More current versions of REDCap do not have all js libraries loaded in time
-        $this->setJsSetting('versionMod', version_compare(REDCAP_VERSION, '9.4.1', '>='));
-
-        $this->setJsSetting('defaultWhenVisible', array('branchingEquations' => $equations));
-        $this->includeJs('js/default_when_visible.js');
-    }
-
-    /**
      * Checks if the current form has data.
      *
      * @return bool
@@ -419,36 +388,6 @@ class ExternalModule extends AbstractExternalModule
         }
 
         return $subject;
-    }
-
-    /**
-     * Includes a local JS file.
-     *
-     * @param string $path
-     *   The relative path to the js file.
-     */
-    protected function includeJs($path)
-    {
-        echo '<script src="' . $this->getUrl($path) . '"></script>';
-    }
-
-    /**
-     * Sets a JS setting.
-     *
-     * @param string $key
-     *   The setting key to be appended to the module settings object.
-     * @param mixed $value
-     *   The setting value.
-     */
-    protected function setJsSetting($key, $value)
-    {
-        // initializeJsObject MUST be run once before this function
-        echo '<script>autoPopulateFields.' . $key . ' = ' . json_encode($value) . ';</script>';
-    }
-
-    protected function initializeJsObject()
-    {
-        echo '<script>autoPopulateFields = {};</script>';
     }
 
     /**

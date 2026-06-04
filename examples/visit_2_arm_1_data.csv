@@ -1,0 +1,2 @@
+study_id,redcap_event_name,test_categorical_data_timestamp,dropdown_from_previous,radio_from_previous,checkbox_from_previous___0,checkbox_from_previous___1,checkbox_from_previous___2,test_categorical_data_complete,test_dates_timestamp,birthdate_mdy,birthday_dmy,birthday_ymd,birthday_ymd_hms,birthday_mdy_from_ymd,birthday_mdy_from_ymd_static,test_dates_complete
+1,visit_2_arm_1,2025-02-01 12:00:01,3,0,1,0,1,2,2025-02-01 12:05:01,2019-12-04,2019-12-04,2019-12-04,2019-12-04 16:30:42,,2019-06-29,2
